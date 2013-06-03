@@ -40,4 +40,11 @@ categories: [Octopress, GithubPages]
     1. `rake generate` _# Generates posts and pages into the public directory_
     * `rake watch`    _# Watches source/ and sass/ for changes and regenerates_
     * `rake preview`  _# Watches, and mounts a webserver at http://localhost:4000_
-    * `git add .; git commit -m "message"; git push origin master` _# push generated (master) branch_
+  * Changes to branch `source`
+    1.  git checkout source
+    * `rake new_post["My Post"]` _# may need to do in correct shell (for me, bash instead of zsh)_
+    * edit post `./source/_posts/YYYY-MM-DD-my-post.markdown`
+    * generate HTML (repeat `rake generate; rake watch; rake preview` until satisfied)
+    * add source changes `git add .; git commit -m "My Post"`
+    * push source changes `git push origin source`
+    * push generated HTML `rake deploy`
