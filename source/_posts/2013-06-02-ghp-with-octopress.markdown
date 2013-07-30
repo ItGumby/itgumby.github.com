@@ -6,10 +6,32 @@ comments: false
 categories: [Octopress, GithubPages]
 ---
 
-## Why Octopress (compared to jekyll)?
-[Paul Rayner post](http://thepaulrayner.com/blog/2013/02/04/blogging-with-octopress-and-github-pages/)
+## Why Octopress?
+
+###Static site generators are in
+
+
+###Simplifying Jekyll
+
+###Easy Extensions - plugins and themes
+
+###Other Opinions
+
+[Paul Rayner "Blogging With Octopress and Github Pages"](http://thepaulrayner.com/blog/2013/02/04/blogging-with-octopress-and-github-pages/)
+
+[Neil Smith "Octopress is Pretty Great"](http://www.neilsmithline.com/2013/03/octopress-is-pretty-great.html)
+
+[Use Octopress instead of Jekyll](http://joelmccracken.github.io/entries/octopress-is-pretty-sweet/)
+
 
 ## Steps
+
+### Prepare
+
+### New Post
+
+### Preview, Publish
+
 1. Ruby Versions [Ruby with RVM](http://octopress.org/docs/setup/rvm/) or RBENV
 * Start GHP [octopress setup](http://octopress.org/docs/setup/)
 * Deploy to GHP [Deploy to GitHub Pages](http://octopress.org/docs/deploying/github/)
@@ -48,3 +70,5 @@ categories: [Octopress, GithubPages]
     * add source changes `git add .; git commit -m "My Post"`
     * push source changes `git push origin source`
     * push generated HTML `rake deploy`
+
+## Future Enhancements
