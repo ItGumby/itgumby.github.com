@@ -1,3 +1,29 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  caption {
+    font-size: larger;
+    margin: 1em auto;
+    padding-top: 2em;
+  }
+  thead {
+    font-weight: bolder;
+    background: darkblue;
+    color: lightblue;
+  }
+  tbody tr:hover {
+    background: lightblue;
+    color: darkblue;
+  }
+  td {
+    text-align: center;
+  }
+}
+table, th, td {
+  border: 1px solid $pre-border;
+  padding: 0.25em 0.5em;
+}
+
 .highlight, html .gist .gist-file .gist-syntax .gist-highlight {
   table td.code { width: 100%; }
   border: 1px solid $pre-border !important;
