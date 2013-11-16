@@ -17,6 +17,7 @@
 
 // apply the animations
 body > header {
+    padding-bottom: 0.5em;
     h1 {
         display: block;
         text-shadow: 15px 15px 10px rgba(255,215,0,.5);
@@ -31,7 +32,10 @@ body > header {
 
         .msg {
             display: none;
-            a { color: blue; }
+            a {
+                color: blue;
+                text-decoration: underline;
+            }
         }
 
         &:hover .msg {
