@@ -100,3 +100,13 @@ google_analytics_tracking_id:
 
 # Facebook Like
 facebook_like: false
+
+# AsciiDoctor
+asciidoc: asciidoctor
+asciidoc_ext: asciidoc,adoc,ad
+asciidoctor:
+  attributes:
+    - hardbreaks!
+    - source-highlighter=coderay
+    - coderay-css=style
+
