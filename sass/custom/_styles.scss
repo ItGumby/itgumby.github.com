@@ -1,2 +1,55 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
+
+// define animations for different browsers
+@-webkit-keyframes bounce-shadow {
+  0%    { text-shadow: 15px 15px 10px rgba(255,215,0,.5) }
+  100%  { text-shadow: 0 0 rgba(255,215,0,.5) }
+}
+@-moz-keyframes bounce-shadow {
+  0%    { text-shadow: 15px 15px 10px rgba(255,215,0,.5) }
+  100%  { text-shadow: 0 0 rgba(255,215,0,.5) }
+}
+@keyframes bounce-shadow {
+  0%    { text-shadow: 15px 15px 10px rgba(255,215,0,.5) }
+  100%  { text-shadow: 0 0 rgba(255,215,0,.5) }
+}
+
+// apply the animations
+body > header {
+    padding-bottom: 0.5em;
+    h1 {
+        display: block;
+        text-shadow: 15px 15px 10px rgba(255,215,0,.5);
+
+        -webkit-animation: bounce-shadow 1s infinite alternate;
+        -moz-animation: bounce-shadow 1s infinite alternate;
+        animation: bounce-shadow 1s infinite alternate;
+
+        a, a:visited, a:hover {
+            padding: 0.5em 0;
+        }
+
+        .msg {
+            display: none;
+            a {
+                color: blue;
+                text-decoration: underline;
+            }
+        }
+
+        &:hover .msg {
+            display: inline-block;
+            top: 1.5em;
+            left: 5em;
+            border-radius: 1em;
+            padding: 0.25em 2em;
+            max-width: 50%;
+            font-size: 0.8rem;
+            color: blue;
+            background: yellow;
+            background: rgba(255,255,0,.8);
+        }
+    }
+
+}
