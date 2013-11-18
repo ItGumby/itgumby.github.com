@@ -1,6 +1,49 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  caption {
+    font-size: larger;
+    margin: 1em auto;
+    padding-top: 2em;
+  }
+  thead {
+    font-weight: bolder;
+    background: darkblue;
+    color: lightblue;
+  }
+  tbody tr:hover {
+    background: lightblue;
+    color: darkblue;
+  }
+  td {
+    text-align: center;
+  }
+}
+table, th, td {
+  border: 1px solid $pre-border;
+  padding: 0.25em 0.5em;
+}
+
+.admonitionblock {
+    table, th, td {
+        border: none;
+    }
+    tr:hover {
+        background: inherit;
+        color: inherit;
+    }
+    .icon {
+        width: 10em;
+        max-width: 20%;
+        font-weight: bold;
+    }
+    // TODO: images for &.[note, tip, important, warning, caution] .icon .title
+    // then, replace the above spacing
+}
+
 // define animations for different browsers
 @-webkit-keyframes bounce-shadow {
   0%    { text-shadow: 15px 15px 10px rgba(255,215,0,.5) }
