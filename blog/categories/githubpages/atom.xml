@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: GithubPages | IT Gumby]]></title>
+  <link href="http://ItGumby.github.io/blog/categories/githubpages/atom.xml" rel="self"/>
+  <link href="http://ItGumby.github.io/"/>
+  <updated>2013-11-23T20:07:08-07:00</updated>
+  <id>http://ItGumby.github.io/</id>
+  <author>
+    <name><![CDATA[Brian Street]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress First Steps]]></title>
+    <link href="http://ItGumby.github.io/blog/2013/06/octopress-first-steps/"/>
+    <updated>2013-06-02T16:37:00-06:00</updated>
+    <id>http://ItGumby.github.io/blog/2013/06/octopress-first-steps</id>
+    <content type="html"><![CDATA[<h1>Installation Steps</h1>
+
+<h2>Prepare</h2>
+
+<ol>
+<li>Ruby Versions <a href="http://octopress.org/docs/setup/rvm/">Ruby with RVM</a> or RBENV</li>
+<li>Start GHP <a href="http://octopress.org/docs/setup/">octopress setup</a></li>
+<li>Deploy to GHP <a href="http://octopress.org/docs/deploying/github/">Deploy to GitHub Pages</a></li>
+<li>Configure <a href="http://octopress.org/docs/configuring/">Configure Octopress</a>
+
+<ol>
+<li>future: visit plugins: <a href="http://jekyllrb.com/docs/plugins/">Existing Plugins</a></li>
+<li>future: create asciidoc plugin: <a href="http://jekyllrb.com/docs/contributing/">Contribute Plugin</a></li>
+<li>revisit: 3rd Party Settings: [G+, Disqus, GA]</li>
+<li>dickens of a time pushing local source branch
+
+<ul>
+<li>change <code>git config --global push.default current</code></li>
+<li>change <code>git branch --set-upstream source origin/source</code></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+
+
+<h2>New Post</h2>
+
+<ul>
+<li>Blogging <a href="http://octopress.org/docs/blogging/">Octopress Blogging Basics</a>
+
+<ul>
+<li>New Post: <code>rake new_post["post name"]</code>
+
+<ul>
+<li>&ldquo;Rakefile&rdquo; dictates the created file</li>
+<li>default new file: <code>source/_posts/YYYY-MM-DD-post-name.markdown</code></li>
+<li>optional <a href="http://jekyllrb.com/docs/frontmatter/">yaml front matter</a>
+
+<ul>
+<li>author: Your Name</li>
+<li>published: false <em># prevents article posting</em></li>
+<li>categories: [CSS3, Sass, Media Queries] <em># single, list, or even dash per line</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>New Page: <code>rake new_page[about]</code>
+
+<ul>
+<li>=> ${SITE}/about.html</li>
+<li>if <code>rake new_page[about/index.markdown]</code> => ${SITE}/about/</li>
+</ul>
+</li>
+<li>Page Content
+
+<ul>
+<li><a href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers">Liquid Template features</a></li>
+<li><a href="http://jekyllrb.com/docs/variables/">Page Variables</a></li>
+<li><a href="http://octopress.org/docs/blogging/code/">embedded code</a></li>
+<li>import into page <a href="http://octopress.org/docs/plugins/render-partial/">render partial</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Preview, Publish</h3>
+
+<ul>
+<li>Generate, Preview
+
+<ol>
+<li><code>rake generate</code> <em># Generates posts and pages into the public directory</em></li>
+<li><code>rake watch</code>    <em># Watches source/ and sass/ for changes and regenerates</em></li>
+<li><code>rake preview</code>  # Watches, and mounts a webserver at <a href="http://localhost:4000">http://localhost:4000</a></li>
+</ol>
+</li>
+<li>Changes to branch <code>source</code>
+
+<ol>
+<li>git checkout source</li>
+<li><code>rake new_post["My Post"]</code> <em># may need to do in correct shell (for me, bash instead of zsh)</em></li>
+<li>edit post <code>./source/_posts/YYYY-MM-DD-my-post.markdown</code></li>
+<li>generate HTML (repeat <code>rake generate; rake watch; rake preview</code> until satisfied)</li>
+<li>add source changes <code>git add .; git commit -m "My Post"</code></li>
+<li>push source changes <code>git push origin source</code></li>
+<li>push generated HTML <code>rake deploy</code></li>
+</ol>
+</li>
+</ul>
+
+
+<h2>Future Enhancements</h2>
+
+<ul>
+<li>themes: <a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">Octopress Themes</a> or roll your own</li>
+<li><a href="http://erikschwartz.net/jekyll-for-the-masses/">Prose.io Makes Jekyll Feel Like Wordpress</a></li>
+<li>comments <a href="http://disqus.com/">Disqus</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why Octopress]]></title>
+    <link href="http://ItGumby.github.io/blog/2013/06/ghp-with-octopress/"/>
+    <updated>2013-06-02T15:59:00-06:00</updated>
+    <id>http://ItGumby.github.io/blog/2013/06/ghp-with-octopress</id>
+    <content type="html"><![CDATA[<h2>Static Site Generators FTW</h2>
+
+<p>A long, long time ago, on web far, far away, the original developers of the web built static pages by hand.  Soon, tooling caught up and templates could assemble pages pages together from &ldquo;content&rdquo; stored in other sources (usually databases).  Eventually, personalization meant every  page would be built per request.  Since servers had to generate each page instead of returning pre-built files, their scalability was limited.</p>
+
+<p>Two concepts came to the rescue: REST and Dynamic HTML (which evolved into AJAX).  <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Representaional State Transfer or REST</a> posited that <em>resources</em> could be more cacheable.  And DHTML/AJAX made it common to Create, Replace, Update or Delete <em>portions</em> of a page.  By applying these concepts intelligently, most, if not all, of the pages could be stored and reused.  This <em>caching</em> could be done at different layers, from the data source, to inside the app servers to even the web server.</p>
+
+<p>With flexible caching strategies, the generation from templates can be moved around and execute less frequently.  In the case of blog content, generation only needs to happen at original post and repeated for any edits.  (Comments can be AJAX'ed away or moved to external services, such as <a href="http://disqus.com/">Disqus</a>.)  Flexible generation also allowed questioning the <em>data sources</em>.  Databases had long been the most common data source.  But they frequently have specialized administrators.  Also, databases excel at structured content while web content is &hellip; well, frequently unstructured.</p>
+
+<p>Part of <em><a href="http://alistapart.com/article/thedisciplineofcontentstrategy">Content Strategy</a></em> is letting the authors focus on the <em>content</em>.  The content itself may have some structure, but time spent formatting or determining how to get into the data source is wasted effort.  <a href="http://en.wikipedia.org/wiki/Markdown">MarkDown</a> and <a href="http://asciidoctor.org/docs/asciidoc-writers-guide/">AsciiDoc</a> have stepped in as generic converters of plain text into HTML.  Both focus on the content with minimal syntax or formatting to distract the author from his or her message.  <em>Static Site Generators</em> use some markup flavor with a template engine in a large variety of languages to build static web pages.  One of the most popular and mature solutions is <a href="http://jekyllrb.com/">Jekyll</a>, a Ruby solution that transforms &ldquo;your plain text into static websites and blogs.&rdquo;  Part of its popularity, especially among developers, is jekyll support in <a href="http://pages.github.com/">GitHub Pages</a>.</p>
+
+<h2>Pros and Cons of Static Site Generators</h2>
+
+<p>I built this list by borrowing heavily from <a href="http://www.mickgardner.com/2012/12/an-introduction-to-static-site.html">An Intro to Static Site Generators</a></p>
+
+<ul>
+<li>+ Security.  No database or live templates to compromise with static content.</li>
+<li>+ Performance.  Just serving files, so web servers have less work to do.</li>
+<li>+ Content separated from servers.  This gives flexibility in hosting (and migration).</li>
+<li>+ Lowest Common Denominator.  Any host can serve HTML (no worries about supporting your language or tools).</li>
+<li>+ Scalability.  If you have more load, add more web servers and rsync (or other copy) the content over.</li>
+<li>- Updates require generator computers (hard to do from your phone).  Some other tools exist to relieve this.</li>
+<li>- Dynamic content requires external services or tools.</li>
+</ul>
+
+
+<h2>Extending Jekyll</h2>
+
+<p><a href="http://octopress.org/">Octopress</a> is built on top of Jekyll, so it carries forth all the strengths of it.  Octopress starts with smart defaults, such as HTML5 support and &ldquo;<a href="http://www.lukew.com/resources/mobile_first.asp">Mobile First</a>&rdquo; responsive design.  Its plugin architecture to make it easy to turn features on and off, such as:</p>
+
+<ul>
+<li>Social Integration of Twitter, Google+, Disqus comments</li>
+<li>HTML5 philosophy, including video tags</li>
+<li>display source code: includes, gist, partial renders</li>
+<li>Templates that support pre-processors such as SASS, Haml</li>
+<li>Themes: <a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">3rd Party</a> or build your own</li>
+<li>Category generation</li>
+<li>Analytics</li>
+</ul>
+
+
+<h2>Related Posts</h2>
+
+<ul>
+<li><a href="http://thepaulrayner.com/blog/2013/02/04/blogging-with-octopress-and-github-pages/">Paul Rayner &ldquo;Blogging With Octopress and Github Pages&rdquo;</a></li>
+<li><a href="http://www.neilsmithline.com/2013/03/octopress-is-pretty-great.html">Neil Smith &ldquo;Octopress is Pretty Great&rdquo;</a></li>
+<li><a href="http://joelmccracken.github.io/entries/octopress-is-pretty-sweet/">Use Octopress instead of Jekyll</a></li>
+<li><a href="http://joelmccracken.github.io/entries/octopress-is-pretty-sweet/">Use Jekyll? You Really Should Be Using Octopress</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: FP | IT Gumby]]></title>
+  <link href="http://ItGumby.github.io/blog/categories/fp/atom.xml" rel="self"/>
+  <link href="http://ItGumby.github.io/"/>
+  <updated>2013-11-23T20:07:08-07:00</updated>
+  <id>http://ItGumby.github.io/</id>
+  <author>
+    <name><![CDATA[Brian Street]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The Evolution of Looping]]></title>
+    <link href="http://ItGumby.github.io/blog/2013/11/the-evolution-of-looping/"/>
+    <updated>2013-11-18T17:40:00-07:00</updated>
+    <id>http://ItGumby.github.io/blog/2013/11/the-evolution-of-looping</id>
+    <content type="html"><![CDATA[<p>== TL;DR</p>
+
+<p>There are two primary approaches to programming:</p>
+
+<p>imperative:: the &ldquo;classical&rdquo; approach where the code describes <em>how</em> to accomplish something
+declarative:: the &ldquo;functional&rdquo; approache where the code describes <em>what</em>  to accomplish</p>
+
+<p>The evolution of looping remarks on the steps from looping in an imperative style to functional programming
+that expresses intent and frees the language/compiler/machine to select potentially better
+mechanisms of <em>how</em> to accomplish the task.  A tangible benefit of functional approaches
+is code that expreses intent, which makes bugs easier to identify and solve.  It doesn&rsquo;t
+hurt that the lines of code can often get shorter.</p>
+
+<p>My list of looping approaches (with un-official terms):</p>
+
+<ul>
+<li>while/until</li>
+<li>for with iterator</li>
+<li>for each</li>
+<li>forEach (functional)</li>
+</ul>
+
+
+<p>== Examples</p>
+
+<p>I started with examples written in JavaScript, but &ldquo;for each&rdquo; and &ldquo;forEach&rdquo; weren&rsquo;t
+as clear as examples written in other languages.  So I re-wrote the examples in Groovy,
+a language related to Java that requires less boilerplate.</p>
+
+<p>.while (or &ldquo;until&rdquo; to test at end of loop)</p>
+
+<h2>[source,groovy]</h2>
+
+<p>List<Integer> input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Integer sum = 0     // mutating sum</p>
+
+<p>def i = 0               // iterator set to starting position of collection
+def max = input.size()  // calculate end position once
+while (i &lt; max) {       // test if continue looping</p>
+
+<pre><code>def val = input[i]; // get value from array
+sum += val;         // change state of the sum
+i++;                // increment iterator
+</code></pre>
+
+<p>}</p>
+
+<h2>println &ldquo;result of while() sum = ${sum}&rdquo;</h2>
+
+<p>.for loop</p>
+
+<h2>[source,groovy]</h2>
+
+<p>List<Integer> input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Integer sum = 0     // mutating sum</p>
+
+<p>def max = input.size()          // calculate end position once
+for (int i = 0; i &lt; max; i++) { // declare iterator, test &amp; increment statements</p>
+
+<pre><code>def val = input[i];         // get value from array
+sum += val;                 // change state of the sum
+</code></pre>
+
+<p>}</p>
+
+<h2>println &ldquo;result of for(;;) sum = ${sum}&rdquo;</h2>
+
+<p>.for each/in</p>
+
+<h2>[source,groovy]</h2>
+
+<p>List<Integer> input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Integer sum = 0     // mutating sum</p>
+
+<p>for (Integer val : input) {</p>
+
+<pre><code>sum += val
+</code></pre>
+
+<p>}</p>
+
+<h2>println &ldquo;for(each) sum => ${sum}&rdquo;</h2>
+
+<p>.each (or &ldquo;forEach&rdquo; in Java8)</p>
+
+<h2>[source,groovy]</h2>
+
+<p>List<Integer> input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Integer sum = 0     // mutating sum</p>
+
+<p>input.each { Integer val &ndash;>  // explicitly declare type &amp; name; groovy defaults to &ldquo;it&rdquo;</p>
+
+<pre><code>sum += val
+</code></pre>
+
+<p>}</p>
+
+<h2>println &ldquo;[].each() sum => ${sum}&rdquo;</h2>
+
+<h3>Trends</h3>
+
+<p>The iterators started externally, then gradually moved internal to the loop, and finally disappeared.</p>
+
+<p>The lines of code also dropped, although some of the intermediate steps had some busy lines.
+For instance, +for(;;)+ has the same work as the +while()+ loop by essentially combining lines.</p>
+
+<p>The general trend is from imperative (how) to declarative (what) code.
+Less declarations for how to accomplish a task, the less opportunities for defects to be unintentionally introduced.
+Also, the environment has more opportunities to optimize the solution, such as parallel processing.</p>
+
+<p>.An example of a functional approach to summing (although most will provide a +sum()+ function) can be:
+[source,groovy]
+List<Integer> input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+def inputSum = input.inject(0, { acc, it &ndash;> acc + it })     // most call it &ldquo;reduce&rdquo;
+println inputSum</p>
+
+<h3>Summary</h3>
+
+<ul>
+<li>Favor declarative over imperative programming.</li>
+<li>Use higher-level constructs in your language</li>
+<li>Favor results over steps.  This leads to functional programming.</li>
+<li>Prefer immutability over states &amp; transactions</li>
+<li>+final+ keyword in Java, Groovy to prevent changing state</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

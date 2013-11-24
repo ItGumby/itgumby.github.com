@@ -1,103 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>IT Gumby</title>
-  <meta name="author" content="Brian Street">
-
-  
-  <meta name="description" content="TL;DR There are two primary approaches to programming: imperative the &#8220;classical&#8221; approach where the code describes how to accomplish &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://ItGumby.github.io">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="IT Gumby" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1 class="msg">
-    <a href="/">IT Gumby</a>
-    <span class="msg">text-shadow based on <a href="http://leaverou.github.io/animatable/#text-shadow">Lea Verou</a></span>
-  </h1>
-  
-    <h2>Flexible solutions for general software engineering</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:ItGumby.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[IT Gumby]]></title>
+  <link href="http://ItGumby.github.io/atom.xml" rel="self"/>
+  <link href="http://ItGumby.github.io/"/>
+  <updated>2013-11-23T20:07:08-07:00</updated>
+  <id>http://ItGumby.github.io/</id>
+  <author>
+    <name><![CDATA[Brian Street]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2013/11/the-evolution-of-looping/">The Evolution of Looping</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2013-11-18T17:40:00-07:00" pubdate data-updated="true">2013-Nov-18</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class="sect1">
+  <entry>
+    <title type="html"><![CDATA[The Evolution of Looping]]></title>
+    <link href="http://ItGumby.github.io/blog/2013/11/the-evolution-of-looping/"/>
+    <updated>2013-11-18T17:40:00-07:00</updated>
+    <id>http://ItGumby.github.io/blog/2013/11/the-evolution-of-looping</id>
+    <content type="html"><![CDATA[<div class="sect1">
 <h2 id="tl-dr">TL;DR</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -251,42 +172,15 @@ println inputSum</code></pre>
 </div>
 </div>
 </div>
-</div></div>
+</div>]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/octopress-first-steps/">Octopress First Steps</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-02T16:37:00-06:00" pubdate data-updated="true">2013-Jun-02</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Installation Steps</h1>
+  <entry>
+    <title type="html"><![CDATA[Octopress First Steps]]></title>
+    <link href="http://ItGumby.github.io/blog/2013/06/octopress-first-steps/"/>
+    <updated>2013-06-02T16:37:00-06:00</updated>
+    <id>http://ItGumby.github.io/blog/2013/06/octopress-first-steps</id>
+    <content type="html"><![CDATA[<h1>Installation Steps</h1>
 
 <h2>Prepare</h2>
 
@@ -388,42 +282,15 @@ println inputSum</code></pre>
 <li>comments <a href="http://disqus.com/">Disqus</a></li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/ghp-with-octopress/">Why Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-02T15:59:00-06:00" pubdate data-updated="true">2013-Jun-02</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Static Site Generators FTW</h2>
+  <entry>
+    <title type="html"><![CDATA[Why Octopress]]></title>
+    <link href="http://ItGumby.github.io/blog/2013/06/ghp-with-octopress/"/>
+    <updated>2013-06-02T15:59:00-06:00</updated>
+    <id>http://ItGumby.github.io/blog/2013/06/ghp-with-octopress</id>
+    <content type="html"><![CDATA[<h2>Static Site Generators FTW</h2>
 
 <p>A long, long time ago, on web far, far away, the original developers of the web built static pages by hand.  Soon, tooling caught up and templates could assemble pages pages together from &ldquo;content&rdquo; stored in other sources (usually databases).  Eventually, personalization meant every  page would be built per request.  Since servers had to generate each page instead of returning pre-built files, their scalability was limited.</p>
 
@@ -472,42 +339,15 @@ println inputSum</code></pre>
 <li><a href="http://joelmccracken.github.io/entries/octopress-is-pretty-sweet/">Use Jekyll? You Really Should Be Using Octopress</a></li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/command-line-basics/">Command Line Basics</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-11T21:48:00-07:00" pubdate data-updated="true">2012-Nov-11</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>One of my favorite features of computers is making them do the work for me.  I tend to think of this as automation.  Command line and shell scripts are a great way to automate tasks.  While Apple has &ldquo;Automator&rdquo; and Windows have DOS Batch and PowerShell, Unix shell is my favorite due to its power, availability, and even its philosophy.</p>
+  <entry>
+    <title type="html"><![CDATA[Command Line Basics]]></title>
+    <link href="http://ItGumby.github.io/blog/2012/11/command-line-basics/"/>
+    <updated>2012-11-11T21:48:00-07:00</updated>
+    <id>http://ItGumby.github.io/blog/2012/11/command-line-basics</id>
+    <content type="html"><![CDATA[<p>One of my favorite features of computers is making them do the work for me.  I tend to think of this as automation.  Command line and shell scripts are a great way to automate tasks.  While Apple has &ldquo;Automator&rdquo; and Windows have DOS Batch and PowerShell, Unix shell is my favorite due to its power, availability, and even its philosophy.</p>
 
 <p>Unix shell commands are famous for a philosophy of &ldquo;do one thing, do it well&rdquo;, and permit chaining of commands to accomplish more complex tasks.  Breaking complex tasks into discrete steps is a good practice for programming, also.</p>
 
@@ -672,42 +512,15 @@ println inputSum</code></pre>
 </tbody>
 </table>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/01/sql-null-is-not-comparable/">SQL NULL Is Not Comparable</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-24T21:47:00-07:00" pubdate data-updated="true">2008-Jan-24</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I am starting out with one of my more common mistakes &ndash; comparing fields that may be null. In C or programmatical languages, a NULL would equal a NULL. However in SQL, that isn&rsquo;t the case.</p>
+  <entry>
+    <title type="html"><![CDATA[SQL NULL is not comparable]]></title>
+    <link href="http://ItGumby.github.io/blog/2008/01/sql-null-is-not-comparable/"/>
+    <updated>2008-01-24T21:47:00-07:00</updated>
+    <id>http://ItGumby.github.io/blog/2008/01/sql-null-is-not-comparable</id>
+    <content type="html"><![CDATA[<p>I am starting out with one of my more common mistakes &ndash; comparing fields that may be null. In C or programmatical languages, a NULL would equal a NULL. However in SQL, that isn&rsquo;t the case.</p>
 
 <p>An artificial example is:</p>
 
@@ -817,113 +630,7 @@ WHERE a.lName = o.lName
 </code></pre>
 
 <p>Neither option is fun (extra code, which is often less readable, or performance hits), but basically required when joining relational tables. If you are comparing similar tables, then you can take advantage of set operators (such as minus/intersect/union in Oracle) and bypass this problem.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/11/the-evolution-of-looping/">The Evolution of Looping</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/octopress-first-steps/">Octopress First Steps</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/ghp-with-octopress/">Why Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/command-line-basics/">Command Line Basics</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2008/01/sql-null-is-not-comparable/">SQL NULL Is Not Comparable</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/ItGumby">@ItGumby</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'ItGumby',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Brian Street -
-  <span class="credit">An <a href="http://octopress.org">Octopress</a> blog.</span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>
