@@ -94,5 +94,7 @@ body > header {
             background: rgba(255,255,0,.8);
         }
     }
-
 }
+
+// fix list spacing
+.ulist p { margin-bottom: 0.4rem; }
