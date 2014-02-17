@@ -4,7 +4,7 @@
   <title><![CDATA[Category: CQ5-AEM | IT Gumby]]></title>
   <link href="http://ItGumby.github.io/blog/categories/cq5-aem/atom.xml" rel="self"/>
   <link href="http://ItGumby.github.io/"/>
-  <updated>2014-02-16T22:46:27-07:00</updated>
+  <updated>2014-02-17T07:06:47-07:00</updated>
   <id>http://ItGumby.github.io/</id>
   <author>
     <name><![CDATA[Brian Street]]></name>
@@ -83,9 +83,9 @@ has a lot of information, but I wanted a handier cheat sheet.</p>
 
 <p>|<code>pageProperties</code></p>
 
-<pre><code>| http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/ValueMap.html[ValueMap]
+<pre><code>| http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/commons/inherit/InheritanceValueMap.html[InheritanceValueMap]
 | the page properties object of the current page
-| _see properties_
+| getInherited(name,default) / get(name,default) / put(key,val)
 </code></pre>
 
 <p>|<code>properties</code></p>
