@@ -9,7 +9,8 @@
   <meta name="author" content="Brian Street">
 
   
-  <meta name="description" content="TL;DR There are two primary approaches to programming: imperative the &#8220;classical&#8221; approach where the code describes how to accomplish &hellip;">
+  <meta name="description" content="CQ5 Developing Components
+has a lot of information, but I wanted a handier cheat sheet. Table 1. Objects from &lt;cq:defineobjects/&gt; (as of CQ5.6 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +69,292 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/cq-defineObjects-cheatsheet/">CQ5 Resource - &lt;cq:defineObjects/> CheatSheet</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-16T20:14:00-07:00" pubdate data-updated="true">2014-Feb-16</time>
+        
+         | <a href="/blog/2014/02/cq-defineObjects-cheatsheet/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class="paragraph">
+<p><a href="https://dev.day.com/docs/en/cq/current/developing/components.html#%3Ccq:defineObjects%3E">CQ5 Developing Components</a>
+has a lot of information, but I wanted a handier cheat sheet.</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width:100%; ">
+<caption class="title">Table 1. Objects from &lt;cq:defineobjects/&gt; (as of CQ5.6)</caption>
+<colgroup>
+<col style="width:25%;">
+<col style="width:25%;">
+<col style="width:25%;">
+<col style="width:25%;"> 
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">JavaDoc</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">my favorite methods</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>component</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/index.html?com/day/cq/wcm/api/components/Component.html">Component</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the current AEM component object of the current resource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getName() / getPath()</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>componentContext</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/index.html?com/day/cq/wcm/api/components/ComponentContext.html">ComponentContext</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the current component context object of the request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getPage() / getResource() / setDecorate(boolean)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentDesign</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/designer/Design.html">Design</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the current design object of the current page</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getStaticCssPath() / getStyle(_) / writeCss(Writer, boolean) / writeCssIncludes(_)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentPage</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/Page.html">Page</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the current AEM WCM page object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getName() / getTitle() / getNavigationTitle() / getTags() / getContentResource() / getDepth() / getPageManager()</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentStyle</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/designer/Style.html">Style</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the current style object of the current cell</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>designer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/designer/Designer.html">Designer</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the designer object used to access design information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getDesign(_) / getStyle(_)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>editContext</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/components/EditContext.html">EditContext</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the edit context object of the AEM component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageManager</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/PageManager.html">PageManager</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the page manager object for page level operations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getPage(path) / create/copy/delete/move/order(_) / getRevisions(_)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageProperties</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/ValueMap.html">ValueMap</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the page properties object of the current page</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>see properties</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>properties</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/ValueMap.html">ValueMap</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the properties object of the current resource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get(name,defaultVal) / put(key,val) //name can be a path ending in a property</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resourceDesign</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/designer/Design.html">Design</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the design object of the resource page</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>see currentDesign</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resourcePage</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/Page.html">Page</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the resource page object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>see currentPage</em></p></td>
+</tr>
+</tbody>
+</table>
+
+<div class="paragraph">
+<p>Attributes provided by <code>cq:defineObjects</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>componentContextName</code></p>
+</li>
+<li>
+<p><code>componentName</code></p>
+</li>
+<li>
+<p><code>currentDesignName</code></p>
+</li>
+<li>
+<p><code>currentPageName</code></p>
+</li>
+<li>
+<p><code>currentStyleName</code></p>
+</li>
+<li>
+<p><code>designerName</code></p>
+</li>
+<li>
+<p><code>editContextName</code></p>
+</li>
+<li>
+<p><code>logName</code></p>
+</li>
+<li>
+<p><code>nodeName</code></p>
+</li>
+<li>
+<p><code>pageManagerName</code></p>
+</li>
+<li>
+<p><code>pagePropertiesName</code></p>
+</li>
+<li>
+<p><code>propertiesName</code></p>
+</li>
+<li>
+<p><code>requestName</code></p>
+</li>
+<li>
+<p><code>resourceDesignName</code></p>
+</li>
+<li>
+<p><code>resourceName</code></p>
+</li>
+<li>
+<p><code>resourcePageName</code></p>
+</li>
+<li>
+<p><code>resourceResolverName</code></p>
+</li>
+<li>
+<p><code>slingName</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The &lt;cq:defineObjects&gt; tag also automatically includes &lt;sling:defineObjects/&gt;</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width:100%; ">
+<caption class="title">Table 2. Objects from &lt;sling:defineObjects/&gt; (as of CQ5.6)</caption>
+<colgroup>
+<col style="width:25%;">
+<col style="width:25%;">
+<col style="width:25%;">
+<col style="width:25%;"> 
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">JavaDoc</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">my favorite methods</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentNode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://www.day.com/maven/javax.jcr/javadocs/jcr-1.0/javax/jcr/Node.html">Node</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JCR node for current resource (not defined if not)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>discourage in favor of Resource or ValueMap</em> addNode(_) / getUUID()</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>log</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://www.slf4j.org/api/org/slf4j/Logger.html">SLF4J.Logger</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides an SLF4J Logger for logging to the Sling log system from within scripts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">error / warn / info / debug</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resource</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/Resource.html">Resource</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the current Resource object to handle (depending on the URL of the request)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getName() / getPath() / getChild(path) / getChildren()</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resourceResolver</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/ResourceResolver.html">ResourceResolver</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The current ResourceResolver object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">create(args) / commit() / getResource(_) / resolve(_) / queryResources(query, lang)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sling</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/index.html?org/apache/sling/api/scripting/SlingScriptHelper.html">SlingScriptHelper</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">convenience methods for scripts.  GOD Object.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getService(Class) / include(_) / forward(_) / getRequest() / getResponse() / getScript()</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>slingRequest</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/SlingHttpServletRequest.html">SlingHttpServletRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extends <a href="http://docs.oracle.com/javaee/1.4/api/javax/servlet/http/HttpServletRequest.html">HttpServletRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getResource() / getCookie(name) / getRequestParameterMap() / getRequestParameters(name) / getRequestPathInfo()</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>slingResponse</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/SlingHttpServletResponse.html">SlingHttpServletResponse</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extends <a href="http://docs.oracle.com/javaee/1.4/api/javax/servlet/http/HttpServletResponse.html">HttpServletResponse</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">static fields / addCookie(cookie) / getOutputStream() / getWriter()</p></td>
+</tr>
+</tbody>
+</table>
+
+<div class="paragraph">
+<p>Attributes provided by <code>sling:defineObjects</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>logName</code></p>
+</li>
+<li>
+<p><code>nodeName</code></p>
+</li>
+<li>
+<p><code>requestName</code></p>
+</li>
+<li>
+<p><code>resourceResolverName</code></p>
+</li>
+<li>
+<p><code>responseName</code></p>
+</li>
+<li>
+<p><code>slingName</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>I hope this helps others and myself.</p>
+</div></div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -683,152 +970,9 @@ println inputSum</code></pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/01/sql-null-is-not-comparable/">SQL NULL Is Not Comparable</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-24T21:47:00-07:00" pubdate data-updated="true">2008-Jan-24</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I am starting out with one of my more common mistakes &ndash; comparing fields that may be null. In C or programmatical languages, a NULL would equal a NULL. However in SQL, that isn&rsquo;t the case.</p>
-
-<p>An artificial example is:</p>
-
-<p>table: <strong>addresses</strong></p>
-
-<table>
-<thead>
-<tr>
-<th> fName </th>
-<th> mInit </th>
-<th> lName </th>
-<th> data</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>George </td>
-<td> null </td>
-<td> Washington </td>
-<td> <em>blah</em></td>
-</tr>
-<tr>
-<td>John </td>
-<td> null </td>
-<td> Adams </td>
-<td> <em>blah</em></td>
-</tr>
-<tr>
-<td>John </td>
-<td> Q </td>
-<td> Adams </td>
-<td> <em>blah</em></td>
-</tr>
-</tbody>
-</table>
-
-
-<p>table: <strong>orders</strong></p>
-
-<table>
-<thead>
-<tr>
-<th> fName </th>
-<th> mInit </th>
-<th> lName </th>
-<th> data</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>John </td>
-<td> Q </td>
-<td> Adams </td>
-<td> <em>blah</em></td>
-</tr>
-<tr>
-<td>John </td>
-<td> null </td>
-<td> Adams </td>
-<td> <em>blah</em></td>
-</tr>
-<tr>
-<td>George </td>
-<td> null </td>
-<td> Washington </td>
-<td> <em>blah</em></td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>Wrong Query</h2>
-
-<pre><code>SELECT *
-FROM addresses a, orders o
-WHERE a.lName = o.lName
-  AND a.fName = o.fName
-  AND a.mInit = o.mInit
-</code></pre>
-
-<p>This returns less records than expected because if mInit column is null for &ldquo;John Adams&rdquo; in both tables, it still doesn&rsquo;t match. There are generally 2 options for addressing this:</p>
-
-<ul>
-<li>run a function on the nullable columns so null values get cast to a comparable value</li>
-<li>add an OR clause where both columns are null</li>
-</ul>
-
-
-<h2>Solutions:</h2>
-
-<h3>cast null values via functions:</h3>
-
-<pre><code>SELECT *
-FROM addresses a, orders o
-WHERE a.lName = o.lName
-  AND a.fName = o.fName
-  AND NVL(a.mInit, "") = NVL(o.mInit, "")
-</code></pre>
-
-<h3>extra clauses</h3>
-
-<pre><code>SELECT *
-FROM addresses a, orders o
-WHERE a.lName = o.lName
-  AND a.fName = o.fName
-  AND ( (a.mInit = o.mInit) OR (a.mInit IS NULL AND o.mInit IS NULL) )
-</code></pre>
-
-<p>Neither option is fun (extra code, which is often less readable, or performance hits), but basically required when joining relational tables. If you are comparing similar tables, then you can take advantage of set operators (such as minus/intersect/union in Oracle) and bypass this problem.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -839,6 +983,10 @@ WHERE a.lName = o.lName
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/cq-defineObjects-cheatsheet/">CQ5 Resource - &lt;cq:defineObjects/> CheatSheet</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/11/the-evolution-of-looping/">The Evolution of Looping</a>
@@ -854,10 +1002,6 @@ WHERE a.lName = o.lName
     
       <li class="post">
         <a href="/blog/2012/11/command-line-basics/">Command Line Basics</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2008/01/sql-null-is-not-comparable/">SQL NULL Is Not Comparable</a>
       </li>
     
   </ul>
