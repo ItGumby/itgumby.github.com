@@ -1,0 +1,150 @@
+---
+layout: post
+title: "CQ5 resource - &lt;cq:defineObjects/> CheatSheet"
+date: 2014-02-16 20:14
+comments: true
+categories: [CQ5-AEM, JSP]
+---
+
+https://dev.day.com/docs/en/cq/current/developing/components.html#%3Ccq:defineObjects%3E[CQ5 Developing Components]
+has a lot of information, but I wanted a handier cheat sheet.
+
+.Objects from &lt;cq:defineobjects/> (as of CQ5.6)
+|===
+|Name | JavaDoc | Description | my favorite methods
+
+|`component`
+    | http://dev.day.com/docs/en/cq/current/javadoc/index.html?com/day/cq/wcm/api/components/Component.html[Component]
+    | the current AEM component object of the current resource
+    | getName() / getPath()
+
+|`componentContext`
+    |http://dev.day.com/docs/en/cq/current/javadoc/index.html?com/day/cq/wcm/api/components/ComponentContext.html[ComponentContext]
+    |the current component context object of the request
+    | getPage() / getResource() / setDecorate(boolean)
+
+|`currentDesign`
+    | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/designer/Design.html[Design]
+    | the current design object of the current page
+    | getStaticCssPath() / getStyle(\_) / writeCss(Writer, boolean) / writeCssIncludes(_)
+
+|`currentPage`
+    | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/Page.html[Page]
+    | the current AEM WCM page object
+    | getName() / getTitle() / getNavigationTitle() / getTags() / getContentResource() / getDepth() / getPageManager()
+
+|`currentStyle`
+    | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/designer/Style.html[Style]
+    | the current style object of the current cell
+    | -
+
+|`designer`
+    | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/designer/Designer.html[Designer]
+    | the designer object used to access design information
+    | getDesign(\_) / getStyle(_)
+
+|`editContext`
+    | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/components/EditContext.html[EditContext]
+    | the edit context object of the AEM component
+    | -
+
+|`pageManager`
+    | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/PageManager.html[PageManager]
+    | the page manager object for page level operations
+    | getPage(path) / create/copy/delete/move/order(\_) / getRevisions(_)
+
+|`pageProperties`
+    | http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/ValueMap.html[ValueMap]
+    | the page properties object of the current page
+    | _see properties_
+
+|`properties`
+    | http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/ValueMap.html[ValueMap]
+    | the properties object of the current resource
+    | get(name,defaultVal) / put(key,val) //name can be a path ending in a property
+
+|`resourceDesign`
+    | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/designer/Design.html[Design]
+    | the design object of the resource page
+    | _see currentDesign_
+
+|`resourcePage`
+    | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/Page.html[Page]
+    | the resource page object
+    | _see currentPage_
+|===
+
+
+Attributes provided by `cq:defineObjects`:
+
+* `componentContextName`
+* `componentName`
+* `currentDesignName`
+* `currentPageName`
+* `currentStyleName`
+* `designerName`
+* `editContextName`
+* `logName`
+* `nodeName`
+* `pageManagerName`
+* `pagePropertiesName`
+* `propertiesName`
+* `requestName`
+* `resourceDesignName`
+* `resourceName`
+* `resourcePageName`
+* `resourceResolverName`
+* `slingName`
+
+The &lt;cq:defineObjects> tag also automatically includes &lt;sling:defineObjects/>
+
+.Objects from &lt;sling:defineObjects/> (as of CQ5.6)
+|===
+|Name | JavaDoc | Description | my favorite methods
+
+|`currentNode`
+	| http://www.day.com/maven/javax.jcr/javadocs/jcr-1.0/javax/jcr/Node.html[Node]
+	| JCR node for current resource (not defined if not)
+	| _discourage in favor of Resource or ValueMap_ addNode(_) / getUUID()
+
+|`log`
+	| http://www.slf4j.org/api/org/slf4j/Logger.html[SLF4J.Logger]
+	| Provides an SLF4J Logger for logging to the Sling log system from within scripts
+	| error / warn / info / debug
+
+|`resource`
+	| http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/Resource.html[Resource]
+	| the current Resource object to handle (depending on the URL of the request)
+	| getName() / getPath() / getChild(path) / getChildren()
+
+|`resourceResolver`
+	| http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/ResourceResolver.html[ResourceResolver]
+	| The current ResourceResolver object
+	| create(args) / commit() / getResource(\_) / resolve(_) / queryResources(query, lang)
+
+|`sling`
+	| http://dev.day.com/docs/en/cq/current/javadoc/index.html?org/apache/sling/api/scripting/SlingScriptHelper.html[SlingScriptHelper]
+	| convenience methods for scripts.  GOD Object.
+	| getService(Class) / include(\_) / forward(_) / getRequest() / getResponse() / getScript()
+
+|`slingRequest`
+	| http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/SlingHttpServletRequest.html[SlingHttpServletRequest]
+	| extends http://docs.oracle.com/javaee/1.4/api/javax/servlet/http/HttpServletRequest.html[HttpServletRequest]
+	| getResource() / getCookie(name) / getRequestParameterMap() / getRequestParameters(name) / getRequestPathInfo()
+
+|`slingResponse`
+	| http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/SlingHttpServletResponse.html[SlingHttpServletResponse]
+	| extends http://docs.oracle.com/javaee/1.4/api/javax/servlet/http/HttpServletResponse.html[HttpServletResponse]
+	| static fields / addCookie(cookie) / getOutputStream() / getWriter()
+|===
+
+Attributes provided by `sling:defineObjects`:
+
+* `logName`
+* `nodeName`
+* `requestName`
+* `resourceResolverName`
+* `responseName`
+* `slingName`
+
+I hope this helps others and myself.
