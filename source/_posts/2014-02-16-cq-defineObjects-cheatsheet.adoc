@@ -51,7 +51,7 @@ has a lot of information, but I wanted a handier cheat sheet.
 |`pageManager`
     | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/PageManager.html[PageManager]
     | the page manager object for page level operations
-    | getPage(path) / create/copy/delete/move/order(\_) / getRevisions(_)
+    | getPage(path) / create/ copy/ delete/ move/ order(\_) / getRevisions(_)
 
 |`pageProperties`
     | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/commons/inherit/InheritanceValueMap.html[InheritanceValueMap]
@@ -61,7 +61,7 @@ has a lot of information, but I wanted a handier cheat sheet.
 |`properties`
     | http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/ValueMap.html[ValueMap]
     | the properties object of the current resource
-    | get(name,defaultVal) / put(key,val) //name can be a path ending in a property
+    | get(name,defaultVal) / put(key,val) http://experiencedelivers.adobe.com/cemblog/en/experiencedelivers/2013/02/valuemap-and-his-friend.html[examples]
 
 |`resourceDesign`
     | http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/designer/Design.html[Design]
