@@ -4,7 +4,7 @@
   <title><![CDATA[IT Gumby]]></title>
   <link href="http://ItGumby.github.io/atom.xml" rel="self"/>
   <link href="http://ItGumby.github.io/"/>
-  <updated>2014-02-17T07:06:47-07:00</updated>
+  <updated>2014-02-20T21:17:05-07:00</updated>
   <id>http://ItGumby.github.io/</id>
   <author>
     <name><![CDATA[Brian Street]]></name>
@@ -85,7 +85,7 @@ has a lot of information, but I wanted a handier cheat sheet.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageManager</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/PageManager.html">PageManager</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">the page manager object for page level operations</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">getPage(path) / create/copy/delete/move/order(_) / getRevisions(_)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getPage(path) / create/ copy/ delete/ move/ order(_) / getRevisions(_)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageProperties</code></p></td>
@@ -97,7 +97,7 @@ has a lot of information, but I wanted a handier cheat sheet.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>properties</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/ValueMap.html">ValueMap</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">the properties object of the current resource</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">get(name,defaultVal) / put(key,val) //name can be a path ending in a property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get(name,defaultVal) / put(key,val) <a href="http://experiencedelivers.adobe.com/cemblog/en/experiencedelivers/2013/02/valuemap-and-his-friend.html">examples</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>resourceDesign</code></p></td>
