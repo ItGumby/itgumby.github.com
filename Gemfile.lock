@@ -54,8 +54,8 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth (~> 4.2.9)
-  asciidoctor
-  coderay
+  asciidoctor (~> 0.1)
+  coderay (~> 1.1)
   compass (~> 0.12.2)
   haml (~> 3.1.7)
   jekyll (~> 0.12)
