@@ -1,0 +1,111 @@
+---
+layout: post
+title: "CQ Queries Demystified"
+date: 2014-08-10 18:36
+comments: true
+categories: [CQ5-AEM, JCR, Queries]
+---
+
+
+The JCR (Java Content Repository) is a data-store at its heart.  Most examples around it demonstrate either building components or walking the Node tree.  It is hard to find examples around queries and the JCR.  To make things worse, we have a number of options and little resourcs to compare them.  My humble goal is to make JCR queries less scary - to myself and others.
+
+
+== Why Use Queries?
+
+I see 2 primary benefits to using queries compared to "walking the nodes": efficiency and flexibility.
+
+Queries can be *more efficient* when the desired nodes/pages are "sparse".  By sparse, I mean you have to visit a lot more nodes than you keep.  In my recent experience, we were looking for approximately 200-300 pages out of 2,000.  Converting from page traversal to a query improved performance by an order of magnitude (from approximately 10 sec. to well under a second.)
+
+Queries also permit *flexibility in structure*.  http://wiki.apache.org/jackrabbit/DavidsModel#Rule_.231[David's Rules] encourage prioritizing content over formal structure.  If walking the tree of nodes or pages, a developer may limit depth of searching (either a flat level or limited recursion) for simplicity of code and/or performance.  However, in a CMS environment, there are tremendous benefits for authors when they can create an arbitrary taxonomy around their data or pages.
+
+
+There are two primary APIs for Querying in CQ5:
+
+*  `javax.jcr.query` provides a query interface API in a variety of syntaxes.  http://www.day.com/specs/javax.jcr/javadocs/jcr-2.0/javax/jcr/query/QueryResult.html[QueryResult] can return http://www.day.com/specs/javax.jcr/javadocs/jcr-2.0/javax/jcr/NodeIterator.html[NodeIterator]s or http://www.day.com/specs/javax.jcr/javadocs/jcr-2.0/javax/jcr/query/RowIterator.html[RowIterator]s (where a http://www.day.com/specs/javax.jcr/javadocs/jcr-2.0/javax/jcr/query/Row.html[Row] can have 1 or more columns. Columns can be http://www.day.com/specs/javax.jcr/javadocs/jcr-2.0/javax/jcr/Node.html[Node],  property http://www.day.com/specs/javax.jcr/javadocs/jcr-2.0/javax/jcr/Value.html[Value], path (String) or score (double).
+*  `com.day.cq.search` provides either a REST interface or an API that returns Iterators for Resources or Nodes or a List of ResultPage that match the Predicate(s).
+
+=== Preconditions
+
+CQ5 searches are "powered by" http://lucene.apache.org/[Apache Lucene] (although AEM6 is converting to http://lucene.apache.org/solr/[Apache Solr]).  An important limitation is that index only examine Node properties that are 16KB or less in size - so anything larger won't be found by any searching mechanism.
+
+Internally, the queries are converted to an AQM (Abstract Query Model).  The interesting aspect about AQM is the ability to create new query syntaxes and predicates - but that is well beyond the scope of this post.
+
+=== NodeTypes
+
+I recommend paying attention to the http://jackrabbit.apache.org/node-type-visualization.html[NodeType] you use.  At the top of the hierarchy tree is `nt:base`, (so all nodes inherit from `nt:base`).  Because of its inheritance, most examples show using it as a "works anywhere" approach.  However, I feel this is a poor approach and you would be better served selecting a more appropriate type (`jcr:primaryType` property of your desired nodes).  I would like to highlight:
+
+*  `cq:Page` for matching just http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/wcm/api/Page.html[Page] nodes
+*  `cq:PageContent` to easily convert to http://dev.day.com/docs/en/cq/current/javadoc/com/day/cq/commons/inherit/InheritanceValueMap.html[InheritanceValueMap] or http://dev.day.com/docs/en/cq/current/javadoc/org/apache/sling/api/resource/ValueMap.html[ValueMap]
+*  `nt:unstructured` for finding content nodes behind a particular component
+
+== JCR Queries: http://www.day.com/specs/javax.jcr/javadocs/jcr-2.0/javax/jcr/query/Query.html[+javax.jcr.query+]
+
+[cols="1,2,2", options="header"]
+.Query Syntaxes
+|===
+|Syntax
+|Cons
+|Pros
+
+|http://jackrabbit.apache.org/api/2.2/org/apache/jackrabbit/commons/query/sql2/package-summary.html[SQL2]
+|poor documentation +
+no sub-queries +
+limited joins
+|"looks" like a query +
+limited joins
+
+|http://jackrabbit.apache.org/api/2.2/org/apache/jackrabbit/spi/commons/query/xpath/package-summary.html[XPath]
+|"strange" syntax +
+deprecated in JCR2.0 (yet still supported) +
+|maturity & performance +
+generic (outside JCR) solution for nodes, attributes, structure +
+Tutorials http://zvon.org/comp/r/tut-XPath_1.html#intro[exist]
+
+|http://www.day.com/maven/javax.jcr/javadocs/jcr-2.0/javax/jcr/query/qom/QueryObjectModelFactory.html?is-external=true[JQOM]
+|poor documentation
+|huh
+
+|SQL
+|no longer supported
+|deprecated
+|===
+
+.Query Example
+[source,jsp]
+----
+<%!
+String getSql2String(String root, String value) {
+    return "SELECT * " +
+            "FROM [cq:PageContent] AS pc " +
+            "WHERE ISDESCENDANTNODE([" + root + "]) " +
+                "AND pc.title LIKE '%" + value + "%'";
+}
+
+String getXpathString(String root, String value) {
+    return "/jcr:root/"+root+"//element(*, cq:PageContent)[jcr:like(@title, '%"+value+"%')]";
+}
+%>
+<%
+    final String sql2 = getSql2String(currentPage.getPath(), "My Title");
+    Iterator<Resource> rscIterator = resourceResolver.findResources(sql2, Query.JCR_SQL2);
+%>
+<ul>
+  <c:forEach var="item" items="<%= rscIterator %>">
+    <li>$item['jcr:title']</li>
+  </c:forEach>
+</ul>
+----
+
+== QueryBuilder API: http://docs.adobe.com/docs/en/cq/current/javadoc/com/day/cq/search/package-summary.html[+com.day.cq.search+]
+
+(Java) API vs "REST" interface
+
+SearchResult interface returns Iterator<Node>, Iterator<Resource>, List<ResultPage> (url for a page)
+(NOT anything around property/property values)
+
+
+== Troubleshooting
+
+http://helpx.adobe.com/experience-manager/kb/HowToDebugJCRQueries.html[Increase query logging]
+
+node types/tables (nt:base, nt:unstructured, cq:Page, cq:PageContent, ....)

@@ -7,7 +7,7 @@ sharing: true
 footer: true
 ---
 
-== Boxen: OSX Configuration Beyond Dotfiles
+== http://itgumby.github.io/boxen-slides/[Boxen: OSX Configuration Beyond Dotfiles]
 
 for Denver Open Source Users Group (DOSUG 2014-MAY)
 
