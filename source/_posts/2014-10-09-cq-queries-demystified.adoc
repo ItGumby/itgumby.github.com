@@ -50,7 +50,8 @@ I recommend paying attention to the http://jackrabbit.apache.org/node-type-visua
 |http://jackrabbit.apache.org/api/2.2/org/apache/jackrabbit/commons/query/sql2/package-summary.html[SQL2]
 |poor documentation +
 no sub-queries +
-limited joins
+limited joins +
+new functions
 |"looks" like a query +
 limited joins (K.I.S.S. principle)
 
@@ -70,7 +71,6 @@ generic (outside JCR) solution for structure/nodes/attributes
 |N/A
 |===
 
-The best example I have found for comparing syntaxes is the https://wiki.magnolia-cms.com/display/WIKI/JCR+Query+Cheat+Sheet[JCR+Query+Cheat+Sheet]
 
 .Query Example
 [source,jsp]
@@ -116,9 +116,26 @@ TIP: JSPs are best kept as templates with little to no Java in them.  In practic
 move the Java to an OSGi-managed class (Model).  If built outside of CQ5, this permits
 rapid unit testing and potentially other JVM languages such as groovy.
 
-== Troubleshooting
+REST Example: http://localhost:4502/bin/querybuilder.json?type=cq:Component&path=/apps&orderby=@title&orderby.sort=asc
 
-http://helpx.adobe.com/experience-manager/kb/HowToDebugJCRQueries.html[HowToDebugJCRQueries.html]
+== Other Resources
+
+* https://wiki.magnolia-cms.com/display/WIKI/JCR+Query+Cheat+Sheet[JCR+Query+Cheat+Sheet] for comparing syntaxes
+* http://labs.sixdimensions.com/blog/2014-10-07/9-jcr-sql-2-queries-every-aem-dev-should-know/[9 JCR-SQL2 Queries Every AEM Developer Should Know] by Dan Klco
+* http://helpx.adobe.com/experience-manager/kb/HowToDebugJCRQueries.html[HowToDebugJCRQueries.html]
 discusses adding loggers to a new file (separate from standard error.log) at the DEBUG level.
 This logs the queries executed and their execution time.
 
+=== SQL2 functions (from http://www.day.com/specs/jcr/2.0/6_Query.html#6.6.2%20JCR-SQL2%20Notation[JCR v2.0 Spec])
+
+* CONTAINS(_propName_, _value_)
+* ISCHILDNODE() _immediate relationship_
+* ISDESCENDANTNODE() _nested relationship_
+* ISSAMENODE() _for join conditions_
+* LENGTH(_propName_)
+* NAME()
+* LOCALNAME()
+* LOWER() _lower case the text_
+* UPPER() _upper case the text_
+* SCORE()
+* CAST(_literal_ AS _type_)
