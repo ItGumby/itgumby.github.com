@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Queries | IT Gumby]]></title>
   <link href="http://ItGumby.github.io/blog/categories/queries/atom.xml" rel="self"/>
   <link href="http://ItGumby.github.io/"/>
-  <updated>2014-10-09T21:15:41-06:00</updated>
+  <updated>2014-10-11T23:23:25-06:00</updated>
   <id>http://ItGumby.github.io/</id>
   <author>
     <name><![CDATA[Brian Street]]></name>
@@ -65,7 +65,8 @@
 <p>|<a href="http://jackrabbit.apache.org/api/2.2/org/apache/jackrabbit/commons/query/sql2/package-summary.html">http://jackrabbit.apache.org/api/2.2/org/apache/jackrabbit/commons/query/sql2/package-summary.html</a>[SQL2]
 |poor documentation +
 no sub-queries +
-limited joins
+limited joins +
+new functions
 |&ldquo;looks&rdquo; like a query +
 limited joins (K.I.S.S. principle)</p>
 
@@ -84,8 +85,6 @@ generic (outside JCR) solution for structure/nodes/attributes</p>
 |no longer supported
 |N/A
 |===</p>
-
-<p>The best example I have found for comparing syntaxes is the <a href="https://wiki.magnolia-cms.com/display/WIKI/JCR+Query+Cheat+Sheet">https://wiki.magnolia-cms.com/display/WIKI/JCR+Query+Cheat+Sheet</a>[JCR+Query+Cheat+Sheet]</p>
 
 <p>.Query Example</p>
 
@@ -130,11 +129,35 @@ easy to test/explore via browser, +curl+
 move the Java to an OSGi-managed class (Model).  If built outside of CQ5, this permits
 rapid unit testing and potentially other JVM languages such as groovy.</p>
 
-<p>== Troubleshooting</p>
+<p>REST Example: <a href="http://localhost:4502/bin/querybuilder.json?type=cq:Component&amp;path=/apps&amp;orderby=@title&amp;orderby.sort=asc">http://localhost:4502/bin/querybuilder.json?type=cq:Component&amp;path=/apps&amp;orderby=@title&amp;orderby.sort=asc</a></p>
 
-<p><a href="http://helpx.adobe.com/experience-manager/kb/HowToDebugJCRQueries.html">http://helpx.adobe.com/experience-manager/kb/HowToDebugJCRQueries.html</a>[HowToDebugJCRQueries.html]
+<p>== Other Resources</p>
+
+<ul>
+<li><a href="https://wiki.magnolia-cms.com/display/WIKI/JCR+Query+Cheat+Sheet">https://wiki.magnolia-cms.com/display/WIKI/JCR+Query+Cheat+Sheet</a>[JCR+Query+Cheat+Sheet] for comparing syntaxes</li>
+<li><a href="http://labs.sixdimensions.com/blog/2014-10-07/9-jcr-sql-2-queries-every-aem-dev-should-know/">http://labs.sixdimensions.com/blog/2014-10-07/9-jcr-sql-2-queries-every-aem-dev-should-know/</a>[9 JCR-SQL2 Queries Every AEM Developer Should Know] by Dan Klco</li>
+<li><a href="http://helpx.adobe.com/experience-manager/kb/HowToDebugJCRQueries.html">http://helpx.adobe.com/experience-manager/kb/HowToDebugJCRQueries.html</a>[HowToDebugJCRQueries.html]
 discusses adding loggers to a new file (separate from standard error.log) at the DEBUG level.
-This logs the queries executed and their execution time.</p>
+This logs the queries executed and their execution time.</li>
+</ul>
+
+
+<p>=== SQL2 functions (from <a href="http://www.day.com/specs/jcr/2.0/6_Query.html#6.6.2%20JCR-SQL2%20Notation">http://www.day.com/specs/jcr/2.0/6_Query.html#6.6.2%20JCR-SQL2%20Notation</a>[JCR v2.0 Spec])</p>
+
+<ul>
+<li>CONTAINS(<em>propName</em>, <em>value</em>)</li>
+<li>ISCHILDNODE() <em>immediate relationship</em></li>
+<li>ISDESCENDANTNODE() <em>nested relationship</em></li>
+<li>ISSAMENODE() <em>for join conditions</em></li>
+<li>LENGTH(<em>propName</em>)</li>
+<li>NAME()</li>
+<li>LOCALNAME()</li>
+<li>LOWER() <em>lower case the text</em></li>
+<li>UPPER() <em>upper case the text</em></li>
+<li>SCORE()</li>
+<li>CAST(<em>literal</em> AS <em>type</em>)</li>
+</ul>
+
 ]]></content>
   </entry>
   

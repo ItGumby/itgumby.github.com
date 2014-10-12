@@ -4,7 +4,7 @@
   <title><![CDATA[IT Gumby]]></title>
   <link href="http://ItGumby.github.io/atom.xml" rel="self"/>
   <link href="http://ItGumby.github.io/"/>
-  <updated>2014-10-09T21:15:41-06:00</updated>
+  <updated>2014-10-11T23:23:25-06:00</updated>
   <id>http://ItGumby.github.io/</id>
   <author>
     <name><![CDATA[Brian Street]]></name>
@@ -98,7 +98,8 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://jackrabbit.apache.org/api/2.2/org/apache/jackrabbit/commons/query/sql2/package-summary.html">SQL2</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">poor documentation<br>
 no sub-queries<br>
-limited joins</p></td>
+limited joins<br>
+new functions</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&#8220;looks&#8221; like a query<br>
 limited joins (K.I.S.S. principle)</p></td>
 </tr>
@@ -123,9 +124,6 @@ generic (outside JCR) solution for structure/nodes/attributes</p></td>
 </tbody>
 </table>
 
-<div class="paragraph">
-<p>The best example I have found for comparing syntaxes is the <a href="https://wiki.magnolia-cms.com/display/WIKI/JCR+Query+Cheat+Sheet">JCR+Query+Cheat+Sheet</a></p>
-</div>
 <div class="listingblock">
 <div class="title">Query Example</div>
 <div class="content">
@@ -262,15 +260,68 @@ rapid unit testing and potentially other JVM languages such as groovy.
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>REST Example: <a href="http://localhost:4502/bin/querybuilder.json?type=cq:Component&amp;path=/apps&amp;orderby=@title&amp;orderby.sort=asc">http://localhost:4502/bin/querybuilder.json?type=cq:Component&amp;path=/apps&amp;orderby=@title&amp;orderby.sort=asc</a></p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="troubleshooting">Troubleshooting</h2>
+<h2 id="other-resources">Other Resources</h2>
 <div class="sectionbody">
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://wiki.magnolia-cms.com/display/WIKI/JCR+Query+Cheat+Sheet">JCR+Query+Cheat+Sheet</a> for comparing syntaxes</p>
+</li>
+<li>
+<p><a href="http://labs.sixdimensions.com/blog/2014-10-07/9-jcr-sql-2-queries-every-aem-dev-should-know/">9 JCR-SQL2 Queries Every AEM Developer Should Know</a> by Dan Klco</p>
+</li>
+<li>
 <p><a href="http://helpx.adobe.com/experience-manager/kb/HowToDebugJCRQueries.html">HowToDebugJCRQueries.html</a>
 discusses adding loggers to a new file (separate from standard error.log) at the DEBUG level.
 This logs the queries executed and their execution time.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="sql2-functions-from-a-href-http-www-day-com-specs-jcr-2-0-6_query-html-6-6-2-20jcr-sql2-20notation-jcr-v2-0-spec-a">SQL2 functions (from <a href="http://www.day.com/specs/jcr/2.0/6_Query.html#6.6.2%20JCR-SQL2%20Notation">JCR v2.0 Spec</a>)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>CONTAINS(<em>propName</em>, <em>value</em>)</p>
+</li>
+<li>
+<p>ISCHILDNODE() <em>immediate relationship</em></p>
+</li>
+<li>
+<p>ISDESCENDANTNODE() <em>nested relationship</em></p>
+</li>
+<li>
+<p>ISSAMENODE() <em>for join conditions</em></p>
+</li>
+<li>
+<p>LENGTH(<em>propName</em>)</p>
+</li>
+<li>
+<p>NAME()</p>
+</li>
+<li>
+<p>LOCALNAME()</p>
+</li>
+<li>
+<p>LOWER() <em>lower case the text</em></p>
+</li>
+<li>
+<p>UPPER() <em>upper case the text</em></p>
+</li>
+<li>
+<p>SCORE()</p>
+</li>
+<li>
+<p>CAST(<em>literal</em> AS <em>type</em>)</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>]]></content>
