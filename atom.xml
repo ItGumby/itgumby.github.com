@@ -4,7 +4,7 @@
   <title><![CDATA[IT Gumby]]></title>
   <link href="http://ItGumby.github.io/atom.xml" rel="self"/>
   <link href="http://ItGumby.github.io/"/>
-  <updated>2014-10-11T23:23:25-06:00</updated>
+  <updated>2014-10-23T21:27:20-06:00</updated>
   <id>http://ItGumby.github.io/</id>
   <author>
     <name><![CDATA[Brian Street]]></name>
@@ -12,6 +12,133 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Simple SOAP Example]]></title>
+    <link href="http://ItGumby.github.io/blog/2014/10/simple-soap-example/"/>
+    <updated>2014-10-23T17:04:00-06:00</updated>
+    <id>http://ItGumby.github.io/blog/2014/10/simple-soap-example</id>
+    <content type="html"><![CDATA[<div class="paragraph">
+<p>All I wanted was a JVM-based script exemplifying a simple SOAP call.
+However, I wasn&#8217;t satisfied with their complexity and pieces.</p>
+</div>
+<div class="paragraph">
+<p>Best practices have established using a <a href="http://docs.spring.io/spring-ws/site/reference/html/why-contract-first.html">contract-first</a> approach is more reliable and resilient.
+Spring also documented the prototypical Java SOAP client: <a href="http://spring.io/guides/gs/consuming-web-service/">Consuming a SOAP web service</a>.
+The example has a clear classes &amp; separation of concerns, but still requires a build file to generate code from the WSDL using JAXB.</p>
+</div>
+<div class="sect1">
+<h2 id="my-simple-example-in-groovy">My Simple Example: in Groovy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>My example breaks the client into 3 parts:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Creating the Request</p>
+</li>
+<li>
+<p>Get the Response</p>
+</li>
+<li>
+<p>Extracting Data</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="creating-the-request">Creating the Request</h3>
+<div class="paragraph">
+<p>The traditional approach creates an object, then marshalls it (converts object to a string).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span style="color:#0a8;font-weight:bold">String</span> buildRequest(<span style="color:#0a8;font-weight:bold">String</span> zip) {
+    <span style="color:#080;font-weight:bold">def</span> writer = <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">StringWriter</span>()
+    <span style="color:#080;font-weight:bold">def</span> builder = <span style="color:#080;font-weight:bold">new</span> MarkupBuilder(writer)
+
+    builder.GetCityForecastByZIP(<span style="color:#606">xmlns</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://ws.cdyne.com/WeatherWS/</span><span style="color:#710">&quot;</span></span>) {
+        ZIP(zip)
+    }
+    <span style="color:#080;font-weight:bold">return</span> writer.toString()
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Groovy&#8217;s <a href="http://groovy.codehaus.org/Creating+XML+using+Groovy&#8217;s+MarkupBuilder">MarkupBuilder</a> makes it super easy to safely build XML (or HTML).
+It can handle attributes, escaping content, and even namespaces!
+The XML is patterned from the WSDL&#8217;s Request object manually, or using <a href="http://www.soapui.org/">SoapUI</a> to build it from the WSDL.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="get-the-response">Get the Response</h3>
+<div class="paragraph">
+<p>Both examples use Spring&#8217;s WebServiceTemplate methods.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span style="color:#0a8;font-weight:bold">String</span> callSoapWeather(<span style="color:#0a8;font-weight:bold">String</span> body) {
+    <span style="color:#080;font-weight:bold">def</span> msgFactory = <span style="color:#080;font-weight:bold">new</span> SaajSoapMessageFactory()
+    msgFactory.afterPropertiesSet()
+
+    <span style="color:#080;font-weight:bold">def</span> wsTemplate = <span style="color:#080;font-weight:bold">new</span> WebServiceTemplate(msgFactory)
+    wsTemplate.setDefaultUri(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://wsf.cdyne.com/WeatherWS/Weather.asmx</span><span style="color:#710">&quot;</span></span>)
+
+    <span style="color:#080;font-weight:bold">def</span> writer = <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">StringWriter</span>()
+    <span style="color:#080;font-weight:bold">try</span> {
+        wsTemplate.sendSourceAndReceiveToResult(
+            <span style="color:#080;font-weight:bold">new</span> StringSource(body),
+            <span style="color:#080;font-weight:bold">new</span> SoapActionCallback(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://ws.cdyne.com/WeatherWS/GetCityForecastByZIP</span><span style="color:#710">&quot;</span></span>),
+            <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">StreamResult</span>(writer)
+        )
+    } <span style="color:#080;font-weight:bold">catch</span> (<span style="color:#C00;font-weight:bold">Exception</span> e) { println <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ERROR: </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>e.message<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> - </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>e.cause<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span> }
+    <span style="color:#080;font-weight:bold">return</span> writer.toString()
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Spring&#8217;s <a href="http://docs.spring.io/spring-ws/site/reference/html/client.html">WebServices and Templates</a> handles calling the SOAP service, callback status and converting the response stream back into a string.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="extracting-data">Extracting Data</h3>
+<div class="paragraph">
+<p>Instead of unmarshalling (converting a string to an object):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span style="color:#339;font-weight:bold">void</span> printResults(<span style="color:#0a8;font-weight:bold">String</span> response) {
+    <span style="color:#088;font-weight:bold">final</span> xml = <span style="color:#080;font-weight:bold">new</span> XmlSlurper().parseText(response)
+    <span style="color:#080;font-weight:bold">def</span> nodes = xml.GetCityForecastByZIPResult
+    println <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Forecast for </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>nodes.City<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">, </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>nodes.State<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+
+    <span style="color:#080;font-weight:bold">def</span> format = <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">SimpleDateFormat</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">yyyy-MMM-dd</span><span style="color:#710">&quot;</span></span>)
+    nodes.ForecastResult.children().each { forecast -&gt;
+        <span style="color:#080;font-weight:bold">def</span> inDate = <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">Date</span>().parse(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">yyyy-MM-dd'T'HH:mm:ss</span><span style="color:#710">&quot;</span></span>, forecast.Date <span style="color:#080;font-weight:bold">as</span> <span style="color:#0a8;font-weight:bold">String</span>)
+        println <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>format.format(inDate)<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>forecast.Description<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>forecast.Temperatures.MorningLow<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> - </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>forecast.Temperatures.DaytimeHigh<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Groovy&#8217;s <a href="http://groovy.codehaus.org/Reading+XML+using+Groovy&#8217;s+XmlSlurper">XmlSlurper</a> takes the place of traditional JAXB unmarshalling.
+Instead of mapping XML into Objects, XmlSlurper parses the string into Nodes and <a href="http://groovy.codehaus.org/api/groovy/util/slurpersupport/GPathResult.html">GPathResults</a>.
+As long as the names of the nodes you need don&#8217;t change, you can name the path to the data, or even <code>.depthFirst().collect{ it }.findAll{ it.name() == "NODE_NAME" }</code> which allows the path to change and still work.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>SOAP doesn&#8217;t have to be intimidating on the JVM platform.
+I hope others find the contrast with the traditional JAXB approach informative.
+My full working <a href="https://gist.github.com/ItGumby/3fe5c317dc4c898c133c">SimpleSoap.groovy</a> is posted as a single file in a gist.</p>
+</div>
+</div>
+</div>]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CQ Queries Demystified]]></title>

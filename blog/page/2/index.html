@@ -9,7 +9,7 @@
   <meta name="author" content="Brian Street">
 
   
-  <meta name="description" content="One of my favorite features of computers is making them do the work for me. I tend to think of this as automation. Command line and shell scripts are &hellip;">
+  <meta name="description" content="Static Site Generators FTW A long, long time ago, on web far, far away, the original developers of the web built static pages by hand. Soon, tooling &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +69,90 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/ghp-with-octopress/">Why Octopress</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-02T15:59:00-06:00" pubdate data-updated="true">2013-Jun-02</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Static Site Generators FTW</h2>
+
+<p>A long, long time ago, on web far, far away, the original developers of the web built static pages by hand.  Soon, tooling caught up and templates could assemble pages pages together from &ldquo;content&rdquo; stored in other sources (usually databases).  Eventually, personalization meant every  page would be built per request.  Since servers had to generate each page instead of returning pre-built files, their scalability was limited.</p>
+
+<p>Two concepts came to the rescue: REST and Dynamic HTML (which evolved into AJAX).  <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Representaional State Transfer or REST</a> posited that <em>resources</em> could be more cacheable.  And DHTML/AJAX made it common to Create, Replace, Update or Delete <em>portions</em> of a page.  By applying these concepts intelligently, most, if not all, of the pages could be stored and reused.  This <em>caching</em> could be done at different layers, from the data source, to inside the app servers to even the web server.</p>
+
+<p>With flexible caching strategies, the generation from templates can be moved around and execute less frequently.  In the case of blog content, generation only needs to happen at original post and repeated for any edits.  (Comments can be AJAX&#8217;ed away or moved to external services, such as <a href="http://disqus.com/">Disqus</a>.)  Flexible generation also allowed questioning the <em>data sources</em>.  Databases had long been the most common data source.  But they frequently have specialized administrators.  Also, databases excel at structured content while web content is &hellip; well, frequently unstructured.</p>
+
+<p>Part of <em><a href="http://alistapart.com/article/thedisciplineofcontentstrategy">Content Strategy</a></em> is letting the authors focus on the <em>content</em>.  The content itself may have some structure, but time spent formatting or determining how to get into the data source is wasted effort.  <a href="http://en.wikipedia.org/wiki/Markdown">MarkDown</a> and <a href="http://asciidoctor.org/docs/asciidoc-writers-guide/">AsciiDoc</a> have stepped in as generic converters of plain text into HTML.  Both focus on the content with minimal syntax or formatting to distract the author from his or her message.  <em>Static Site Generators</em> use some markup flavor with a template engine in a large variety of languages to build static web pages.  One of the most popular and mature solutions is <a href="http://jekyllrb.com/">Jekyll</a>, a Ruby solution that transforms &ldquo;your plain text into static websites and blogs.&rdquo;  Part of its popularity, especially among developers, is jekyll support in <a href="http://pages.github.com/">GitHub Pages</a>.</p>
+
+<h2>Pros and Cons of Static Site Generators</h2>
+
+<p>I built this list by borrowing heavily from <a href="http://www.mickgardner.com/2012/12/an-introduction-to-static-site.html">An Intro to Static Site Generators</a></p>
+
+<ul>
+<li>+ Security.  No database or live templates to compromise with static content.</li>
+<li>+ Performance.  Just serving files, so web servers have less work to do.</li>
+<li>+ Content separated from servers.  This gives flexibility in hosting (and migration).</li>
+<li>+ Lowest Common Denominator.  Any host can serve HTML (no worries about supporting your language or tools).</li>
+<li>+ Scalability.  If you have more load, add more web servers and rsync (or other copy) the content over.</li>
+<li>- Updates require generator computers (hard to do from your phone).  Some other tools exist to relieve this.</li>
+<li>- Dynamic content requires external services or tools.</li>
+</ul>
+
+
+<h2>Extending Jekyll</h2>
+
+<p><a href="http://octopress.org/">Octopress</a> is built on top of Jekyll, so it carries forth all the strengths of it.  Octopress starts with smart defaults, such as HTML5 support and &ldquo;<a href="http://www.lukew.com/resources/mobile_first.asp">Mobile First</a>&rdquo; responsive design.  Its plugin architecture to make it easy to turn features on and off, such as:</p>
+
+<ul>
+<li>Social Integration of Twitter, Google+, Disqus comments</li>
+<li>HTML5 philosophy, including video tags</li>
+<li>display source code: includes, gist, partial renders</li>
+<li>Templates that support pre-processors such as SASS, Haml</li>
+<li>Themes: <a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">3rd Party</a> or build your own</li>
+<li>Category generation</li>
+<li>Analytics</li>
+</ul>
+
+
+<h2>Related Posts</h2>
+
+<ul>
+<li><a href="http://thepaulrayner.com/blog/2013/02/04/blogging-with-octopress-and-github-pages/">Paul Rayner &ldquo;Blogging With Octopress and Github Pages&rdquo;</a></li>
+<li><a href="http://www.neilsmithline.com/2013/03/octopress-is-pretty-great.html">Neil Smith &ldquo;Octopress is Pretty Great&rdquo;</a></li>
+<li><a href="http://joelmccracken.github.io/entries/octopress-is-pretty-sweet/">Use Octopress instead of Jekyll</a></li>
+<li><a href="http://joelmccracken.github.io/entries/octopress-is-pretty-sweet/">Use Jekyll? You Really Should Be Using Octopress</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -430,6 +514,10 @@ WHERE a.lName = o.lName
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/simple-soap-example/">Simple SOAP Example</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/cq-queries-demystified/">CQ Queries Demystified</a>
       </li>
     
@@ -443,10 +531,6 @@ WHERE a.lName = o.lName
     
       <li class="post">
         <a href="/blog/2013/06/octopress-first-steps/">Octopress First Steps</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/ghp-with-octopress/">Why Octopress</a>
       </li>
     
   </ul>

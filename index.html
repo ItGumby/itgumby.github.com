@@ -9,7 +9,8 @@
   <meta name="author" content="Brian Street">
 
   
-  <meta name="description" content="The JCR (Java Content Repository) is a data-store at its heart. Most examples around it demonstrate either building components or walking the Node &hellip;">
+  <meta name="description" content="All I wanted was a JVM-based script exemplifying a simple SOAP call.
+However, I wasn&#8217;t satisfied with their complexity and pieces. Best &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +70,162 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/simple-soap-example/">Simple SOAP Example</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-23T17:04:00-06:00" pubdate data-updated="true">2014-Oct-23</time>
+        
+         | <a href="/blog/2014/10/simple-soap-example/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class="paragraph">
+<p>All I wanted was a JVM-based script exemplifying a simple SOAP call.
+However, I wasn&#8217;t satisfied with their complexity and pieces.</p>
+</div>
+<div class="paragraph">
+<p>Best practices have established using a <a href="http://docs.spring.io/spring-ws/site/reference/html/why-contract-first.html">contract-first</a> approach is more reliable and resilient.
+Spring also documented the prototypical Java SOAP client: <a href="http://spring.io/guides/gs/consuming-web-service/">Consuming a SOAP web service</a>.
+The example has a clear classes &amp; separation of concerns, but still requires a build file to generate code from the WSDL using JAXB.</p>
+</div>
+<div class="sect1">
+<h2 id="my-simple-example-in-groovy">My Simple Example: in Groovy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>My example breaks the client into 3 parts:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Creating the Request</p>
+</li>
+<li>
+<p>Get the Response</p>
+</li>
+<li>
+<p>Extracting Data</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="creating-the-request">Creating the Request</h3>
+<div class="paragraph">
+<p>The traditional approach creates an object, then marshalls it (converts object to a string).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span style="color:#0a8;font-weight:bold">String</span> buildRequest(<span style="color:#0a8;font-weight:bold">String</span> zip) {
+    <span style="color:#080;font-weight:bold">def</span> writer = <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">StringWriter</span>()
+    <span style="color:#080;font-weight:bold">def</span> builder = <span style="color:#080;font-weight:bold">new</span> MarkupBuilder(writer)
+
+    builder.GetCityForecastByZIP(<span style="color:#606">xmlns</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://ws.cdyne.com/WeatherWS/</span><span style="color:#710">&quot;</span></span>) {
+        ZIP(zip)
+    }
+    <span style="color:#080;font-weight:bold">return</span> writer.toString()
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Groovy&#8217;s <a href="http://groovy.codehaus.org/Creating+XML+using+Groovy&#8217;s+MarkupBuilder">MarkupBuilder</a> makes it super easy to safely build XML (or HTML).
+It can handle attributes, escaping content, and even namespaces!
+The XML is patterned from the WSDL&#8217;s Request object manually, or using <a href="http://www.soapui.org/">SoapUI</a> to build it from the WSDL.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="get-the-response">Get the Response</h3>
+<div class="paragraph">
+<p>Both examples use Spring&#8217;s WebServiceTemplate methods.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span style="color:#0a8;font-weight:bold">String</span> callSoapWeather(<span style="color:#0a8;font-weight:bold">String</span> body) {
+    <span style="color:#080;font-weight:bold">def</span> msgFactory = <span style="color:#080;font-weight:bold">new</span> SaajSoapMessageFactory()
+    msgFactory.afterPropertiesSet()
+
+    <span style="color:#080;font-weight:bold">def</span> wsTemplate = <span style="color:#080;font-weight:bold">new</span> WebServiceTemplate(msgFactory)
+    wsTemplate.setDefaultUri(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://wsf.cdyne.com/WeatherWS/Weather.asmx</span><span style="color:#710">&quot;</span></span>)
+
+    <span style="color:#080;font-weight:bold">def</span> writer = <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">StringWriter</span>()
+    <span style="color:#080;font-weight:bold">try</span> {
+        wsTemplate.sendSourceAndReceiveToResult(
+            <span style="color:#080;font-weight:bold">new</span> StringSource(body),
+            <span style="color:#080;font-weight:bold">new</span> SoapActionCallback(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://ws.cdyne.com/WeatherWS/GetCityForecastByZIP</span><span style="color:#710">&quot;</span></span>),
+            <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">StreamResult</span>(writer)
+        )
+    } <span style="color:#080;font-weight:bold">catch</span> (<span style="color:#C00;font-weight:bold">Exception</span> e) { println <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ERROR: </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>e.message<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> - </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>e.cause<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span> }
+    <span style="color:#080;font-weight:bold">return</span> writer.toString()
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Spring&#8217;s <a href="http://docs.spring.io/spring-ws/site/reference/html/client.html">WebServices and Templates</a> handles calling the SOAP service, callback status and converting the response stream back into a string.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="extracting-data">Extracting Data</h3>
+<div class="paragraph">
+<p>Instead of unmarshalling (converting a string to an object):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span style="color:#339;font-weight:bold">void</span> printResults(<span style="color:#0a8;font-weight:bold">String</span> response) {
+    <span style="color:#088;font-weight:bold">final</span> xml = <span style="color:#080;font-weight:bold">new</span> XmlSlurper().parseText(response)
+    <span style="color:#080;font-weight:bold">def</span> nodes = xml.GetCityForecastByZIPResult
+    println <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Forecast for </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>nodes.City<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">, </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>nodes.State<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+
+    <span style="color:#080;font-weight:bold">def</span> format = <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">SimpleDateFormat</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">yyyy-MMM-dd</span><span style="color:#710">&quot;</span></span>)
+    nodes.ForecastResult.children().each { forecast -&gt;
+        <span style="color:#080;font-weight:bold">def</span> inDate = <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">Date</span>().parse(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">yyyy-MM-dd'T'HH:mm:ss</span><span style="color:#710">&quot;</span></span>, forecast.Date <span style="color:#080;font-weight:bold">as</span> <span style="color:#0a8;font-weight:bold">String</span>)
+        println <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>format.format(inDate)<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>forecast.Description<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>forecast.Temperatures.MorningLow<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> - </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">${</span>forecast.Temperatures.DaytimeHigh<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Groovy&#8217;s <a href="http://groovy.codehaus.org/Reading+XML+using+Groovy&#8217;s+XmlSlurper">XmlSlurper</a> takes the place of traditional JAXB unmarshalling.
+Instead of mapping XML into Objects, XmlSlurper parses the string into Nodes and <a href="http://groovy.codehaus.org/api/groovy/util/slurpersupport/GPathResult.html">GPathResults</a>.
+As long as the names of the nodes you need don&#8217;t change, you can name the path to the data, or even <code>.depthFirst().collect{ it }.findAll{ it.name() == "NODE_NAME" }</code> which allows the path to change and still work.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>SOAP doesn&#8217;t have to be intimidating on the JVM platform.
+I hope others find the contrast with the traditional JAXB approach informative.
+My full working <a href="https://gist.github.com/ItGumby/3fe5c317dc4c898c133c">SimpleSoap.groovy</a> is posted as a single file in a gist.</p>
+</div>
+</div>
+</div></div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1029,90 +1186,6 @@ println inputSum</code></pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/ghp-with-octopress/">Why Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-02T15:59:00-06:00" pubdate data-updated="true">2013-Jun-02</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Static Site Generators FTW</h2>
-
-<p>A long, long time ago, on web far, far away, the original developers of the web built static pages by hand.  Soon, tooling caught up and templates could assemble pages pages together from &ldquo;content&rdquo; stored in other sources (usually databases).  Eventually, personalization meant every  page would be built per request.  Since servers had to generate each page instead of returning pre-built files, their scalability was limited.</p>
-
-<p>Two concepts came to the rescue: REST and Dynamic HTML (which evolved into AJAX).  <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Representaional State Transfer or REST</a> posited that <em>resources</em> could be more cacheable.  And DHTML/AJAX made it common to Create, Replace, Update or Delete <em>portions</em> of a page.  By applying these concepts intelligently, most, if not all, of the pages could be stored and reused.  This <em>caching</em> could be done at different layers, from the data source, to inside the app servers to even the web server.</p>
-
-<p>With flexible caching strategies, the generation from templates can be moved around and execute less frequently.  In the case of blog content, generation only needs to happen at original post and repeated for any edits.  (Comments can be AJAX&#8217;ed away or moved to external services, such as <a href="http://disqus.com/">Disqus</a>.)  Flexible generation also allowed questioning the <em>data sources</em>.  Databases had long been the most common data source.  But they frequently have specialized administrators.  Also, databases excel at structured content while web content is &hellip; well, frequently unstructured.</p>
-
-<p>Part of <em><a href="http://alistapart.com/article/thedisciplineofcontentstrategy">Content Strategy</a></em> is letting the authors focus on the <em>content</em>.  The content itself may have some structure, but time spent formatting or determining how to get into the data source is wasted effort.  <a href="http://en.wikipedia.org/wiki/Markdown">MarkDown</a> and <a href="http://asciidoctor.org/docs/asciidoc-writers-guide/">AsciiDoc</a> have stepped in as generic converters of plain text into HTML.  Both focus on the content with minimal syntax or formatting to distract the author from his or her message.  <em>Static Site Generators</em> use some markup flavor with a template engine in a large variety of languages to build static web pages.  One of the most popular and mature solutions is <a href="http://jekyllrb.com/">Jekyll</a>, a Ruby solution that transforms &ldquo;your plain text into static websites and blogs.&rdquo;  Part of its popularity, especially among developers, is jekyll support in <a href="http://pages.github.com/">GitHub Pages</a>.</p>
-
-<h2>Pros and Cons of Static Site Generators</h2>
-
-<p>I built this list by borrowing heavily from <a href="http://www.mickgardner.com/2012/12/an-introduction-to-static-site.html">An Intro to Static Site Generators</a></p>
-
-<ul>
-<li>+ Security.  No database or live templates to compromise with static content.</li>
-<li>+ Performance.  Just serving files, so web servers have less work to do.</li>
-<li>+ Content separated from servers.  This gives flexibility in hosting (and migration).</li>
-<li>+ Lowest Common Denominator.  Any host can serve HTML (no worries about supporting your language or tools).</li>
-<li>+ Scalability.  If you have more load, add more web servers and rsync (or other copy) the content over.</li>
-<li>- Updates require generator computers (hard to do from your phone).  Some other tools exist to relieve this.</li>
-<li>- Dynamic content requires external services or tools.</li>
-</ul>
-
-
-<h2>Extending Jekyll</h2>
-
-<p><a href="http://octopress.org/">Octopress</a> is built on top of Jekyll, so it carries forth all the strengths of it.  Octopress starts with smart defaults, such as HTML5 support and &ldquo;<a href="http://www.lukew.com/resources/mobile_first.asp">Mobile First</a>&rdquo; responsive design.  Its plugin architecture to make it easy to turn features on and off, such as:</p>
-
-<ul>
-<li>Social Integration of Twitter, Google+, Disqus comments</li>
-<li>HTML5 philosophy, including video tags</li>
-<li>display source code: includes, gist, partial renders</li>
-<li>Templates that support pre-processors such as SASS, Haml</li>
-<li>Themes: <a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">3rd Party</a> or build your own</li>
-<li>Category generation</li>
-<li>Analytics</li>
-</ul>
-
-
-<h2>Related Posts</h2>
-
-<ul>
-<li><a href="http://thepaulrayner.com/blog/2013/02/04/blogging-with-octopress-and-github-pages/">Paul Rayner &ldquo;Blogging With Octopress and Github Pages&rdquo;</a></li>
-<li><a href="http://www.neilsmithline.com/2013/03/octopress-is-pretty-great.html">Neil Smith &ldquo;Octopress is Pretty Great&rdquo;</a></li>
-<li><a href="http://joelmccracken.github.io/entries/octopress-is-pretty-sweet/">Use Octopress instead of Jekyll</a></li>
-<li><a href="http://joelmccracken.github.io/entries/octopress-is-pretty-sweet/">Use Jekyll? You Really Should Be Using Octopress</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1128,6 +1201,10 @@ println inputSum</code></pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/simple-soap-example/">Simple SOAP Example</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/cq-queries-demystified/">CQ Queries Demystified</a>
       </li>
     
@@ -1141,10 +1218,6 @@ println inputSum</code></pre>
     
       <li class="post">
         <a href="/blog/2013/06/octopress-first-steps/">Octopress First Steps</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/ghp-with-octopress/">Why Octopress</a>
       </li>
     
   </ul>
