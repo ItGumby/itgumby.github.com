@@ -1,0 +1,63 @@
+---
+layout: post
+title: "Command Line Basics"
+date: 2012-11-11 21:48
+comments: false
+categories: [CLI, shell]
+---
+
+One of my favorite features of computers is making them do the work for me.  I tend to think of this as automation.  Command line and shell scripts are a great way to automate tasks.  While Apple has "Automator" and Windows have DOS Batch and PowerShell, Unix shell is my favorite due to its power, availability, and even its philosophy.
+
+Unix shell commands are famous for a philosophy of "do one thing, do it well", and permit chaining of commands to accomplish more complex tasks.  Breaking complex tasks into discrete steps is a good practice for programming, also.
+
+Before tackling full-blown scripts, it is easier to start by "playing" with the individual commands.  Having a good terminal program can greatly aid this.  Terminals are programs that provide access to the computer's shell.  "Console" is the name for a special connection to the first shell of a user's login, but is  otherwise like other shell sessions.
+
+A good terminal application will provide buffers for scrolling through command & output history, make it easy to copy & paste text.  For example, the DOS Command Prompt is pretty painful for copy/paste (menu "Edit", then copy or paste) while in some programs, a double-click can select entire path & filenames while a triple-click can select the entire line.  Macs ship with "Terminal.app", but I prefer to use [iTerm2](http://www.iterm2.com/#/section/home).  When working on Windows machines, I prefer to install [Console2](http://sourceforge.net/projects/console/files/).  You can try out alternatives and find your favorite.
+
+Unix shells are actually an entire set of applications that interpret commands and built-ins (basically look like commands, but are "built in" to the shell.  There are technically many different shells that have different rules for variables, types, globs - but that is outside the scope of this post.  The shell will "prompt" the user for a command.  The default prompt is "$", while a prompt of ">>" indicates the shell expects more text before it can process the command(s).  However, both are configurable.
+
+Filenames can be absolute (the entire path from that computers' perspective) or relative to the current directory.  In order to enhance security, most Unix systems will set the path to NOT include the current directory so you don't accidentally run a copy of a program that happens to exist in the current directory instead of its "normal" location.  In order to tell the shell you really mean to run the copy in your current directory, prepend './' to the program/script name (meaning the path is HERE).
+
+If you want to pass in a filename to the command, you can pass in the exact filename, a filename pattern (such as \*.pdf for any PDF in the current directory) , or even a "glob" (fancier pattern, such as **/*.pdf for any PDF in the current or any child sub-directory at any depth below).  Technically, all 3 are globs. And the fancier glob examples depend on your shell and configuration.
+
+Without further ado, here is a manageable list of unix shell commands that all users should be familiar with.  At first, they may look cryptic, but that is only because they are abbreviations to make it faster to type them.  Once you start dabbling with their options, they may not be so short anymore...
+
+##Listing Files##
+
+ Command | Example | Description
+---------|---------|------------
+ls | ls –lrtF [dir or file(s)] | LiSt.  List file(s) in a directory, with flags for order and extra information
+cd | cd _dirName_ | ChangeDirectory.  “..” is up 1 dir, “-“ is previous dir. **NOTE:** Unix uses “/” instead of Window’s “\”
+mkdir | mkdir _newDir_ | MaKeDIRectory.
+cp | cp _currentFile_ _newFile_ | CoPy.  If destination exists, it will get over-written.
+mv | mv _currentFile_ _newFile_ | MoVe.  (also works for renaming files).  If destination exists, it gets over-written.
+rm | rm _fileToDelete_ | ReMove.  Deletes a file or set of files.
+
+##Viewing text file contents##
+
+ Command | Example | Description
+---------|---------|------------
+cat | cat _file1_ _[file2]_ | concatenate.  Can dump multiple files to the screen (or get re-directed to another file).
+more | more _longFile_ | Displays file 1 page at a time.  Page is dynamic to PuTTY screen.  Advance using <space>, quit by typing “q”.  Also see "less" ("less is more")
+view | view _textFile_ | Read only vi (text editor).  Has advanced searching, scrolling, etc.
+grep | grep _phrase fileToSearch_ | Search inside files.  Can be literal strings, or advanced regexp (regular expressions – a huge topic by itself).
+head | head [-10] _file1_ | Display first several lines of a file
+tail | tail [-10] _file1_ | Display last several lines of a file
+
+##Documentation##
+
+ Command | Example | Description
+---------|---------|------------
+man | man _command_ | MANual.  If you know the command, you can display man pages for it.  If you don't know the command name, use "-k" to search for related keywords to find the command
+_cmd_ --help | man -h | **By convention**, commands with the option "-h" or "--help" should provide their own documentation. This applies to scripts you develop, too.
+
+##Execution/Job Control##
+
+ Command | Example | Description
+---------|---------|------------
+ps | ps _-efx_ | ProccesseS.  List running processes and their IDs.  Each platform often has different flags/options.
+nohup | nohup _./localScript.sh_ | Prevent interruption.  Prepend to other commands so they can’t be killed or accidentally stopped (ie lost terminal connection)
+kill | kill -9 _processID_ | Kill a running process by ID (often called "pid")
+_cmd_ & | _./runLoad.sh_ & | Background a command or script.  Returns you to the prompt for other commands and lets first command run in “background”
+
+

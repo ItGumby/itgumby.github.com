@@ -1,0 +1,100 @@
+// This File is imported last, and will override other styles in the cascade
+// Add styles here to make changes without digging in too much
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  caption {
+    font-size: larger;
+    margin: 1em auto;
+    padding-top: 2em;
+  }
+  thead {
+    font-weight: bolder;
+    background: darkblue;
+    color: lightblue;
+  }
+  tbody tr:hover {
+    background: lightblue;
+    color: darkblue;
+  }
+  td {
+    text-align: center;
+  }
+}
+table, th, td {
+  border: 1px solid $pre-border;
+  padding: 0.25em 0.5em;
+}
+
+.admonitionblock {
+    table, th, td {
+        border: none;
+    }
+    tr:hover {
+        background: inherit;
+        color: inherit;
+    }
+    .icon {
+        width: 10em;
+        max-width: 20%;
+        font-weight: bold;
+    }
+    // TODO: images for &.[note, tip, important, warning, caution] .icon .title
+    // then, replace the above spacing
+}
+
+// define animations for different browsers
+@-webkit-keyframes bounce-shadow {
+  0%    { text-shadow: 15px 15px 10px rgba(255,215,0,.5) }
+  100%  { text-shadow: 0 0 rgba(255,215,0,.5) }
+}
+@-moz-keyframes bounce-shadow {
+  0%    { text-shadow: 15px 15px 10px rgba(255,215,0,.5) }
+  100%  { text-shadow: 0 0 rgba(255,215,0,.5) }
+}
+@keyframes bounce-shadow {
+  0%    { text-shadow: 15px 15px 10px rgba(255,215,0,.5) }
+  100%  { text-shadow: 0 0 rgba(255,215,0,.5) }
+}
+
+// apply the animations
+body > header {
+    padding-bottom: 0.5em;
+    h1 {
+        display: block;
+        text-shadow: 15px 15px 10px rgba(255,215,0,.5);
+
+        -webkit-animation: bounce-shadow 1s infinite alternate;
+        -moz-animation: bounce-shadow 1s infinite alternate;
+        animation: bounce-shadow 1s infinite alternate;
+
+        a, a:visited, a:hover {
+            padding: 0.5em 0;
+        }
+
+        .msg {
+            display: none;
+            a {
+                color: blue;
+                text-decoration: underline;
+            }
+        }
+
+        &:hover .msg {
+            display: inline-block;
+            top: 1.5em;
+            left: 5em;
+            border-radius: 1em;
+            padding: 0.25em 2em;
+            max-width: 50%;
+            font-size: 0.8rem;
+            color: blue;
+            background: yellow;
+            background: rgba(255,255,0,.8);
+        }
+    }
+}
+
+// fix list spacing
+.ulist p { margin-bottom: 0.4rem; }

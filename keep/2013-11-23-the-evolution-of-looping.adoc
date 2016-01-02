@@ -1,0 +1,112 @@
+---
+layout: post
+title: "The Evolution of Looping"
+date: 2013-11-23 10:40
+comments: true
+categories: FP
+---
+
+== TL;DR
+
+There are two primary approaches to programming:
+
+imperative:: the "classical" approach where the code describes _how_ to accomplish something
+declarative:: the "functional" approache where the code describes _what_  to accomplish
+
+The evolution of looping remarks on the steps from looping in an imperative style to functional programming
+that expresses intent and frees the language/compiler/machine to select potentially better
+mechanisms of _how_ to accomplish the task.  A tangible benefit of functional approaches
+is code that expreses intent, which makes bugs easier to identify and solve.  It doesn't
+hurt that the lines of code can often get shorter.
+
+My list of looping approaches (with un-official terms):
+
+* while/until
+* for with iterator
+* for each
+* forEach (functional)
+
+== Examples
+
+I started with examples written in JavaScript, but "for each" and "forEach" weren't
+as clear as examples written in other languages.  So I re-wrote the examples in Groovy,
+a language related to Java that requires less boilerplate.
+
+.while (or "until" to test at end of loop)
+[source,groovy]
+----
+List<Integer> input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Integer sum = 0     // mutating sum
+
+def i = 0               // iterator set to starting position of collection
+def max = input.size()  // calculate end position once
+while (i < max) {       // test if continue looping
+    def val = input[i]; // get value from array
+    sum += val;         // change state of the sum
+    i++;                // increment iterator
+}
+println "result of while() sum = ${sum}"
+----
+
+.for loop
+[source,groovy]
+----
+List<Integer> input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Integer sum = 0     // mutating sum
+
+def max = input.size()          // calculate end position once
+for (int i = 0; i < max; i++) { // declare iterator, test & increment statements
+    def val = input[i];         // get value from array
+    sum += val;                 // change state of the sum
+}
+println "result of for(;;) sum = ${sum}"
+----
+
+.for each/in
+[source,groovy]
+----
+List<Integer> input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Integer sum = 0     // mutating sum
+
+for (Integer val : input) {
+    sum += val
+}
+println "for(each) sum => ${sum}"
+----
+
+.each (or "forEach" in Java8)
+[source,groovy]
+----
+List<Integer> input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Integer sum = 0     // mutating sum
+
+input.each { Integer val ->  // explicitly declare type & name; groovy defaults to "it"
+    sum += val
+}
+println "[].each() sum => ${sum}"
+----
+
+### Trends
+
+The iterators started externally, then gradually moved internal to the loop, and finally disappeared.
+
+The lines of code also dropped, although some of the intermediate steps had some busy lines.
+For instance, +for(;;)+ has the same work as the +while()+ loop by essentially combining lines.
+
+The general trend is from imperative (how) to declarative (what) code.
+Less declarations for how to accomplish a task, the less opportunities for defects to be unintentionally introduced.
+Also, the environment has more opportunities to optimize the solution, such as parallel processing.
+
+.An example of a functional approach to summing (although most will provide a +sum()+ function) can be:
+[source,groovy]
+List<Integer> input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+def inputSum = input.inject(0, { acc, it -> acc + it })     // most call it "reduce"
+println inputSum
+
+### Summary
+
+* Favor declarative over imperative programming.
+* Use higher-level constructs in your language
+* Favor results over steps.  This leads to functional programming.
+* Prefer immutability over states & transactions
+* +final+ keyword in Java, Groovy to prevent changing state
