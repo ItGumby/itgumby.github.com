@@ -1,10 +1,9 @@
----
-layout: post
-title: "SQL NULL is not comparable"
-date: 2008-01-24 21:47
-comments: false
-categories: [SQL]
----
+title=SQL NULL is not comparable
+date=2008-01-24
+type=post
+status=published
+tags=SQL
+~~~~~~
 
 I am starting out with one of my more common mistakes - comparing fields that may be null. In C or programmatical languages, a NULL would equal a NULL. However in SQL, that isn't the case.
 

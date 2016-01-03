@@ -1,10 +1,9 @@
----
-layout: post
-title: "The Evolution of Looping"
-date: 2013-11-23 10:40
-comments: true
-categories: FP
----
+title=The Evolution of Looping
+date=2013-11-23
+type=post
+status=published
+tags=FP
+~~~~~~
 
 == TL;DR
 

@@ -1,10 +1,9 @@
----
-layout: post
-title: "Command Line Basics"
-date: 2012-11-11 21:48
-comments: false
-categories: [CLI, shell]
----
+title=Command Line Basics
+date=2012-11-11
+type=post
+status=published
+tags=CLI, shell
+~~~~~~
 
 One of my favorite features of computers is making them do the work for me.  I tend to think of this as automation.  Command line and shell scripts are a great way to automate tasks.  While Apple has "Automator" and Windows have DOS Batch and PowerShell, Unix shell is my favorite due to its power, availability, and even its philosophy.
 

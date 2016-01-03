@@ -1,10 +1,9 @@
----
-layout: post
-title: "Why Octopress"
-date: 2013-06-02 15:59
-comments: false
-categories: [Octopress, GithubPages]
----
+title=Why Octopress
+date=2013-06-02
+type=post
+status=published
+tags=Octopress, GithubPages
+~~~~~~
 
 ## Static Site Generators FTW
 

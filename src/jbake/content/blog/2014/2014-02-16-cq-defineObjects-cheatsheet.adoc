@@ -1,10 +1,9 @@
----
-layout: post
-title: "CQ5 resource - &lt;cq:defineObjects/> CheatSheet"
-date: 2014-02-16 20:14
-comments: true
-categories: [CQ5-AEM, JSP]
----
+title=CQ5 resource - &lt;cq:defineObjects/> CheatSheet
+date=2014-02-16
+type=post
+status=published
+tags=CQ5-AEM, JSP
+~~~~~~
 
 https://dev.day.com/docs/en/cq/current/developing/components.html#%3Ccq:defineObjects%3E[CQ5 Developing Components]
 has a lot of information, but I wanted a handier cheat sheet.

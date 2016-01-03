@@ -1,10 +1,9 @@
----
-layout: post
-title: "Simple SOAP Example"
-date: 2014-10-23 17:04
-comments: true
-categories: [groovy, SOAP]
----
+title=Simple SOAP Example
+date=2014-10-23
+type=post
+status=published
+tags=groovy, SOAP
+~~~~~~
 
 All I wanted was a JVM-based script exemplifying a simple SOAP call.
 However, I wasn't satisfied with their complexity and pieces.
@@ -26,7 +25,7 @@ My example breaks the client into 3 parts:
 The traditional approach creates an object, then marshalls it (converts object to a string).
 [source,groovy]
 ----
-include::source/_posts/SimpleSoap.groovy[lines=17..25]
+include::SimpleSoap.groovy[lines=17..25]
 ----
 Groovy's http://groovy.codehaus.org/Creating+XML+using+Groovy's+MarkupBuilder[MarkupBuilder] makes it super easy to safely build XML (or HTML).
 It can handle attributes, escaping content, and even namespaces!
@@ -37,7 +36,7 @@ The XML is patterned from the WSDL's Request object manually, or using http://ww
 Both examples use Spring's WebServiceTemplate methods.
 [source,groovy]
 ----
-include::source/_posts/SimpleSoap.groovy[lines=27..43]
+include::SimpleSoap.groovy[lines=27..43]
 ----
 Spring's http://docs.spring.io/spring-ws/site/reference/html/client.html[WebServices and Templates] handles calling the SOAP service, callback status and converting the response stream back into a string.
 
@@ -46,7 +45,7 @@ Spring's http://docs.spring.io/spring-ws/site/reference/html/client.html[WebServ
 Instead of unmarshalling (converting a string to an object):
 [source,groovy]
 ----
-include::source/_posts/SimpleSoap.groovy[lines=45..55]
+include::SimpleSoap.groovy[lines=45..55]
 ----
 Groovy's http://groovy.codehaus.org/Reading+XML+using+Groovy's+XmlSlurper[XmlSlurper] takes the place of traditional JAXB unmarshalling.
 Instead of mapping XML into Objects, XmlSlurper parses the string into Nodes and http://groovy.codehaus.org/api/groovy/util/slurpersupport/GPathResult.html[GPathResults].

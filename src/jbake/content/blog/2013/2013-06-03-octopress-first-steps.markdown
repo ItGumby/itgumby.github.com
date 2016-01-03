@@ -1,10 +1,9 @@
----
-layout: post
-title: "Octopress First Steps"
-date: 2013-06-02 16:37
-comments: true
-categories:  [Octopress, GithubPages]
----
+title=Octopress First Steps
+date=2013-06-02
+type=post
+status=published
+tags=Octopress, GithubPages
+~~~~~~
 
 # Installation Steps
 

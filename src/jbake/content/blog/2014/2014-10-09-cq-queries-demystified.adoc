@@ -1,10 +1,9 @@
----
-layout: post
-title: "CQ Queries Demystified"
-date: 2014-10-09 18:36
-comments: true
-categories: [CQ5-AEM, JCR, Queries]
----
+title=CQ Queries Demystified
+date=2014-10-09
+type=post
+status=published
+tags=CQ5-AEM, JCR, Queries
+~~~~~~
 
 
 The JCR (Java Content Repository) is a data-store at its heart.  Most examples around it demonstrate either building components or walking the Node tree.  It is hard to find examples around queries and the JCR.  To make things worse, we have a number of options and little resourcs to compare them.  My humble goal is to make JCR queries less scary - to myself and others.
@@ -75,7 +74,7 @@ generic (outside JCR) solution for structure/nodes/attributes
 .Query Example
 [source,jsp]
 ----
-include::source/_posts/jcr.query.jsp[]
+include::jcr.query.jsp[]
 ----
 
 TIP: Prefer +Resource+ over +Node+.  It has a cleaner, easier to use API.
@@ -109,7 +108,7 @@ easy to test/explore via browser, +curl+
 .Query Example
 [source,jsp]
 ----
-include::source/_posts/cq.search.jsp[]
+include::cq.search.jsp[]
 ----
 
 TIP: JSPs are best kept as templates with little to no Java in them.  In practice,
