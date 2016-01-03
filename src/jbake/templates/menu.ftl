@@ -8,25 +8,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>">JBake</a>
+          <a class="navbar-brand" href="${content.rootpath}">${config.site_title}</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>index.html">Home</a></li>
-            <li><a href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>about.html">About</a></li>
-            <li><a href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>${config.feed_file}">Subscribe</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+            <li><a href="index.html">Blog</a></li>
+            <li><a href="about.html">About Me</a></li>
+            <li><a href="presentations.html">Presentations</a></li>
+            <li><a href="${config.feed_file}">RSS</a></li>
+            <li><a href="https://github.com/itgumby"><i class="fa fa-github"></i>My GitHub</a></li>
+            <li><a href="https://twitter.com/itgumby"><i class="fa fa-twitter"></i>My Twitter</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
