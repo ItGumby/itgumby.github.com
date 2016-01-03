@@ -14,6 +14,7 @@ apply plugin: 'org.ajoberstar.github-pages'
 
 githubPages {
   repoUri = 'git@github.com:ItGumby/itgumby.github.com.git'
+  targetBranch = 'master'
   pages {
      from(file('build')) {
      	into '.'
