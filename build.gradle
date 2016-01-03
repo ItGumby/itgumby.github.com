@@ -10,10 +10,11 @@ buildscript {
     classpath 'me.champeau.gradle:jbake-gradle-plugin:0.2'
     classpath 'org.freemarker:freemarker:2.3.23' //2.3.19
     classpath 'org.asciidoctor:asciidoctorj:1.5.3.2'
+    classpath 'org.pegdown:pegdown:1.6.0'
   }
 }
 
-apply plugin: 'jbake'
+apply plugin: 'me.champeau.jbake'
 
 jbake {
    input = file('src/jbake')
