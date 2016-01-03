@@ -1,0 +1,19 @@
+= README
+
+== Converting to http://jbake.org/
+
+(Previously, on blogger, Octopress)
+
+=== Completed:
+
+* jbake structure
+* convert existing content
+* carry over customized CSS
+* tweak freemarker templates
+
+=== TODO:
+
+* [ ] gradle build
+* [ ] gradle publish
+* [ ] determine if output dirs need to change
+* [ ] update README for gh-pages, build steps
