@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>IT Gumby's blog: SQL NULL is not comparable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Brian Street">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/asciidoctor.css" rel="stylesheet">
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/prettify.css" rel="stylesheet">
+    <link href="/css/customize.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">IT Gumby's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Blog</a></li>
+            <li><a href="about.html">About Me</a></li>
+            <li><a href="presentations.html">Presentations</a></li>
+            <li><a href="feed.xml">RSS</a></li>
+            <li><a href="https://github.com/itgumby"><i class="fa fa-github"></i>My GitHub</a></li>
+            <li><a href="https://twitter.com/itgumby"><i class="fa fa-twitter"></i>My Twitter</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	<div class="page-header">
+		<h1>SQL NULL is not comparable</h1>
+	</div>
+
+	<p><em>24 January 2008</em></p>
+	<p><em>Tags: </em>
+		<a href="/tags/SQL.html">SQL</a> 
+	</p>
+
+	<p><p>I am starting out with one of my more common mistakes - comparing fields that may be null. In C or programmatical languages, a NULL would equal a NULL. However in SQL, that isn't the case.</p>
+<p>An artificial example is:</p>
+<p>table: <strong>addresses</strong></p>
+<p>fName | mInit | lName | data<br/>-------|-------|-------|-----<br/>George | null | Washington | <em>blah</em><br/>John | null | Adams | <em>blah</em><br/>John | Q | Adams | <em>blah</em></p>
+<p>table: <strong>orders</strong></p>
+<p>fName | mInit | lName | data<br/>-------|-------|-------|-----<br/>John | Q | Adams | <em>blah</em><br/>John | null | Adams | <em>blah</em><br/>George | null | Washington | <em>blah</em></p>
+<h2>Wrong Query</h2>
+<pre><code>SELECT *
+FROM addresses a, orders o
+WHERE a.lName = o.lName
+  AND a.fName = o.fName
+  AND a.mInit = o.mInit
+</code></pre>
+<p>This returns less records than expected because if mInit column is null for "John Adams" in both tables, it still doesn't match. There are generally 2 options for addressing this:</p>
+<ul>
+  <li>run a function on the nullable columns so null values get cast to a comparable value</li>
+  <li>add an OR clause where both columns are null</li>
+</ul>
+<h2>Solutions:</h2>
+<h3>cast null values via functions:</h3>
+<pre><code>SELECT *
+FROM addresses a, orders o
+WHERE a.lName = o.lName
+  AND a.fName = o.fName
+  AND NVL(a.mInit, &quot;&quot;) = NVL(o.mInit, &quot;&quot;)
+</code></pre>
+<h3>extra clauses</h3>
+<pre><code>SELECT *
+FROM addresses a, orders o
+WHERE a.lName = o.lName
+  AND a.fName = o.fName
+  AND ( (a.mInit = o.mInit) OR (a.mInit IS NULL AND o.mInit IS NULL) )
+</code></pre>
+<p>Neither option is fun (extra code, which is often less readable, or performance hits), but basically required when joining relational tables. If you are comparing similar tables, then you can take advantage of set operators (such as minus/intersect/union in Oracle) and bypass this problem.</p></p>
+	<hr />
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2016 | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/prettify.js"></script>
+    
+  </body>
+</html>
