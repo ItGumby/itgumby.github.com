@@ -6,8 +6,8 @@
     <atom:link href="http://itgumby.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>IT Gumby's blog RSS feed</description>
     <language>en-US</language>
-    <pubDate>Sun, 3 Jan 2016 12:13:44 -0700</pubDate>
-    <lastBuildDate>Sun, 3 Jan 2016 12:13:44 -0700</lastBuildDate>
+    <pubDate>Sun, 3 Jan 2016 22:05:29 -0700</pubDate>
+    <lastBuildDate>Sun, 3 Jan 2016 22:05:29 -0700</lastBuildDate>
 
     <item>
       <title>Simple SOAP Example</title>
@@ -1007,22 +1007,188 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Sun, 11 Nov 2012 00:00:00 -0700</pubDate>
       <guid isPermaLink="false">blog/2012/2012-11-11-command-line-basics.html</guid>
       	<description>
-	&lt;p&gt;One of my favorite features of computers is making them do the work for me. I tend to think of this as automation. Command line and shell scripts are a great way to automate tasks. While Apple has &quot;Automator&quot; and Windows have DOS Batch and PowerShell, Unix shell is my favorite due to its power, availability, and even its philosophy.&lt;/p&gt;
-&lt;p&gt;Unix shell commands are famous for a philosophy of &quot;do one thing, do it well&quot;, and permit chaining of commands to accomplish more complex tasks. Breaking complex tasks into discrete steps is a good practice for programming, also.&lt;/p&gt;
-&lt;p&gt;Before tackling full-blown scripts, it is easier to start by &quot;playing&quot; with the individual commands. Having a good terminal program can greatly aid this. Terminals are programs that provide access to the computer&apos;s shell. &quot;Console&quot; is the name for a special connection to the first shell of a user&apos;s login, but is otherwise like other shell sessions.&lt;/p&gt;
-&lt;p&gt;A good terminal application will provide buffers for scrolling through command &amp;amp; output history, make it easy to copy &amp;amp; paste text. For example, the DOS Command Prompt is pretty painful for copy/paste (menu &quot;Edit&quot;, then copy or paste) while in some programs, a double-click can select entire path &amp;amp; filenames while a triple-click can select the entire line. Macs ship with &quot;Terminal.app&quot;, but I prefer to use &lt;a href=&quot;http://www.iterm2.com/#/section/home&quot;&gt;iTerm2&lt;/a&gt;. When working on Windows machines, I prefer to install &lt;a href=&quot;http://sourceforge.net/projects/console/files/&quot;&gt;Console2&lt;/a&gt;. You can try out alternatives and find your favorite.&lt;/p&gt;
-&lt;p&gt;Unix shells are actually an entire set of applications that interpret commands and built-ins (basically look like commands, but are &quot;built in&quot; to the shell. There are technically many different shells that have different rules for variables, types, globs - but that is outside the scope of this post. The shell will &quot;prompt&quot; the user for a command. The default prompt is &quot;$&quot;, while a prompt of &quot;&amp;gt;&amp;gt;&quot; indicates the shell expects more text before it can process the command(s). However, both are configurable.&lt;/p&gt;
-&lt;p&gt;Filenames can be absolute (the entire path from that computers&apos; perspective) or relative to the current directory. In order to enhance security, most Unix systems will set the path to NOT include the current directory so you don&apos;t accidentally run a copy of a program that happens to exist in the current directory instead of its &quot;normal&quot; location. In order to tell the shell you really mean to run the copy in your current directory, prepend &apos;./&apos; to the program/script name (meaning the path is HERE).&lt;/p&gt;
-&lt;p&gt;If you want to pass in a filename to the command, you can pass in the exact filename, a filename pattern (such as *.pdf for any PDF in the current directory) , or even a &quot;glob&quot; (fancier pattern, such as **/*.pdf for any PDF in the current or any child sub-directory at any depth below). Technically, all 3 are globs. And the fancier glob examples depend on your shell and configuration.&lt;/p&gt;
-&lt;p&gt;Without further ado, here is a manageable list of unix shell commands that all users should be familiar with. At first, they may look cryptic, but that is only because they are abbreviations to make it faster to type them. Once you start dabbling with their options, they may not be so short anymore...&lt;/p&gt;
-&lt;h2&gt;Listing Files&lt;/h2&gt;
-&lt;p&gt;Command | Example | Description&lt;br/&gt;---------|---------|------------&lt;br/&gt;ls | ls –lrtF [dir or file(s)] | LiSt. List file(s) in a directory, with flags for order and extra information&lt;br/&gt;cd | cd &lt;em&gt;dirName&lt;/em&gt; | ChangeDirectory. “..” is up 1 dir, “-“ is previous dir. &lt;strong&gt;NOTE:&lt;/strong&gt; Unix uses “/” instead of Window’s “\”&lt;br/&gt;mkdir | mkdir &lt;em&gt;newDir&lt;/em&gt; | MaKeDIRectory.&lt;br/&gt;cp | cp &lt;em&gt;currentFile&lt;/em&gt; &lt;em&gt;newFile&lt;/em&gt; | CoPy. If destination exists, it will get over-written.&lt;br/&gt;mv | mv &lt;em&gt;currentFile&lt;/em&gt; &lt;em&gt;newFile&lt;/em&gt; | MoVe. (also works for renaming files). If destination exists, it gets over-written.&lt;br/&gt;rm | rm &lt;em&gt;fileToDelete&lt;/em&gt; | ReMove. Deletes a file or set of files.&lt;/p&gt;
-&lt;h2&gt;Viewing text file contents&lt;/h2&gt;
-&lt;p&gt;Command | Example | Description&lt;br/&gt;---------|---------|------------&lt;br/&gt;cat | cat &lt;em&gt;file1&lt;/em&gt; &lt;em&gt;[file2]&lt;/em&gt; | concatenate. Can dump multiple files to the screen (or get re-directed to another file).&lt;br/&gt;more | more &lt;em&gt;longFile&lt;/em&gt; | Displays file 1 page at a time. Page is dynamic to PuTTY screen. Advance using &lt;space&gt;, quit by typing “q”. Also see &quot;less&quot; (&quot;less is more&quot;)&lt;br/&gt;view | view &lt;em&gt;textFile&lt;/em&gt; | Read only vi (text editor). Has advanced searching, scrolling, etc.&lt;br/&gt;grep | grep &lt;em&gt;phrase fileToSearch&lt;/em&gt; | Search inside files. Can be literal strings, or advanced regexp (regular expressions – a huge topic by itself).&lt;br/&gt;head | head [-10] &lt;em&gt;file1&lt;/em&gt; | Display first several lines of a file&lt;br/&gt;tail | tail [-10] &lt;em&gt;file1&lt;/em&gt; | Display last several lines of a file&lt;/p&gt;
-&lt;h2&gt;Documentation&lt;/h2&gt;
-&lt;p&gt;Command | Example | Description&lt;br/&gt;---------|---------|------------&lt;br/&gt;man | man &lt;em&gt;command&lt;/em&gt; | MANual. If you know the command, you can display man pages for it. If you don&apos;t know the command name, use &quot;-k&quot; to search for related keywords to find the command&lt;br/&gt;&lt;em&gt;cmd&lt;/em&gt; --help | man -h | &lt;strong&gt;By convention&lt;/strong&gt;, commands with the option &quot;-h&quot; or &quot;--help&quot; should provide their own documentation. This applies to scripts you develop, too.&lt;/p&gt;
-&lt;h2&gt;Execution/Job Control&lt;/h2&gt;
-&lt;p&gt;Command | Example | Description&lt;br/&gt;---------|---------|------------&lt;br/&gt;ps | ps &lt;em&gt;-efx&lt;/em&gt; | ProccesseS. List running processes and their IDs. Each platform often has different flags/options.&lt;br/&gt;nohup | nohup &lt;em&gt;./localScript.sh&lt;/em&gt; | Prevent interruption. Prepend to other commands so they can’t be killed or accidentally stopped (ie lost terminal connection)&lt;br/&gt;kill | kill -9 &lt;em&gt;processID&lt;/em&gt; | Kill a running process by ID (often called &quot;pid&quot;)&lt;br/&gt;&lt;em&gt;cmd&lt;/em&gt; &amp;amp; | &lt;em&gt;./runLoad.sh&lt;/em&gt; &amp;amp; | Background a command or script. Returns you to the prompt for other commands and lets first command run in “background”&lt;/p&gt;
+	&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One of my favorite features of computers is making them do the work for me.  I tend to think of this as automation.  Command line and shell scripts are a great way to automate tasks.  While Apple has &quot;Automator&quot; and Windows have DOS Batch and PowerShell, Unix shell is my favorite due to its power, availability, and even its philosophy.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Unix shell commands are famous for a philosophy of &quot;do one thing, do it well&quot;, and permit chaining of commands to accomplish more complex tasks.  Breaking complex tasks into discrete steps is a good practice for programming, also.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Before tackling full-blown scripts, it is easier to start by &quot;playing&quot; with the individual commands.  Having a good terminal program can greatly aid this.  Terminals are programs that provide access to the computer&amp;#8217;s shell.  &quot;Console&quot; is the name for a special connection to the first shell of a user&amp;#8217;s login, but is  otherwise like other shell sessions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A good terminal application will provide buffers for scrolling through command &amp;amp; output history, make it easy to copy &amp;amp; paste text.  For example, the DOS Command Prompt is pretty painful for copy/paste (menu &quot;Edit&quot;, then copy or paste) while in some programs, a double-click can select entire path &amp;amp; filenames while a triple-click can select the entire line.  Macs ship with &quot;Terminal.app&quot;, but I prefer to use &lt;a href=&quot;http://www.iterm2.com/#/section/home&quot;&gt;iTerm2&lt;/a&gt;.  When working on Windows machines, I prefer to install &lt;a href=&quot;http://sourceforge.net/projects/console/files/&quot;&gt;Console2&lt;/a&gt;.  You can try out alternatives and find your favorite.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Unix shells are actually an entire set of applications that interpret commands and built-ins (basically look like commands, but are &quot;built in&quot; to the shell.  There are technically many different shells that have different rules for variables, types, globs - but that is outside the scope of this post.  The shell will &quot;prompt&quot; the user for a command.  The default prompt is &quot;$&quot;, while a prompt of &quot;&amp;gt;&amp;gt;&quot; indicates the shell expects more text before it can process the command(s).  However, both are configurable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Filenames can be absolute (the entire path from that computers&apos; perspective) or relative to the current directory.  In order to enhance security, most Unix systems will set the path to NOT include the current directory so you don&amp;#8217;t accidentally run a copy of a program that happens to exist in the current directory instead of its &quot;normal&quot; location.  In order to tell the shell you really mean to run the copy in your current directory, prepend &apos;./&apos; to the program/script name (meaning the path is HERE).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you want to pass in a filename to the command, you can pass in the exact filename, a filename pattern (such as *.pdf for any PDF in the current directory) , or even a &quot;glob&quot; (fancier pattern, such as **/*.pdf for any PDF in the current or any child sub-directory at any depth below).  Technically, all 3 are globs. And the fancier glob examples depend on your shell and configuration.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Without further ado, here is a manageable list of unix shell commands that all users should be familiar with.  At first, they may look cryptic, but that is only because they are abbreviations to make it faster to type them.  Once you start dabbling with their options, they may not be so short anymore&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-all grid-all spread&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 1. Listing Files&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 14%;&quot;&gt;
+&lt;col style=&quot;width: 28%;&quot;&gt;
+&lt;col style=&quot;width: 57%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Command&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Example&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;ls&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;ls –lrtF &amp;lt;dir(s) or file(s)&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;LiSt.  List file(s) in a directory, with flags for order and extra information&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;cd&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;cd &amp;lt;dir name&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;ChangeDirectory.  “..” is up 1 dir, “-“ is previous dir. &lt;strong&gt;NOTE:&lt;/strong&gt; Unix uses “/” instead of Window’s “\”&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;mkdir&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;mkdir &amp;lt;newDir&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;MaKeDIRectory.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;cp&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;cp &amp;lt;currentFile&amp;gt; &amp;lt;newFile&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;CoPy.  If destination exists, it will get over-written.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;mv&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;mv &amp;lt;currentFile&amp;gt; &amp;lt;newFile&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;MoVe.  (also works for renaming files).  If destination exists, it gets over-written.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;rm&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;rm &amp;lt;fileToDelete&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;ReMove.  Deletes a file or set of files.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class=&quot;tableblock frame-all grid-all spread&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 2. Viewing text file contents&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 14%;&quot;&gt;
+&lt;col style=&quot;width: 28%;&quot;&gt;
+&lt;col style=&quot;width: 57%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Command&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Example&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;cat&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;cat &amp;lt;file(s)&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;concatenate.  Can dump multiple files to the screen (or get re-directed to another file).&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;more&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;more &amp;lt;longFile&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Displays file 1 page at a time.  Page is dynamic to PuTTY screen.  Advance using &amp;lt;space&amp;gt;, quit by typing “q”.  Also see &quot;less&quot; (&quot;less is more&quot;)&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;view&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;view &amp;lt;textFile&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Read only vi (text editor).  Has advanced searching, scrolling, etc.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;grep&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;grep &amp;lt;phrase&amp;gt; &amp;lt;fileToSearch&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Search inside files.  Can be literal strings, or advanced regexp (regular expressions – a huge topic by itself).&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;head&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;head [-10] &amp;lt;file(s)&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Display first several lines of a file&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;tail&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;tail [-10] &amp;lt;file(s)&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Display last several lines of a file&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class=&quot;tableblock frame-all grid-all spread&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 3. Documentation&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 14%;&quot;&gt;
+&lt;col style=&quot;width: 28%;&quot;&gt;
+&lt;col style=&quot;width: 57%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Command&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Example&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;man&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;man &amp;lt;command&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;MANual.  If you know the command, you can display man pages for it.  If you don&amp;#8217;t know the command name, use &quot;-k&quot; to search for related keywords to find the command&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;cmd&lt;/em&gt; --help&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;man -h&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;By convention&lt;/strong&gt;, commands with the option &quot;-h&quot; or &quot;--help&quot; should provide their own documentation. This applies to scripts you develop, too.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class=&quot;tableblock frame-all grid-all spread&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 4. Execution/Job Control&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 14%;&quot;&gt;
+&lt;col style=&quot;width: 28%;&quot;&gt;
+&lt;col style=&quot;width: 57%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Command&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Example&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;ps&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;ps -efx&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;ProccesseS.  List running processes and their IDs.  Each platform often has different flags/options.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;nohup&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;nohup &lt;em&gt;./localScript.sh&lt;/em&gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Prevent interruption.  Prepend to other commands so they can’t be killed or accidentally stopped (ie lost terminal connection)&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;kill&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;kill -9 &amp;lt;PID&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Kill a running process by ID (often called &quot;pid&quot;)&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;cmd&lt;/em&gt; &amp;amp;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&lt;em&gt;./runLoad.sh&lt;/em&gt; &amp;amp;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Background a command or script.  Returns you to the prompt for other commands and lets first command run in “background”&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 	</description>
     </item>
     <item>
@@ -1031,40 +1197,145 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Thu, 24 Jan 2008 00:00:00 -0700</pubDate>
       <guid isPermaLink="false">blog/2008/2008-01-24-sql-null-is-not-comparable.html</guid>
       	<description>
-	&lt;p&gt;I am starting out with one of my more common mistakes - comparing fields that may be null. In C or programmatical languages, a NULL would equal a NULL. However in SQL, that isn&apos;t the case.&lt;/p&gt;
+	&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I am starting out with one of my more common mistakes - comparing fields that may be null. In C or programmatical languages, a NULL would equal a NULL. However in SQL, that isn&amp;#8217;t the case.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;An artificial example is:&lt;/p&gt;
-&lt;p&gt;table: &lt;strong&gt;addresses&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;fName | mInit | lName | data&lt;br/&gt;-------|-------|-------|-----&lt;br/&gt;George | null | Washington | &lt;em&gt;blah&lt;/em&gt;&lt;br/&gt;John | null | Adams | &lt;em&gt;blah&lt;/em&gt;&lt;br/&gt;John | Q | Adams | &lt;em&gt;blah&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;table: &lt;strong&gt;orders&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;fName | mInit | lName | data&lt;br/&gt;-------|-------|-------|-----&lt;br/&gt;John | Q | Adams | &lt;em&gt;blah&lt;/em&gt;&lt;br/&gt;John | null | Adams | &lt;em&gt;blah&lt;/em&gt;&lt;br/&gt;George | null | Washington | &lt;em&gt;blah&lt;/em&gt;&lt;/p&gt;
-&lt;h2&gt;Wrong Query&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;SELECT *
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-all grid-all spread&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 1. Addresses&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;fName&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;mInit&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;lName&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;data&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;George&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;null&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Washington&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;blah&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;John&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;null&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Adams&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;blah&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;John&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Q&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Adams&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;blah&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class=&quot;tableblock frame-all grid-all spread&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 2. Orders&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;fName&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;mInit&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;lName&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;data&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;John&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Q&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Adams&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;blah&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;John&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;null&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Adams&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;blah&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;George&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;null&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Washington&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;blah&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_wrong_query&quot;&gt;Wrong Query&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName
-  AND a.mInit = o.mInit
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This returns less records than expected because if mInit column is null for &quot;John Adams&quot; in both tables, it still doesn&apos;t match. There are generally 2 options for addressing this:&lt;/p&gt;
+  AND a.mInit = o.mInit&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This returns less records than expected because if mInit column is null for &quot;John Adams&quot; in both tables, it still doesn&amp;#8217;t match. There are generally 2 options for addressing this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
 &lt;ul&gt;
-  &lt;li&gt;run a function on the nullable columns so null values get cast to a comparable value&lt;/li&gt;
-  &lt;li&gt;add an OR clause where both columns are null&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;run a function on the nullable columns so null values get cast to a comparable value&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;add an OR clause where both columns are null&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;Solutions:&lt;/h2&gt;
-&lt;h3&gt;cast null values via functions:&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;SELECT *
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_solutions&quot;&gt;Solutions:&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_cast_null_values_via_functions&quot;&gt;cast null values via functions:&lt;/h3&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName
-  AND NVL(a.mInit, &amp;quot;&amp;quot;) = NVL(o.mInit, &amp;quot;&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;extra clauses&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;SELECT *
+  AND NVL(a.mInit, &quot;&quot;) = NVL(o.mInit, &quot;&quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_extra_clauses&quot;&gt;extra clauses&lt;/h3&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName
-  AND ( (a.mInit = o.mInit) OR (a.mInit IS NULL AND o.mInit IS NULL) )
-&lt;/code&gt;&lt;/pre&gt;
+  AND ( (a.mInit = o.mInit) OR (a.mInit IS NULL AND o.mInit IS NULL) )&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Neither option is fun (extra code, which is often less readable, or performance hits), but basically required when joining relational tables. If you are comparing similar tables, then you can take advantage of set operators (such as minus/intersect/union in Oracle) and bypass this problem.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 	</description>
     </item>
 

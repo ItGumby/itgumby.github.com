@@ -40,21 +40,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../../">IT Gumby's blog</a>
+          <a class="navbar-brand" href="/index.html">IT Gumby's blog</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.html">Blog</a></li>
-            <li><a href="about.html">About Me</a></li>
-            <li><a href="presentations.html">Presentations</a></li>
+            <li><a href="/archive.html">Blog Archive</a></li>
+            <li><a href="/presentations.html">Presentations</a></li>
+            <li><a href="/about.html">About Me</a></li>
             <li><a href="feed.xml">RSS</a></li>
-            <li><a href="https://github.com/itgumby"><i class="fa fa-github"></i>My GitHub</a></li>
-            <li><a href="https://twitter.com/itgumby"><i class="fa fa-twitter"></i>My Twitter</a></li>
+            <li><a href="https://github.com/itgumby">GitHub<i class="fa fa-github"></i></a></li>
+            <li><a href="https://twitter.com/itgumby">Twitter<i class="fa fa-twitter"></i></a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
-    <div class="container">	<div class="page-header">
+    <div class="container">
+	<div class="page-header">
 		<h1>SQL NULL is not comparable</h1>
 	</div>
 
@@ -63,40 +64,145 @@
 		<a href="/tags/SQL.html">SQL</a> 
 	</p>
 
-	<p><p>I am starting out with one of my more common mistakes - comparing fields that may be null. In C or programmatical languages, a NULL would equal a NULL. However in SQL, that isn't the case.</p>
+	<p><div class="paragraph">
+<p>I am starting out with one of my more common mistakes - comparing fields that may be null. In C or programmatical languages, a NULL would equal a NULL. However in SQL, that isn&#8217;t the case.</p>
+</div>
+<div class="paragraph">
 <p>An artificial example is:</p>
-<p>table: <strong>addresses</strong></p>
-<p>fName | mInit | lName | data<br/>-------|-------|-------|-----<br/>George | null | Washington | <em>blah</em><br/>John | null | Adams | <em>blah</em><br/>John | Q | Adams | <em>blah</em></p>
-<p>table: <strong>orders</strong></p>
-<p>fName | mInit | lName | data<br/>-------|-------|-------|-----<br/>John | Q | Adams | <em>blah</em><br/>John | null | Adams | <em>blah</em><br/>George | null | Washington | <em>blah</em></p>
-<h2>Wrong Query</h2>
-<pre><code>SELECT *
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. Addresses</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">fName</th>
+<th class="tableblock halign-left valign-top">mInit</th>
+<th class="tableblock halign-left valign-top">lName</th>
+<th class="tableblock halign-left valign-top">data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">George</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Washington</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>blah</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">John</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adams</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>blah</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">John</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Q</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adams</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>blah</em></p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. Orders</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">fName</th>
+<th class="tableblock halign-left valign-top">mInit</th>
+<th class="tableblock halign-left valign-top">lName</th>
+<th class="tableblock halign-left valign-top">data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">John</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Q</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adams</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>blah</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">John</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adams</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>blah</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">George</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Washington</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>blah</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect1">
+<h2 id="_wrong_query">Wrong Query</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-sql" data-lang="sql">SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName
-  AND a.mInit = o.mInit
-</code></pre>
-<p>This returns less records than expected because if mInit column is null for "John Adams" in both tables, it still doesn't match. There are generally 2 options for addressing this:</p>
+  AND a.mInit = o.mInit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This returns less records than expected because if mInit column is null for "John Adams" in both tables, it still doesn&#8217;t match. There are generally 2 options for addressing this:</p>
+</div>
+<div class="ulist">
 <ul>
-  <li>run a function on the nullable columns so null values get cast to a comparable value</li>
-  <li>add an OR clause where both columns are null</li>
+<li>
+<p>run a function on the nullable columns so null values get cast to a comparable value</p>
+</li>
+<li>
+<p>add an OR clause where both columns are null</p>
+</li>
 </ul>
-<h2>Solutions:</h2>
-<h3>cast null values via functions:</h3>
-<pre><code>SELECT *
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solutions">Solutions:</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_cast_null_values_via_functions">cast null values via functions:</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-sql" data-lang="sql">SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName
-  AND NVL(a.mInit, &quot;&quot;) = NVL(o.mInit, &quot;&quot;)
-</code></pre>
-<h3>extra clauses</h3>
-<pre><code>SELECT *
+  AND NVL(a.mInit, "") = NVL(o.mInit, "")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_extra_clauses">extra clauses</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-sql" data-lang="sql">SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName
-  AND ( (a.mInit = o.mInit) OR (a.mInit IS NULL AND o.mInit IS NULL) )
-</code></pre>
-<p>Neither option is fun (extra code, which is often less readable, or performance hits), but basically required when joining relational tables. If you are comparing similar tables, then you can take advantage of set operators (such as minus/intersect/union in Oracle) and bypass this problem.</p></p>
+  AND ( (a.mInit = o.mInit) OR (a.mInit IS NULL AND o.mInit IS NULL) )</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Neither option is fun (extra code, which is often less readable, or performance hits), but basically required when joining relational tables. If you are comparing similar tables, then you can take advantage of set operators (such as minus/intersect/union in Oracle) and bypass this problem.</p>
+</div>
+</div>
+</div>
+</div></p>
 	<hr />
 		</div>
 		<div id="push"></div>
