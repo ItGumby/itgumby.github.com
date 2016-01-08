@@ -66,8 +66,7 @@
 		<a href="/tags/GithubPages.html">GithubPages</a> 
 	</p>
 
-	<p><h1>Installation Steps</h1>
-<h2>Prepare</h2>
+	<p><h1>Installation Steps</h1><h2>Prepare</h2>
 <ol>
   <li>Ruby Versions <a href="http://octopress.org/docs/setup/rvm/">Ruby with RVM</a> or RBENV</li>
 </ol>
@@ -83,66 +82,57 @@
   <li>future: create asciidoc plugin: <a href="http://jekyllrb.com/docs/contributing/">Contribute Plugin</a></li>
   <li>revisit: 3rd Party Settings: [G+, Disqus, GA]</li>
   <li>dickens of a time pushing local source branch
-    <ul>
-      <li>change <code>git config --global push.default current</code></li>
-      <li>change <code>git branch --set-upstream source origin/source</code></li>
-    </ul>
-  </li>
-</ul>
-<h2>New Post</h2>
+  <ul>
+    <li>change <code>git config --global push.default current</code></li>
+    <li>change <code>git branch --set-upstream source origin/source</code></li>
+  </ul></li>
+</ul><h2>New Post</h2>
 <ul>
   <li>Blogging <a href="http://octopress.org/docs/blogging/">Octopress Blogging Basics</a></li>
   <li>New Post: <code>rake new_post[&quot;post name&quot;]</code>
-    <ul>
-      <li>"Rakefile" dictates the created file</li>
-      <li>default new file: <code>source/_posts/YYYY-MM-DD-post-name.markdown</code></li>
-      <li>optional <a href="http://jekyllrb.com/docs/frontmatter/">yaml front matter</a></li>
-      <li>author: Your Name</li>
-      <li>published: false <em># prevents article posting</em></li>
-      <li>categories: [CSS3, Sass, Media Queries] <em># single, list, or even dash per line</em></li>
-    </ul>
-  </li>
+  <ul>
+    <li>"Rakefile" dictates the created file</li>
+    <li>default new file: <code>source/_posts/YYYY-MM-DD-post-name.markdown</code></li>
+    <li>optional <a href="http://jekyllrb.com/docs/frontmatter/">yaml front matter</a></li>
+    <li>author: Your Name</li>
+    <li>published: false <em># prevents article posting</em></li>
+    <li>categories: [CSS3, Sass, Media Queries] <em># single, list, or even dash per line</em></li>
+  </ul></li>
   <li>New Page: <code>rake new_page[about]</code>
-    <ul>
-      <li>=&gt; ${SITE}/about.html</li>
-      <li>if <code>rake new_page[about/index.markdown]</code> =&gt; ${SITE}/about/</li>
-    </ul>
-  </li>
+  <ul>
+    <li>=&gt; ${SITE}/about.html</li>
+    <li>if <code>rake new_page[about/index.markdown]</code> =&gt; ${SITE}/about/</li>
+  </ul></li>
   <li>Page Content
-    <ul>
-      <li><a href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers">Liquid Template features</a></li>
-      <li><a href="http://jekyllrb.com/docs/variables/">Page Variables</a></li>
-      <li><a href="http://octopress.org/docs/blogging/code/">embedded code</a></li>
-      <li>import into page <a href="http://octopress.org/docs/plugins/render-partial/">render partial</a></li>
-    </ul>
-  </li>
-</ul>
-<h3>Preview, Publish</h3>
+  <ul>
+    <li><a href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers">Liquid Template features</a></li>
+    <li><a href="http://jekyllrb.com/docs/variables/">Page Variables</a></li>
+    <li><a href="http://octopress.org/docs/blogging/code/">embedded code</a></li>
+    <li>import into page <a href="http://octopress.org/docs/plugins/render-partial/">render partial</a></li>
+  </ul></li>
+</ul><h3>Preview, Publish</h3>
 <ul>
   <li>Generate, Preview
-    <ol>
-      <li><code>rake generate</code> <em># Generates posts and pages into the public directory</em></li>
-    </ol>
-    <ul>
-      <li><code>rake watch</code> <em># Watches source/ and sass/ for changes and regenerates</em></li>
-      <li><code>rake preview</code> # Watches, and mounts a webserver at <a href="http://localhost:4000">http://localhost:4000</a></li>
-    </ul>
-  </li>
+  <ol>
+    <li><code>rake generate</code> <em># Generates posts and pages into the public directory</em></li>
+  </ol>
+  <ul>
+    <li><code>rake watch</code> <em># Watches source/ and sass/ for changes and regenerates</em></li>
+    <li><code>rake preview</code> # Watches, and mounts a webserver at <a href="http://localhost:4000">http://localhost:4000</a></li>
+  </ul></li>
   <li>Changes to branch <code>source</code>
-    <ol>
-      <li>git checkout source</li>
-    </ol>
-    <ul>
-      <li><code>rake new_post[&quot;My Post&quot;]</code> <em># may need to do in correct shell (for me, bash instead of zsh)</em></li>
-      <li>edit post <code>./source/_posts/YYYY-MM-DD-my-post.markdown</code></li>
-      <li>generate HTML (repeat <code>rake generate; rake watch; rake preview</code> until satisfied)</li>
-      <li>add source changes <code>git add .; git commit -m &quot;My Post&quot;</code></li>
-      <li>push source changes <code>git push origin source</code></li>
-      <li>push generated HTML <code>rake deploy</code></li>
-    </ul>
-  </li>
-</ul>
-<h2>Future Enhancements</h2>
+  <ol>
+    <li>git checkout source</li>
+  </ol>
+  <ul>
+    <li><code>rake new_post[&quot;My Post&quot;]</code> <em># may need to do in correct shell (for me, bash instead of zsh)</em></li>
+    <li>edit post <code>./source/_posts/YYYY-MM-DD-my-post.markdown</code></li>
+    <li>generate HTML (repeat <code>rake generate; rake watch; rake preview</code> until satisfied)</li>
+    <li>add source changes <code>git add .; git commit -m &quot;My Post&quot;</code></li>
+    <li>push source changes <code>git push origin source</code></li>
+    <li>push generated HTML <code>rake deploy</code></li>
+  </ul></li>
+</ul><h2>Future Enhancements</h2>
 <ul>
   <li>themes: <a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">Octopress Themes</a> or roll your own</li>
   <li><a href="http://erikschwartz.net/jekyll-for-the-masses/">Prose.io Makes Jekyll Feel Like Wordpress</a></li>

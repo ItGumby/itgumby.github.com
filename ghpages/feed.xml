@@ -6,8 +6,8 @@
     <atom:link href="http://itgumby.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>IT Gumby's blog RSS feed</description>
     <language>en-US</language>
-    <pubDate>Sun, 3 Jan 2016 22:05:29 -0700</pubDate>
-    <lastBuildDate>Sun, 3 Jan 2016 22:05:29 -0700</lastBuildDate>
+    <pubDate>Fri, 8 Jan 2016 16:00:36 -0700</pubDate>
+    <lastBuildDate>Fri, 8 Jan 2016 16:00:36 -0700</lastBuildDate>
 
     <item>
       <title>Simple SOAP Example</title>
@@ -875,13 +875,7 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Sun, 2 Jun 2013 00:00:00 -0600</pubDate>
       <guid isPermaLink="false">blog/2013/2013-06-02-ghp-with-octopress.html</guid>
       	<description>
-	&lt;h2&gt;Static Site Generators FTW&lt;/h2&gt;
-&lt;p&gt;A long, long time ago, on web far, far away, the original developers of the web built static pages by hand. Soon, tooling caught up and templates could assemble pages pages together from &quot;content&quot; stored in other sources (usually databases). Eventually, personalization meant every page would be built per request. Since servers had to generate each page instead of returning pre-built files, their scalability was limited.&lt;/p&gt;
-&lt;p&gt;Two concepts came to the rescue: REST and Dynamic HTML (which evolved into AJAX). &lt;a href=&quot;http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm&quot;&gt;Representaional State Transfer or REST&lt;/a&gt; posited that &lt;em&gt;resources&lt;/em&gt; could be more cacheable. And DHTML/AJAX made it common to Create, Replace, Update or Delete &lt;em&gt;portions&lt;/em&gt; of a page. By applying these concepts intelligently, most, if not all, of the pages could be stored and reused. This &lt;em&gt;caching&lt;/em&gt; could be done at different layers, from the data source, to inside the app servers to even the web server.&lt;/p&gt;
-&lt;p&gt;With flexible caching strategies, the generation from templates can be moved around and execute less frequently. In the case of blog content, generation only needs to happen at original post and repeated for any edits. (Comments can be AJAX&apos;ed away or moved to external services, such as &lt;a href=&quot;http://disqus.com/&quot;&gt;Disqus&lt;/a&gt;.) Flexible generation also allowed questioning the &lt;em&gt;data sources&lt;/em&gt;. Databases had long been the most common data source. But they frequently have specialized administrators. Also, databases excel at structured content while web content is ... well, frequently unstructured.&lt;/p&gt;
-&lt;p&gt;Part of &lt;em&gt;&lt;a href=&quot;http://alistapart.com/article/thedisciplineofcontentstrategy&quot;&gt;Content Strategy&lt;/a&gt;&lt;/em&gt; is letting the authors focus on the &lt;em&gt;content&lt;/em&gt;. The content itself may have some structure, but time spent formatting or determining how to get into the data source is wasted effort. &lt;a href=&quot;http://en.wikipedia.org/wiki/Markdown&quot;&gt;MarkDown&lt;/a&gt; and &lt;a href=&quot;http://asciidoctor.org/docs/asciidoc-writers-guide/&quot;&gt;AsciiDoc&lt;/a&gt; have stepped in as generic converters of plain text into HTML. Both focus on the content with minimal syntax or formatting to distract the author from his or her message. &lt;em&gt;Static Site Generators&lt;/em&gt; use some markup flavor with a template engine in a large variety of languages to build static web pages. One of the most popular and mature solutions is &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;, a Ruby solution that transforms &quot;your plain text into static websites and blogs.&quot; Part of its popularity, especially among developers, is jekyll support in &lt;a href=&quot;http://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt;.&lt;/p&gt;
-&lt;h2&gt;Pros and Cons of Static Site Generators&lt;/h2&gt;
-&lt;p&gt;I built this list by borrowing heavily from &lt;a href=&quot;http://www.mickgardner.com/2012/12/an-introduction-to-static-site.html&quot;&gt;An Intro to Static Site Generators&lt;/a&gt;&lt;/p&gt;
+	&lt;h2&gt;Static Site Generators FTW&lt;/h2&gt;&lt;p&gt;A long, long time ago, on web far, far away, the original developers of the web built static pages by hand. Soon, tooling caught up and templates could assemble pages pages together from &quot;content&quot; stored in other sources (usually databases). Eventually, personalization meant every page would be built per request. Since servers had to generate each page instead of returning pre-built files, their scalability was limited.&lt;/p&gt;&lt;p&gt;Two concepts came to the rescue: REST and Dynamic HTML (which evolved into AJAX). &lt;a href=&quot;http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm&quot;&gt;Representaional State Transfer or REST&lt;/a&gt; posited that &lt;em&gt;resources&lt;/em&gt; could be more cacheable. And DHTML/AJAX made it common to Create, Replace, Update or Delete &lt;em&gt;portions&lt;/em&gt; of a page. By applying these concepts intelligently, most, if not all, of the pages could be stored and reused. This &lt;em&gt;caching&lt;/em&gt; could be done at different layers, from the data source, to inside the app servers to even the web server.&lt;/p&gt;&lt;p&gt;With flexible caching strategies, the generation from templates can be moved around and execute less frequently. In the case of blog content, generation only needs to happen at original post and repeated for any edits. (Comments can be AJAX&apos;ed away or moved to external services, such as &lt;a href=&quot;http://disqus.com/&quot;&gt;Disqus&lt;/a&gt;.) Flexible generation also allowed questioning the &lt;em&gt;data sources&lt;/em&gt;. Databases had long been the most common data source. But they frequently have specialized administrators. Also, databases excel at structured content while web content is ... well, frequently unstructured.&lt;/p&gt;&lt;p&gt;Part of &lt;em&gt;&lt;a href=&quot;http://alistapart.com/article/thedisciplineofcontentstrategy&quot;&gt;Content Strategy&lt;/a&gt;&lt;/em&gt; is letting the authors focus on the &lt;em&gt;content&lt;/em&gt;. The content itself may have some structure, but time spent formatting or determining how to get into the data source is wasted effort. &lt;a href=&quot;http://en.wikipedia.org/wiki/Markdown&quot;&gt;MarkDown&lt;/a&gt; and &lt;a href=&quot;http://asciidoctor.org/docs/asciidoc-writers-guide/&quot;&gt;AsciiDoc&lt;/a&gt; have stepped in as generic converters of plain text into HTML. Both focus on the content with minimal syntax or formatting to distract the author from his or her message. &lt;em&gt;Static Site Generators&lt;/em&gt; use some markup flavor with a template engine in a large variety of languages to build static web pages. One of the most popular and mature solutions is &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;, a Ruby solution that transforms &quot;your plain text into static websites and blogs.&quot; Part of its popularity, especially among developers, is jekyll support in &lt;a href=&quot;http://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;Pros and Cons of Static Site Generators&lt;/h2&gt;&lt;p&gt;I built this list by borrowing heavily from &lt;a href=&quot;http://www.mickgardner.com/2012/12/an-introduction-to-static-site.html&quot;&gt;An Intro to Static Site Generators&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;+ Security. No database or live templates to compromise with static content.&lt;/li&gt;
   &lt;li&gt;+ Performance. Just serving files, so web servers have less work to do.&lt;/li&gt;
@@ -890,9 +884,7 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
   &lt;li&gt;+ Scalability. If you have more load, add more web servers and rsync (or other copy) the content over.&lt;/li&gt;
   &lt;li&gt;- Updates require generator computers (hard to do from your phone). Some other tools exist to relieve this.&lt;/li&gt;
   &lt;li&gt;- Dynamic content requires external services or tools.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Extending Jekyll&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;http://octopress.org/&quot;&gt;Octopress&lt;/a&gt; is built on top of Jekyll, so it carries forth all the strengths of it. Octopress starts with smart defaults, such as HTML5 support and &quot;&lt;a href=&quot;http://www.lukew.com/resources/mobile_first.asp&quot;&gt;Mobile First&lt;/a&gt;&quot; responsive design. Its plugin architecture to make it easy to turn features on and off, such as:&lt;/p&gt;
+&lt;/ul&gt;&lt;h2&gt;Extending Jekyll&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://octopress.org/&quot;&gt;Octopress&lt;/a&gt; is built on top of Jekyll, so it carries forth all the strengths of it. Octopress starts with smart defaults, such as HTML5 support and &quot;&lt;a href=&quot;http://www.lukew.com/resources/mobile_first.asp&quot;&gt;Mobile First&lt;/a&gt;&quot; responsive design. Its plugin architecture to make it easy to turn features on and off, such as:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Social Integration of Twitter, Google+, Disqus comments&lt;/li&gt;
   &lt;li&gt;HTML5 philosophy, including video tags&lt;/li&gt;
@@ -901,8 +893,7 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
   &lt;li&gt;Themes: &lt;a href=&quot;https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes&quot;&gt;3rd Party&lt;/a&gt; or build your own&lt;/li&gt;
   &lt;li&gt;Category generation&lt;/li&gt;
   &lt;li&gt;Analytics&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Related Posts&lt;/h2&gt;
+&lt;/ul&gt;&lt;h2&gt;Related Posts&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://thepaulrayner.com/blog/2013/02/04/blogging-with-octopress-and-github-pages/&quot;&gt;Paul Rayner &quot;Blogging With Octopress and Github Pages&quot;&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.neilsmithline.com/2013/03/octopress-is-pretty-great.html&quot;&gt;Neil Smith &quot;Octopress is Pretty Great&quot;&lt;/a&gt;&lt;/li&gt;
@@ -917,8 +908,7 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Sun, 2 Jun 2013 00:00:00 -0600</pubDate>
       <guid isPermaLink="false">blog/2013/2013-06-03-octopress-first-steps.html</guid>
       	<description>
-	&lt;h1&gt;Installation Steps&lt;/h1&gt;
-&lt;h2&gt;Prepare&lt;/h2&gt;
+	&lt;h1&gt;Installation Steps&lt;/h1&gt;&lt;h2&gt;Prepare&lt;/h2&gt;
 &lt;ol&gt;
   &lt;li&gt;Ruby Versions &lt;a href=&quot;http://octopress.org/docs/setup/rvm/&quot;&gt;Ruby with RVM&lt;/a&gt; or RBENV&lt;/li&gt;
 &lt;/ol&gt;
@@ -934,66 +924,57 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
   &lt;li&gt;future: create asciidoc plugin: &lt;a href=&quot;http://jekyllrb.com/docs/contributing/&quot;&gt;Contribute Plugin&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;revisit: 3rd Party Settings: [G+, Disqus, GA]&lt;/li&gt;
   &lt;li&gt;dickens of a time pushing local source branch
-    &lt;ul&gt;
-      &lt;li&gt;change &lt;code&gt;git config --global push.default current&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;change &lt;code&gt;git branch --set-upstream source origin/source&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;New Post&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;change &lt;code&gt;git config --global push.default current&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;change &lt;code&gt;git branch --set-upstream source origin/source&lt;/code&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;New Post&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;Blogging &lt;a href=&quot;http://octopress.org/docs/blogging/&quot;&gt;Octopress Blogging Basics&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;New Post: &lt;code&gt;rake new_post[&amp;quot;post name&amp;quot;]&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&quot;Rakefile&quot; dictates the created file&lt;/li&gt;
-      &lt;li&gt;default new file: &lt;code&gt;source/_posts/YYYY-MM-DD-post-name.markdown&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;optional &lt;a href=&quot;http://jekyllrb.com/docs/frontmatter/&quot;&gt;yaml front matter&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;author: Your Name&lt;/li&gt;
-      &lt;li&gt;published: false &lt;em&gt;# prevents article posting&lt;/em&gt;&lt;/li&gt;
-      &lt;li&gt;categories: [CSS3, Sass, Media Queries] &lt;em&gt;# single, list, or even dash per line&lt;/em&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&quot;Rakefile&quot; dictates the created file&lt;/li&gt;
+    &lt;li&gt;default new file: &lt;code&gt;source/_posts/YYYY-MM-DD-post-name.markdown&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;optional &lt;a href=&quot;http://jekyllrb.com/docs/frontmatter/&quot;&gt;yaml front matter&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;author: Your Name&lt;/li&gt;
+    &lt;li&gt;published: false &lt;em&gt;# prevents article posting&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;categories: [CSS3, Sass, Media Queries] &lt;em&gt;# single, list, or even dash per line&lt;/em&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
   &lt;li&gt;New Page: &lt;code&gt;rake new_page[about]&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;=&amp;gt; ${SITE}/about.html&lt;/li&gt;
-      &lt;li&gt;if &lt;code&gt;rake new_page[about/index.markdown]&lt;/code&gt; =&amp;gt; ${SITE}/about/&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;=&amp;gt; ${SITE}/about.html&lt;/li&gt;
+    &lt;li&gt;if &lt;code&gt;rake new_page[about/index.markdown]&lt;/code&gt; =&amp;gt; ${SITE}/about/&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
   &lt;li&gt;Page Content
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/Shopify/liquid/wiki/Liquid-for-Designers&quot;&gt;Liquid Template features&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://jekyllrb.com/docs/variables/&quot;&gt;Page Variables&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://octopress.org/docs/blogging/code/&quot;&gt;embedded code&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;import into page &lt;a href=&quot;http://octopress.org/docs/plugins/render-partial/&quot;&gt;render partial&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;Preview, Publish&lt;/h3&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;https://github.com/Shopify/liquid/wiki/Liquid-for-Designers&quot;&gt;Liquid Template features&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://jekyllrb.com/docs/variables/&quot;&gt;Page Variables&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://octopress.org/docs/blogging/code/&quot;&gt;embedded code&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;import into page &lt;a href=&quot;http://octopress.org/docs/plugins/render-partial/&quot;&gt;render partial&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h3&gt;Preview, Publish&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;Generate, Preview
-    &lt;ol&gt;
-      &lt;li&gt;&lt;code&gt;rake generate&lt;/code&gt; &lt;em&gt;# Generates posts and pages into the public directory&lt;/em&gt;&lt;/li&gt;
-    &lt;/ol&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code&gt;rake watch&lt;/code&gt; &lt;em&gt;# Watches source/ and sass/ for changes and regenerates&lt;/em&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;code&gt;rake preview&lt;/code&gt; # Watches, and mounts a webserver at &lt;a href=&quot;http://localhost:4000&quot;&gt;http://localhost:4000&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;code&gt;rake generate&lt;/code&gt; &lt;em&gt;# Generates posts and pages into the public directory&lt;/em&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;code&gt;rake watch&lt;/code&gt; &lt;em&gt;# Watches source/ and sass/ for changes and regenerates&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;rake preview&lt;/code&gt; # Watches, and mounts a webserver at &lt;a href=&quot;http://localhost:4000&quot;&gt;http://localhost:4000&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
   &lt;li&gt;Changes to branch &lt;code&gt;source&lt;/code&gt;
-    &lt;ol&gt;
-      &lt;li&gt;git checkout source&lt;/li&gt;
-    &lt;/ol&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code&gt;rake new_post[&amp;quot;My Post&amp;quot;]&lt;/code&gt; &lt;em&gt;# may need to do in correct shell (for me, bash instead of zsh)&lt;/em&gt;&lt;/li&gt;
-      &lt;li&gt;edit post &lt;code&gt;./source/_posts/YYYY-MM-DD-my-post.markdown&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;generate HTML (repeat &lt;code&gt;rake generate; rake watch; rake preview&lt;/code&gt; until satisfied)&lt;/li&gt;
-      &lt;li&gt;add source changes &lt;code&gt;git add .; git commit -m &amp;quot;My Post&amp;quot;&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;push source changes &lt;code&gt;git push origin source&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;push generated HTML &lt;code&gt;rake deploy&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Future Enhancements&lt;/h2&gt;
+  &lt;ol&gt;
+    &lt;li&gt;git checkout source&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;code&gt;rake new_post[&amp;quot;My Post&amp;quot;]&lt;/code&gt; &lt;em&gt;# may need to do in correct shell (for me, bash instead of zsh)&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;edit post &lt;code&gt;./source/_posts/YYYY-MM-DD-my-post.markdown&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;generate HTML (repeat &lt;code&gt;rake generate; rake watch; rake preview&lt;/code&gt; until satisfied)&lt;/li&gt;
+    &lt;li&gt;add source changes &lt;code&gt;git add .; git commit -m &amp;quot;My Post&amp;quot;&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;push source changes &lt;code&gt;git push origin source&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;push generated HTML &lt;code&gt;rake deploy&lt;/code&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;Future Enhancements&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;themes: &lt;a href=&quot;https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes&quot;&gt;Octopress Themes&lt;/a&gt; or roll your own&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://erikschwartz.net/jekyll-for-the-masses/&quot;&gt;Prose.io Makes Jekyll Feel Like Wordpress&lt;/a&gt;&lt;/li&gt;
