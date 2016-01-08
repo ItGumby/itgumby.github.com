@@ -12,7 +12,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/archive.html">Blog Archive</a></li>
+            <li><a href="/archive.html">Archive</a></li>
             <li><a href="/presentations.html">Presentations</a></li>
             <li><a href="/about.html">About Me</a></li>
             <li><a href="${config.feed_file}">RSS</a></li>
