@@ -1,0 +1,12 @@
+title=Oops!
+date=2016-01-02
+type=archive
+status=published
+~~~~~~
+
+== Oops!!!
+
+I apologize if you were attempting to access a previous page from the site.
+I will attempt to create some redirects that will forward you to current content.
+
+If that doesn't work, I hope you can find the post you were looking for below:
