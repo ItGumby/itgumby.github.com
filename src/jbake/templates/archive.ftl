@@ -18,7 +18,7 @@
 			<ul>
 		</#if>
 
-		<li>${post.date?string("yyyy MMM dd")} - <a href="${content.rootpath}${post.uri}"><#escape x as x?xml>${post.title}</#escape></a></li>
+		<li>${post.date?string("yyyy-MMM-dd")} - <a href="${content.rootpath}${post.uri}"><#escape x as x?xml>${post.title}</#escape></a></li>
 		<#assign prev_year = post.date?string("yyyy")>
 		</#list>
 	</ul>
