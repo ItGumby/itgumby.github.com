@@ -44,7 +44,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/archive.html">Blog Archive</a></li>
+            <li><a href="/archive.html">Archive</a></li>
             <li><a href="/presentations.html">Presentations</a></li>
             <li><a href="/about.html">About Me</a></li>
             <li><a href="feed.xml">RSS</a></li>
@@ -66,6 +66,13 @@ I will attempt to create some redirects that will forward you to current content
 <div class="paragraph">
 <p>If that doesn&#8217;t work, I hope you can find the post you were looking for below:</p>
 </div>
+<script type="text/javascript">
+  // trim octopress trailing slash, paths & folders, and any leading dates
+  var reqPage = document.location.pathname.replace(/\/$/, '').replace(/^.*\//, '').replace(/^[-0-9]*/, '');
+  document.getElementsByTagName('a').forEach(function(el) {
+    if (el['href'].match(reqPage)) window.location.replace = el['href'];
+  });
+</script>
 </div>
 </div>
 
@@ -75,30 +82,30 @@ I will attempt to create some redirects that will forward you to current content
 			<h4>2014</h4>
 			<ul>
 
-		<li>2014 Oct 23 - <a href="blog/2014/2014-10-21-simple-soap-example.html">Simple SOAP Example</a></li>
+		<li>2014-Oct-23 - <a href="blog/2014/simple-soap-example.html">Simple SOAP Example</a></li>
 
-		<li>2014 Oct 09 - <a href="blog/2014/2014-10-09-cq-queries-demystified.html">CQ Queries Demystified</a></li>
+		<li>2014-Oct-09 - <a href="blog/2014/cq-queries-demystified.html">CQ Queries Demystified</a></li>
 
-		<li>2014 Feb 16 - <a href="blog/2014/2014-02-16-cq-defineObjects-cheatsheet.html">CQ5 resource - &lt;cq:defineObjects/&gt; CheatSheet</a></li>
+		<li>2014-Feb-16 - <a href="blog/2014/cq-defineObjects-cheatsheet.html">CQ5 resource - &lt;cq:defineObjects/&gt; CheatSheet</a></li>
 				</ul>
 				<h4>2013</h4>
 				<ul>
 
-		<li>2013 Nov 23 - <a href="blog/2013/2013-11-23-the-evolution-of-looping.html">The Evolution of Looping</a></li>
+		<li>2013-Nov-23 - <a href="blog/2013/the-evolution-of-looping.html">The Evolution of Looping</a></li>
 
-		<li>2013 Jun 02 - <a href="blog/2013/2013-06-02-ghp-with-octopress.html">Why Octopress</a></li>
+		<li>2013-Jun-02 - <a href="blog/2013/ghp-with-octopress.html">Why Octopress</a></li>
 
-		<li>2013 Jun 02 - <a href="blog/2013/2013-06-03-octopress-first-steps.html">Octopress First Steps</a></li>
+		<li>2013-Jun-02 - <a href="blog/2013/octopress-first-steps.html">Octopress First Steps</a></li>
 				</ul>
 				<h4>2012</h4>
 				<ul>
 
-		<li>2012 Nov 11 - <a href="blog/2012/2012-11-11-command-line-basics.html">Command Line Basics</a></li>
+		<li>2012-Nov-11 - <a href="blog/2012/command-line-basics.html">Command Line Basics</a></li>
 				</ul>
 				<h4>2008</h4>
 				<ul>
 
-		<li>2008 Jan 24 - <a href="blog/2008/2008-01-24-sql-null-is-not-comparable.html">SQL NULL is not comparable</a></li>
+		<li>2008-Jan-24 - <a href="blog/2008/sql-null-is-not-comparable.html">SQL NULL is not comparable</a></li>
 	</ul>
 
 		</div>
