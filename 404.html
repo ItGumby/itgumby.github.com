@@ -76,11 +76,12 @@ I will attempt to create some redirects that will forward you to current content
       if (links[i]['href'].match(reqPage)) { hrefs.push(links[i]['href']); }
     }
     if (hrefs.length == 1) {
-      window.location.replace(hrefs[0]);
+      console.log('redirect to: ' + hrefs[0]);
+      //window.location.replace(hrefs[0]);
     } else {
       console.log('matching links: ' + hrefs);
     }
-  };
+  } else { console.log('no page extracted from ' + window.location.pathname); };
 </script>
 </div>
 </div>
