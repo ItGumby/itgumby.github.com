@@ -14,9 +14,13 @@ If that doesn't work, I hope you can find the post you were looking for below:
 ++++
 <script type="text/javascript">
   // trim octopress trailing slash, paths & folders, and any leading dates
-  var reqPage = document.location.pathname.replace(/\/$/, '').replace(/^.*\//, '').replace(/^[-0-9]*/, '');
-  document.getElementsByTagName('a').forEach(function(el) {
-    if (el['href'].match(reqPage)) window.location.replace = el['href'];
-  });
+  var reqPage = window.location.pathname.replace(/\/$/, '').replace(/^.*\//, '').replace(/^[-0-9]*/, '').replace(/\.[a-z]+/, '');
+  if (reqPage.length) {
+    var links = document.getElementsByTagName('a');
+    for (var i=0; i< links.length; i++) {
+      var redirect = links[i]['href'];
+      if (redirect.match(reqPage)) { window.location.replace(redirect); }
+    }
+  };
 </script>
 ++++
