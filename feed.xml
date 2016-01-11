@@ -6,8 +6,8 @@
     <atom:link href="http://itgumby.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>IT Gumby's blog RSS feed</description>
     <language>en-US</language>
-    <pubDate>Sun, 10 Jan 2016 21:40:35 -0700</pubDate>
-    <lastBuildDate>Sun, 10 Jan 2016 21:40:35 -0700</lastBuildDate>
+    <pubDate>Sun, 10 Jan 2016 21:53:28 -0700</pubDate>
+    <lastBuildDate>Sun, 10 Jan 2016 21:53:28 -0700</lastBuildDate>
 
     <item>
       <title>Simple SOAP Example</title>
