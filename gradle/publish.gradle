@@ -10,11 +10,13 @@ buildscript {
 
 apply plugin: 'org.ajoberstar.github-pages'
 
-githubPages {
+githubPages { // docs at http://ajoberstar.org/gradle-git/docs/groovydoc/
   repoUri = 'git@github.com:ItGumby/itgumby.github.com.git'
-  targetBranch = 'master'
+  targetBranch = 'master'   // default = 'gh-pages'
+  deleteExistingFiles = true // default
+  workingPath = 'build/ghpages' // default
+  commitMessage = "gradle plugin 'github-pages' publish on ${new Date()}"
   pages {
-    from(file('build')) { into '.' }
-    //from(file('build/tags')) { into './tags' }
+    from file('build/ghpages')
   }
 }

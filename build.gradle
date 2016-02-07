@@ -17,7 +17,7 @@ apply plugin: 'me.champeau.jbake'
 
 jbake {
    input = file('src/jbake')
-   output = file('build')
+   output = file('build/ghpages')
    clearCache = true
 }
 

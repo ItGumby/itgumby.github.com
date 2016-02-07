@@ -4,16 +4,29 @@
 
 (Previously, on blogger, Octopress)
 
+== Process
+
+. Ensure source branch `git checkout source`
+. Create & edit post file(s) `src/jbake/content/blog/YYYY/url.adoc`
+. build static content `./gradlew jbake` or `jbake -b src/jbake build/ghpages` (handy for troubleshooting logs)
+. preview content `jbake -s build/ghpages`
+. publish content **IN THEORY** `./gradlew publish`
+** it is "Skipping task ':publishGhPages' as task onlyIf is false"
+** alternate:
+.. checkout master branch into a different folder
+.. manually copy build/ghpages/* to master branch folder
+.. manually add files & push to master branch
+
+
 === Completed:
 
 * jbake structure
 * convert existing content
 * carry over customized CSS
 * tweak freemarker templates
+* gradle build
 
 === TODO:
 
-* [ ] gradle build
 * [ ] gradle publish
-* [ ] determine if output dirs need to change
 * [ ] update README for gh-pages, build steps
