@@ -9,13 +9,13 @@
 			<p>
 				<em>Tags: </em>
 				<#list post.tags as tag>
-					<a href="/tags/${tag?trim?replace(' ','-')}.html">${tag}</a> 
+					<a href="/${config.tag_path}/${tag?trim?replace(' ','-')}.html">${tag}</a>
 				</#list>
 			</p>
   			<p>${post.body}</p>
   		</#if>
   	</#list>
-	
+
 	<hr />
 	<p>Older posts are available in the <a href="${content.rootpath}${config.archive_file}">archive</a>.</p>
 <#include "footer.ftl">

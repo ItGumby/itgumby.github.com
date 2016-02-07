@@ -15,7 +15,7 @@
 		<ul>
 	</#if>
 
-	<li>${post.date?string("yyyy-MMM-dd")} - <a href="${content.rootpath}${post.uri}">${post.title}</a></li>
+	<li>${post.date?string("yyyy-MMM-dd")} - <a href="/${post.uri}">${post.title}</a></li>
 	<#assign prev_year = post.date?string("yyyy")>
 	</#list>
 	</ul>
@@ -24,7 +24,7 @@
 	<h3>Other Topics:</h3>
 	<!--<ul>-->
 	<#list alltags as tag>
-		<li><a href="/tags/${tag?trim?replace(' ','-')}.html">${tag}</a></li>
+		<li><a href="/${config.tag_path}/${tag?trim?replace(' ','-')}.html">${tag}</a></li>
 	</#list>
 	</ul>
 	</div>
