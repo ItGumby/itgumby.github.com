@@ -1,7 +1,6 @@
 buildscript {
   repositories {
-      mavenLocal()
-      mavenCentral()   
+      mavenLocal()  // to use local JBake
       jcenter()
   }
 
@@ -20,10 +19,9 @@ jbake {
    input = file('src/jbake')
    output = file('build')
    clearCache = true
-   configuration['render.tag'] = 'true'
 }
 
 task publish(type: GradleBuild) {
-    buildFile = 'publish.gradle'
+    buildFile = 'gradle/publish.gradle'
     tasks = ['publishGhPages']
 }
