@@ -1,27 +1,24 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>${config.site_title}</title>
-    <link>${config.site_host}</link>
-    <atom:link href="${config.site_host}/${config.feed_file}" rel="self" type="application/rss+xml" />
-    <description>${config.site_title} RSS feed</description>
-    <language>en-US</language>
-    <pubDate>${published_date?string("EEE, d MMM yyyy HH:mm:ss Z")}</pubDate>
-    <lastBuildDate>${published_date?string("EEE, d MMM yyyy HH:mm:ss Z")}</lastBuildDate>
+	<channel>
+		<title>${config.site_title}</title>
+		<link>${config.site_host}</link>
+		<atom:link href="${config.site_host}/${config.feed_file}" rel="self" type="application/rss+xml" />
+		<description>${config.site_title} RSS feed</description>
+		<language>en-US</language>
+		<pubDate>${published_date?string("yyyy-MM-dd'T'HH:mm:ssZ")}</pubDate>
+		<lastBuildDate>${published_date?string("yyyy-MM-dd'T'HH:mm:ssZ")}</lastBuildDate>
 
-    <#list published_posts as post>
-    <item>
-      <title><#escape x as x?xml>${post.title}</#escape></title>
-      <link>${config.site_host}/${post.uri}</link>
-      <pubDate>${post.date?string("EEE, d MMM yyyy HH:mm:ss Z")}</pubDate>
-      <guid isPermaLink="false">${post.uri}</guid>
-      	<description>
-	<#escape x as x?xml>	
-	${post.body}
-	</#escape>
-	</description>
-    </item>
-    </#list>
-
-  </channel> 
+		<#list published_posts as post>
+		<item>
+			<title><#escape x as x?xml>${post.title}</#escape></title>
+			<link>${config.site_host}/${post.uri}</link>
+			<pubDate>${post.date?string("yyyy-MM-dd'T'HH:mm:ssZ")}</pubDate>
+			<guid isPermaLink="false">${post.uri}</guid>
+			<description>
+				<#escape x as x?xml>${post.body}</#escape>
+			</description>
+		</item>
+	</#list>
+	</channel>
 </rss>
