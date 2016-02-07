@@ -11,11 +11,12 @@
 . build static content `./gradlew jbake` or `jbake -b src/jbake build/ghpages` (handy for troubleshooting logs)
 . preview content `jbake -s build/ghpages`
 . publish content **IN THEORY** `./gradlew publish`
-** it is "Skipping task ':publishGhPages' as task onlyIf is false"
-** alternate:
+** "Skipping task ':prepareGhPages' as it has no source files."
+** "Skipping task ':publishGhPages' as task onlyIf is false"
+** manual alternate:
 .. checkout master branch into a different folder
-.. manually copy build/ghpages/* to master branch folder
-.. manually add files & push to master branch
+.. copy build/ghpages/* to master branch folder
+.. git: add files & push to master branch
 
 
 === Completed:

@@ -19,9 +19,11 @@ jbake {
    input = file('src/jbake')
    output = file('build/ghpages')
    clearCache = true
+   outputs.dir file("$buildDir/ghpages")
 }
 
 task publish(type: GradleBuild) {
     buildFile = 'gradle/publish.gradle'
     tasks = ['publishGhPages']
 }
+//publish.dependsOn jbake

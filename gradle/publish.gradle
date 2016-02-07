@@ -12,11 +12,12 @@ apply plugin: 'org.ajoberstar.github-pages'
 
 githubPages { // docs at http://ajoberstar.org/gradle-git/docs/groovydoc/
   repoUri = 'git@github.com:ItGumby/itgumby.github.com.git'
-  targetBranch = 'master'   // default = 'gh-pages'
-  deleteExistingFiles = true // default
+  targetBranch = 'master'     // default = 'gh-pages'
+  deleteExistingFiles = true  // default
   workingPath = 'build/ghpages' // default
   commitMessage = "gradle plugin 'github-pages' publish on ${new Date()}"
   pages {
-    from file('build/ghpages')
+    from file("$buildDir/ghpages")
+    //from( file('build/ghpages') ) { into '.' }
   }
 }
