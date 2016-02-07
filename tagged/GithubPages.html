@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>IT Gumby's blog: Oops!</title>
+    <title>IT Gumby's blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Brian Street">
@@ -56,65 +56,34 @@
       </div>
     </div>
     <div class="container">
-
-	<div class="sect1">
-<h2 id="_oops">Oops!!!</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>I apologize if you were attempting to access a previous page from the site.
-I will attempt to create some redirects that will forward you to current content.</p>
-</div>
-<div class="paragraph">
-<p>If that doesn&#8217;t work, I hope you can find the post you were looking for below:</p>
-</div>
-<script type="text/javascript">
-function redirect() {
-  // trim octopress trailing slash, paths & folders, and any leading dates
-  var matchPath = window.location.pathname.replace(/\/$/, '').replace(/^.*\//, '');
-  var dest = document.querySelector('.container a[href*="' + matchPath + '"]');
-  if (dest) {
-    console && console.log('redirecting from: ' + window.location.pathname + ' to ' + dest['href']);
-    window.location.replace(dest['href']);
-  }
-}
-
-if (document.readyState != 'loading') redirect();
-else document.addEventListener('DOMContentLoaded', redirect);
-</script>
-</div>
-</div>
-
-	<div class="page-header"><h1>Archive</h1></div>
+	<div class="page-header"><h1>tag: GithubPages</h1></div>
 
 	<!--<ul>-->
-			<h4>2014</h4>
-			<ul>
+		<h4>2013</h4>
+		<ul>
 
-		<li>2014-Oct-23 - <a href="/blog/2014/simple-soap-example.html">Simple SOAP Example</a></li>
+	<li>2013-Jun-02 - <a href="/blog/2013/ghp-with-octopress.html">Why Octopress</a></li>
 
-		<li>2014-Oct-09 - <a href="/blog/2014/cq-queries-demystified.html">CQ Queries Demystified</a></li>
-
-		<li>2014-Feb-16 - <a href="/blog/2014/cq-defineObjects-cheatsheet.html">CQ5 resource - &lt;cq:defineObjects/&gt; CheatSheet</a></li>
-				</ul>
-				<h4>2013</h4>
-				<ul>
-
-		<li>2013-Nov-23 - <a href="/blog/2013/the-evolution-of-looping.html">The Evolution of Looping</a></li>
-
-		<li>2013-Jun-02 - <a href="/blog/2013/ghp-with-octopress.html">Why Octopress</a></li>
-
-		<li>2013-Jun-02 - <a href="/blog/2013/octopress-first-steps.html">Octopress First Steps</a></li>
-				</ul>
-				<h4>2012</h4>
-				<ul>
-
-		<li>2012-Nov-11 - <a href="/blog/2012/command-line-basics.html">Command Line Basics</a></li>
-				</ul>
-				<h4>2008</h4>
-				<ul>
-
-		<li>2008-Jan-24 - <a href="/blog/2008/sql-null-is-not-comparable.html">SQL NULL is not comparable</a></li>
+	<li>2013-Jun-02 - <a href="/blog/2013/octopress-first-steps.html">Octopress First Steps</a></li>
 	</ul>
+
+	<div class="row">
+	<h3>Other Topics:</h3>
+	<!--<ul>-->
+		<li><a href="/tagged/CLI.html">CLI</a></li>
+		<li><a href="/tagged/Queries.html">Queries</a></li>
+		<li><a href="/tagged/GithubPages.html">GithubPages</a></li>
+		<li><a href="/tagged/groovy.html">groovy</a></li>
+		<li><a href="/tagged/shell.html">shell</a></li>
+		<li><a href="/tagged/JSP.html">JSP</a></li>
+		<li><a href="/tagged/JCR.html">JCR</a></li>
+		<li><a href="/tagged/CQ5-AEM.html">CQ5-AEM</a></li>
+		<li><a href="/tagged/FP.html">FP</a></li>
+		<li><a href="/tagged/Octopress.html">Octopress</a></li>
+		<li><a href="/tagged/SOAP.html">SOAP</a></li>
+		<li><a href="/tagged/SQL.html">SQL</a></li>
+	</ul>
+	</div>
 
 		</div>
 		<div id="push"></div>
