@@ -13,6 +13,7 @@ buildscript {
   }
 }
 
+apply plugin: 'base'
 apply plugin: 'me.champeau.jbake'
 
 jbake {
@@ -21,6 +22,7 @@ jbake {
    clearCache = true
    outputs.dir file("$buildDir/ghpages")
 }
+jbake.dependsOn clean
 
 task publish(type: GradleBuild) {
     buildFile = 'gradle/publish.gradle'
