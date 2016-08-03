@@ -1,0 +1,12 @@
+title=Better AEM JSPs part 3: components
+date=2016-06-21
+type=post
+status=draft
+tags=JSP, AEM
+~~~~~~
+
+== TL/DR;
+
+* opt for flexibility (easier to lock down than open up)
+* composition
+* dialogs
