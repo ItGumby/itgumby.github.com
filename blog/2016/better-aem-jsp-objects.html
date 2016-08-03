@@ -75,7 +75,7 @@
 <p>prefer <a href="https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/org/apache/sling/api/resource/Resource.html">Resource</a> over <a href="https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Node.html">Node</a></p>
 </li>
 <li>
-<p>prefer <a href="https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/index.html?org/apache/sling/api/resource/Resource.html">ValueMap</a> over <a href="https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/PropertyIterator.html">PropertyIterator</a>/https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Property.html[Property]</p>
+<p>prefer <a href="https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/index.html?org/apache/sling/api/resource/Resource.html">ValueMap</a> over <a href="https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/PropertyIterator.html">PropertyIterator</a> / <a href="https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Property.html">Property</a></p>
 </li>
 <li>
 <p><a href="http://sling.apache.org/documentation/bundles/models.html">Apache Sling Models</a> encapsulates your POJO or business logic for a component (even works on component&#8217;s children!)</p>
@@ -131,7 +131,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 </div>
 </div>
 <div class="paragraph">
-<p>to equivalent code using the JCR APIs:</p>
+<p>is much easier to maintain than JCR APIs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -160,7 +160,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 <div class="paragraph">
 <p>"Boilerplate" is the term used for all the code that is for the compiler, not the developer.
 <a href="https://en.wikipedia.org/wiki/Functional_programming">Functional Programming</a> is the paradigm of declaring <em>what</em> you want instead of <em>how</em> to accomplish a task (compared to <a href="https://en.wikipedia.org/wiki/Imperative_programming">Imperative Programming</a>).
-The benefit of describing <em>what</em> instead of <em>how</em> is less code with clearer intent.
+The benefit of describing <em>what</em> instead of <em>how</em> is clearer intent often with less code.
 Wouldn&#8217;t it be nice to encapsulate a component with a POJO instead of describing how to read the JCR and then transform into objects?
 Then our views or templates could leverage a simple POJO with clean data instead of accessing the data, verifying &amp; cleaning the data, and then presenting the result.</p>
 </div>
@@ -179,15 +179,26 @@ Their patterns are:</p>
 <ol class="arabic">
 <li>
 <p>Implement the Use interface</p>
-</li>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
 <p>Extend the WCMUsePojo class</p>
 </li>
-<li>
-<p>AdapterFactory from Resource</p>
+</ol>
+</div>
 </li>
 <li>
-<p>AdapterFactory from Request</p>
+<p>AdapterFactory</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>from Resource</p>
+</li>
+<li>
+<p>from Request</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>Sling Models</p>

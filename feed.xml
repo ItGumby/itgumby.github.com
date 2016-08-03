@@ -6,8 +6,8 @@
 		<atom:link href="http://itgumby.github.io/feed.xml" rel="self" type="application/rss+xml" />
 		<description>IT Gumby's blog RSS feed</description>
 		<language>en-US</language>
-		<pubDate>2016-08-03T00:32:34-0600</pubDate>
-		<lastBuildDate>2016-08-03T00:32:34-0600</lastBuildDate>
+		<pubDate>2016-08-03T00:48:34-0600</pubDate>
+		<lastBuildDate>2016-08-03T00:48:34-0600</lastBuildDate>
 
 		<item>
 			<title>Better AEM JSPs part 1: objects</title>
@@ -24,7 +24,7 @@
 &lt;p&gt;prefer &lt;a href=&quot;https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/org/apache/sling/api/resource/Resource.html&quot;&gt;Resource&lt;/a&gt; over &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Node.html&quot;&gt;Node&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;prefer &lt;a href=&quot;https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/index.html?org/apache/sling/api/resource/Resource.html&quot;&gt;ValueMap&lt;/a&gt; over &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/PropertyIterator.html&quot;&gt;PropertyIterator&lt;/a&gt;/https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Property.html[Property]&lt;/p&gt;
+&lt;p&gt;prefer &lt;a href=&quot;https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/index.html?org/apache/sling/api/resource/Resource.html&quot;&gt;ValueMap&lt;/a&gt; over &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/PropertyIterator.html&quot;&gt;PropertyIterator&lt;/a&gt; / &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Property.html&quot;&gt;Property&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;http://sling.apache.org/documentation/bundles/models.html&quot;&gt;Apache Sling Models&lt;/a&gt; encapsulates your POJO or business logic for a component (even works on component&amp;#8217;s children!)&lt;/p&gt;
@@ -80,7 +80,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;to equivalent code using the JCR APIs:&lt;/p&gt;
+&lt;p&gt;is much easier to maintain than JCR APIs:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -109,7 +109,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&quot;Boilerplate&quot; is the term used for all the code that is for the compiler, not the developer.
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Functional_programming&quot;&gt;Functional Programming&lt;/a&gt; is the paradigm of declaring &lt;em&gt;what&lt;/em&gt; you want instead of &lt;em&gt;how&lt;/em&gt; to accomplish a task (compared to &lt;a href=&quot;https://en.wikipedia.org/wiki/Imperative_programming&quot;&gt;Imperative Programming&lt;/a&gt;).
-The benefit of describing &lt;em&gt;what&lt;/em&gt; instead of &lt;em&gt;how&lt;/em&gt; is less code with clearer intent.
+The benefit of describing &lt;em&gt;what&lt;/em&gt; instead of &lt;em&gt;how&lt;/em&gt; is clearer intent often with less code.
 Wouldn&amp;#8217;t it be nice to encapsulate a component with a POJO instead of describing how to read the JCR and then transform into objects?
 Then our views or templates could leverage a simple POJO with clean data instead of accessing the data, verifying &amp;amp; cleaning the data, and then presenting the result.&lt;/p&gt;
 &lt;/div&gt;
@@ -128,15 +128,26 @@ Their patterns are:&lt;/p&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
 &lt;p&gt;Implement the Use interface&lt;/p&gt;
-&lt;/li&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
 &lt;li&gt;
 &lt;p&gt;Extend the WCMUsePojo class&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;AdapterFactory from Resource&lt;/p&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;AdapterFactory from Request&lt;/p&gt;
+&lt;p&gt;AdapterFactory&lt;/p&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;from Resource&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;from Request&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Sling Models&lt;/p&gt;
