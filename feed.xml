@@ -1,21 +1,173 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>IT Gumby's blog</title>
-    <link>http://itgumby.github.io</link>
-    <atom:link href="http://itgumby.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <description>IT Gumby's blog RSS feed</description>
-    <language>en-US</language>
-    <pubDate>Sun, 7 Feb 2016 10:54:28 -0700</pubDate>
-    <lastBuildDate>Sun, 7 Feb 2016 10:54:28 -0700</lastBuildDate>
+	<channel>
+		<title>IT Gumby's blog</title>
+		<link>http://itgumby.github.io</link>
+		<atom:link href="http://itgumby.github.io/feed.xml" rel="self" type="application/rss+xml" />
+		<description>IT Gumby's blog RSS feed</description>
+		<language>en-US</language>
+		<pubDate>2016-08-03T00:32:34-0600</pubDate>
+		<lastBuildDate>2016-08-03T00:32:34-0600</lastBuildDate>
 
-    <item>
-      <title>Simple SOAP Example</title>
-      <link>http://itgumby.github.io/blog/2014/simple-soap-example.html</link>
-      <pubDate>Thu, 23 Oct 2014 00:00:00 -0600</pubDate>
-      <guid isPermaLink="false">blog/2014/simple-soap-example.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+		<item>
+			<title>Better AEM JSPs part 1: objects</title>
+			<link>http://itgumby.github.io/blog/2016/better-aem-jsp-objects.html</link>
+			<pubDate>2016-06-21T00:00:00-0600</pubDate>
+			<guid isPermaLink="false">blog/2016/better-aem-jsp-objects.html</guid>
+			<description>
+				&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_tl_dr&quot;&gt;TL/DR;&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;prefer &lt;a href=&quot;https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/org/apache/sling/api/resource/Resource.html&quot;&gt;Resource&lt;/a&gt; over &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Node.html&quot;&gt;Node&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;prefer &lt;a href=&quot;https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/index.html?org/apache/sling/api/resource/Resource.html&quot;&gt;ValueMap&lt;/a&gt; over &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/PropertyIterator.html&quot;&gt;PropertyIterator&lt;/a&gt;/https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Property.html[Property]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://sling.apache.org/documentation/bundles/models.html&quot;&gt;Apache Sling Models&lt;/a&gt; encapsulates your POJO or business logic for a component (even works on component&amp;#8217;s children!)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/io/sightly/java/api/Use.html&quot;&gt;Use&lt;/a&gt; API (especially extending WCMUse or WCMUsePojo) built to support Sightly, but there is no reason they can&amp;#8217;t be used in JSPs.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I remember attending training for AEM back in the CQ5.3-5.4 days.
+The material spent much of its time going over the mechanics of a hierarchical &quot;NoSQL&quot; data store, as well as intricacies of OSGi that it had little time left for best practices.
+We would expend so much effort around learning the &lt;a href=&quot;http://jackrabbit.apache.org/jcr/jcr-api.html&quot;&gt;JCR&lt;/a&gt;, &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Node.html&quot;&gt;&lt;code&gt;Node&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Property.html&quot;&gt;&lt;code&gt;Property&lt;/code&gt;&lt;/a&gt; that we could barely notice all the typed Exceptions those APIs threw.
+Unfortunately, the training (at least then) didn&amp;#8217;t include content around core JSP features such as &lt;a href=&quot;http://docs.oracle.com/javaee/5/tutorial/doc/bnakc.html&quot;&gt;Tag Libraries&lt;/a&gt; or &lt;a href=&quot;http://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html&quot;&gt;Expression Language&lt;/a&gt;.
+The primary APIs had some also rough spots that didn&amp;#8217;t always lend themselves to leveraging these features.
+The result was the example code/components often had anti-patterns such as over-leveraging scriptlets (code inside the &quot;template&quot; of a JSP), which meant much of our initial code was also ugly.
+Ugly code has a cost for understanding and maintenance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Over time, the situation has evolved and improved.
+By recognizing some of the warts, AEM(c) decided to create new languages &amp;amp; approaches that wouldn&amp;#8217;t have the same problems.
+At the same time, updates to enable cleaner approaches benefit the old languages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_avoiding_complexity&quot;&gt;Avoiding Complexity&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;(especially error handling and exceptions)&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The foundational APIs for &lt;a href=&quot;http://jackrabbit.apache.org/jcr/jcr-api.html&quot;&gt;&lt;code&gt;javax.jcr.*&lt;/code&gt;&lt;/a&gt; are designed accessing an heirarchical &quot;NoSQL&quot; data store.
+They certainly are not designed for templating or business logic.
+&lt;code&gt;javax.jcr.\*&lt;/code&gt; encapsulates nodes, sessions and permissions while exposing how any of those can go wrong (just look at the 21 subclasses of &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/RepositoryException.html&quot;&gt;RepositoryException&lt;/a&gt;).
+Unfortunately, early training materials and examples (such as &lt;code&gt;/apps/geometrixx/components/asseteditor/head.jsp&lt;/code&gt;) show how unsuited these APIs are for JSP development.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Fortunately, Sling APIs came along to improve the state of development.
+&lt;code&gt;org.apache.sling.api.resource.*&lt;/code&gt; is a much friendlier API.
+To start with, Exceptions are rare to non-existant.
+Instead of throwing errors, they frequently provide fallback mechanisms to express the business intent when the JCR API would require error or exception handling.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Compare accessing a property value with Sling APIs (in raw Java):&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    String getPageTitle(@Nonnull Resource resource) {
+        ValueMap properties = resource.getValueMap();
+        return properties.get(&quot;pageTitle&quot;, properties.get(&quot;jcr:title&quot;, properties.get(&quot;navTitle&quot;, &quot;&quot;)));
+    }&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;to equivalent code using the JCR APIs:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    String getPageTitle(@Nonnull Node currentNode) {
+        try {
+            Property titleProp =
+                currentNode.hasProperty(&quot;pageTitle&quot;) ? currentNode.getProperty(&quot;pageTitle&quot;) :
+                    currentNode.hasProperty(&quot;jcr:title&quot;) ? currentNode.getProperty(&quot;jcr:title&quot;) :
+                        currentNode.hasProperty(&quot;navTitle&quot;) ? currentNode.getProperty(&quot;navTitle&quot;) : null;
+            if (titleProp != null) {
+                return titleProp.getString();
+            }
+        } catch (RepositoryException ignore) {
+            // log problem so you can find in monitoring &amp;amp; hopefully fix (author) soon.
+        } finally {
+            return &quot;&quot;; // better than returning null and risking NPE. Web is about concatenating strings, anyway! :-)
+        }
+    }&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_focusing_on_the_intent&quot;&gt;Focusing on the Intent&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Boilerplate&quot; is the term used for all the code that is for the compiler, not the developer.
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Functional_programming&quot;&gt;Functional Programming&lt;/a&gt; is the paradigm of declaring &lt;em&gt;what&lt;/em&gt; you want instead of &lt;em&gt;how&lt;/em&gt; to accomplish a task (compared to &lt;a href=&quot;https://en.wikipedia.org/wiki/Imperative_programming&quot;&gt;Imperative Programming&lt;/a&gt;).
+The benefit of describing &lt;em&gt;what&lt;/em&gt; instead of &lt;em&gt;how&lt;/em&gt; is less code with clearer intent.
+Wouldn&amp;#8217;t it be nice to encapsulate a component with a POJO instead of describing how to read the JCR and then transform into objects?
+Then our views or templates could leverage a simple POJO with clean data instead of accessing the data, verifying &amp;amp; cleaning the data, and then presenting the result.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/org/apache/sling/api/adapter/AdapterFactory.html&quot;&gt;AdapterFactory&lt;/a&gt; was the initial attempt to structure and separate concerns.
+It architected your component classes to construct your objects from a &lt;code&gt;Resource&lt;/code&gt;/&lt;code&gt;ValueMap&lt;/code&gt;/&lt;code&gt;SlingHttpServletRequest&lt;/code&gt; (or other &quot;adaptables&quot;).
+As repeated patterns of component classes took form, it became obvious (and desireable) to declare classes as injection containers automatically wired from declared properties (relative to JCR node properties).
+Thus, &lt;a href=&quot;http://sling.apache.org/documentation/bundles/models.html&quot;&gt;Sling Models&lt;/a&gt; was born.
+Instead of imperative code describing &lt;em&gt;how&lt;/em&gt; to construct an object, developers can use annotations to declare the mapping to the JCR.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A good comparison of examples of classes is found in the &lt;a href=&quot;http://blogs.adobe.com/experiencedelivers/experience-management/htl-intro-part-4/&quot;&gt;Experience Delivers&lt;/a&gt; blog.
+Their patterns are:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Implement the Use interface&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Extend the WCMUsePojo class&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;AdapterFactory from Resource&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;AdapterFactory from Request&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sling Models&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I appreciate the newer patterns for building classes.
+But I believe AEM(c) is disingenious when they sell Sightly as faster than JSP development when Java classes must be built and deployed as bundles before the new HTML templates can be built.
+For one thing, JSPs can leverage the exact same classes that are used to power Sightly.
+It is also possible to rapid prototype by extracting classes in JSPs and eventually move them to external bundles (with unit tests, of course!)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the next part of this series, I hope to show how JSPs can look much closer to a template.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+			</description>
+		</item>
+		<item>
+			<title>Simple SOAP Example</title>
+			<link>http://itgumby.github.io/blog/2014/simple-soap-example.html</link>
+			<pubDate>2014-10-23T00:00:00-0600</pubDate>
+			<guid isPermaLink="false">blog/2014/simple-soap-example.html</guid>
+			<description>
+				&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;All I wanted was a JVM-based script exemplifying a simple SOAP call.
 However, I wasn&amp;#8217;t satisfied with their complexity and pieces.&lt;/p&gt;
 &lt;/div&gt;
@@ -135,15 +287,15 @@ My full working &lt;a href=&quot;https://gist.github.com/ItGumby/3fe5c317dc4c898
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>CQ Queries Demystified</title>
-      <link>http://itgumby.github.io/blog/2014/cq-queries-demystified.html</link>
-      <pubDate>Thu, 9 Oct 2014 00:00:00 -0600</pubDate>
-      <guid isPermaLink="false">blog/2014/cq-queries-demystified.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+			</description>
+		</item>
+		<item>
+			<title>CQ Queries Demystified</title>
+			<link>http://itgumby.github.io/blog/2014/cq-queries-demystified.html</link>
+			<pubDate>2014-10-09T00:00:00-0600</pubDate>
+			<guid isPermaLink="false">blog/2014/cq-queries-demystified.html</guid>
+			<description>
+				&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;The JCR (Java Content Repository) is a data-store at its heart.  Most examples around it demonstrate either building components or walking the Node tree.  It is hard to find examples around queries and the JCR.  To make things worse, we have a number of options and little resourcs to compare them.  My humble goal is to make JCR queries less scary - to myself and others.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
@@ -448,15 +600,15 @@ This logs the queries executed and their execution time.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>CQ5 resource - &lt;cq:defineObjects/&gt; CheatSheet</title>
-      <link>http://itgumby.github.io/blog/2014/cq-defineObjects-cheatsheet.html</link>
-      <pubDate>Sun, 16 Feb 2014 00:00:00 -0700</pubDate>
-      <guid isPermaLink="false">blog/2014/cq-defineObjects-cheatsheet.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+			</description>
+		</item>
+		<item>
+			<title>CQ5 resource - &lt;cq:defineObjects/&gt; CheatSheet</title>
+			<link>http://itgumby.github.io/blog/2014/cq-defineObjects-cheatsheet.html</link>
+			<pubDate>2014-02-16T00:00:00-0700</pubDate>
+			<guid isPermaLink="false">blog/2014/cq-defineObjects-cheatsheet.html</guid>
+			<description>
+				&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://dev.day.com/docs/en/cq/current/developing/components.html#%3Ccq:defineObjects%3E&quot;&gt;CQ5 Developing Components&lt;/a&gt;
 has a lot of information, but I wanted a handier cheat sheet.&lt;/p&gt;
 &lt;/div&gt;
@@ -704,15 +856,15 @@ has a lot of information, but I wanted a handier cheat sheet.&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I hope this helps others and myself.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>The Evolution of Looping</title>
-      <link>http://itgumby.github.io/blog/2013/the-evolution-of-looping.html</link>
-      <pubDate>Sat, 23 Nov 2013 00:00:00 -0700</pubDate>
-      <guid isPermaLink="false">blog/2013/the-evolution-of-looping.html</guid>
-      	<description>
-	&lt;div class=&quot;sect1&quot;&gt;
+			</description>
+		</item>
+		<item>
+			<title>The Evolution of Looping</title>
+			<link>http://itgumby.github.io/blog/2013/the-evolution-of-looping.html</link>
+			<pubDate>2013-11-23T00:00:00-0700</pubDate>
+			<guid isPermaLink="false">blog/2013/the-evolution-of-looping.html</guid>
+			<description>
+				&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;_tl_dr&quot;&gt;TL;DR&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -867,15 +1019,15 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Why Octopress</title>
-      <link>http://itgumby.github.io/blog/2013/ghp-with-octopress.html</link>
-      <pubDate>Sun, 2 Jun 2013 00:00:00 -0600</pubDate>
-      <guid isPermaLink="false">blog/2013/ghp-with-octopress.html</guid>
-      	<description>
-	&lt;h2&gt;Static Site Generators FTW&lt;/h2&gt;
+			</description>
+		</item>
+		<item>
+			<title>Why Octopress</title>
+			<link>http://itgumby.github.io/blog/2013/ghp-with-octopress.html</link>
+			<pubDate>2013-06-02T00:00:00-0600</pubDate>
+			<guid isPermaLink="false">blog/2013/ghp-with-octopress.html</guid>
+			<description>
+				&lt;h2&gt;Static Site Generators FTW&lt;/h2&gt;
 &lt;p&gt;A long, long time ago, on web far, far away, the original developers of the web built static pages by hand. Soon, tooling caught up and templates could assemble pages pages together from &quot;content&quot; stored in other sources (usually databases). Eventually, personalization meant every page would be built per request. Since servers had to generate each page instead of returning pre-built files, their scalability was limited.&lt;/p&gt;
 &lt;p&gt;Two concepts came to the rescue: REST and Dynamic HTML (which evolved into AJAX). &lt;a href=&quot;http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm&quot;&gt;Representaional State Transfer or REST&lt;/a&gt; posited that &lt;em&gt;resources&lt;/em&gt; could be more cacheable. And DHTML/AJAX made it common to Create, Replace, Update or Delete &lt;em&gt;portions&lt;/em&gt; of a page. By applying these concepts intelligently, most, if not all, of the pages could be stored and reused. This &lt;em&gt;caching&lt;/em&gt; could be done at different layers, from the data source, to inside the app servers to even the web server.&lt;/p&gt;
 &lt;p&gt;With flexible caching strategies, the generation from templates can be moved around and execute less frequently. In the case of blog content, generation only needs to happen at original post and repeated for any edits. (Comments can be AJAX&apos;ed away or moved to external services, such as &lt;a href=&quot;http://disqus.com/&quot;&gt;Disqus&lt;/a&gt;.) Flexible generation also allowed questioning the &lt;em&gt;data sources&lt;/em&gt;. Databases had long been the most common data source. But they frequently have specialized administrators. Also, databases excel at structured content while web content is ... well, frequently unstructured.&lt;/p&gt;
@@ -909,15 +1061,15 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
   &lt;li&gt;&lt;a href=&quot;http://joelmccracken.github.io/entries/octopress-is-pretty-sweet/&quot;&gt;Use Octopress instead of Jekyll&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://joelmccracken.github.io/entries/octopress-is-pretty-sweet/&quot;&gt;Use Jekyll? You Really Should Be Using Octopress&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-	</description>
-    </item>
-    <item>
-      <title>Octopress First Steps</title>
-      <link>http://itgumby.github.io/blog/2013/octopress-first-steps.html</link>
-      <pubDate>Sun, 2 Jun 2013 00:00:00 -0600</pubDate>
-      <guid isPermaLink="false">blog/2013/octopress-first-steps.html</guid>
-      	<description>
-	&lt;h1&gt;Installation Steps&lt;/h1&gt;
+			</description>
+		</item>
+		<item>
+			<title>Octopress First Steps</title>
+			<link>http://itgumby.github.io/blog/2013/octopress-first-steps.html</link>
+			<pubDate>2013-06-02T00:00:00-0600</pubDate>
+			<guid isPermaLink="false">blog/2013/octopress-first-steps.html</guid>
+			<description>
+				&lt;h1&gt;Installation Steps&lt;/h1&gt;
 &lt;h2&gt;Prepare&lt;/h2&gt;
 &lt;ol&gt;
   &lt;li&gt;Ruby Versions &lt;a href=&quot;http://octopress.org/docs/setup/rvm/&quot;&gt;Ruby with RVM&lt;/a&gt; or RBENV&lt;/li&gt;
@@ -999,15 +1151,15 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
   &lt;li&gt;&lt;a href=&quot;http://erikschwartz.net/jekyll-for-the-masses/&quot;&gt;Prose.io Makes Jekyll Feel Like Wordpress&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;comments &lt;a href=&quot;http://disqus.com/&quot;&gt;Disqus&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-	</description>
-    </item>
-    <item>
-      <title>Command Line Basics</title>
-      <link>http://itgumby.github.io/blog/2012/command-line-basics.html</link>
-      <pubDate>Sun, 11 Nov 2012 00:00:00 -0700</pubDate>
-      <guid isPermaLink="false">blog/2012/command-line-basics.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+			</description>
+		</item>
+		<item>
+			<title>Command Line Basics</title>
+			<link>http://itgumby.github.io/blog/2012/command-line-basics.html</link>
+			<pubDate>2012-11-11T00:00:00-0700</pubDate>
+			<guid isPermaLink="false">blog/2012/command-line-basics.html</guid>
+			<description>
+				&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;One of my favorite features of computers is making them do the work for me.  I tend to think of this as automation.  Command line and shell scripts are a great way to automate tasks.  While Apple has &quot;Automator&quot; and Windows have DOS Batch and PowerShell, Unix shell is my favorite due to its power, availability, and even its philosophy.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1189,15 +1341,15 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-	</description>
-    </item>
-    <item>
-      <title>SQL NULL is not comparable</title>
-      <link>http://itgumby.github.io/blog/2008/sql-null-is-not-comparable.html</link>
-      <pubDate>Thu, 24 Jan 2008 00:00:00 -0700</pubDate>
-      <guid isPermaLink="false">blog/2008/sql-null-is-not-comparable.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+			</description>
+		</item>
+		<item>
+			<title>SQL NULL is not comparable</title>
+			<link>http://itgumby.github.io/blog/2008/sql-null-is-not-comparable.html</link>
+			<pubDate>2008-01-24T00:00:00-0700</pubDate>
+			<guid isPermaLink="false">blog/2008/sql-null-is-not-comparable.html</guid>
+			<description>
+				&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I am starting out with one of my more common mistakes - comparing fields that may be null. In C or programmatical languages, a NULL would equal a NULL. However in SQL, that isn&amp;#8217;t the case.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1336,8 +1488,7 @@ WHERE a.lName = o.lName
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-
-  </channel> 
+			</description>
+		</item>
+	</channel>
 </rss>
