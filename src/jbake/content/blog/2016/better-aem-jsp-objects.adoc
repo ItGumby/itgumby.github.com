@@ -8,13 +8,12 @@ tags=JSP, AEM
 == TL/DR;
 
 * prefer https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/org/apache/sling/api/resource/Resource.html[Resource] over https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Node.html[Node]
-* prefer https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/index.html?org/apache/sling/api/resource/Resource.html[ValueMap] over https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/PropertyIterator.html[PropertyIteratorhttps://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Property.htmlProperty]
-* http://sling.apache.org/documentation/bundles/models.html[Apache Sling Models] encapsulates your POJO or business logic for a component (even works on component's children!)
-* implement https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/org/apache/sling/api/adapter/AdapterFactory.html[AdapterFactory] was a predecessor to Sling Models.
-* https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/io/sightly/java/api/Use.html[Use API] (especially extending WCMUse or WCMUsePojo) built to support Sightly, but there is no reason they can't be used in JSPs.
+* prefer https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/index.html?org/apache/sling/api/resource/Resource.html[ValueMap] over https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/PropertyIterator.html[PropertyIterator] / https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Property.html[Property]
+* Encapsulate business logic with Apache http://sling.apache.org/documentation/bundles/models.html[Sling Models] for a component (even works on component's children!)
+* https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/io/sightly/java/api/Use.html[Use] API (especially extending WCMUse or WCMUsePojo) built to support Sightly, but there is no reason they can't be used in JSPs.
 
 I remember attending training for AEM back in the CQ5.3-5.4 days.
-The material spent much of its time going over the mechanics of a hierarchical "no-sql" data store, as well as intricacies of OSGi that it had little time left for best practices.
+The material spent much of its time going over the mechanics of a hierarchical "NoSQL" data store, as well as intricacies of OSGi that it had little time left for best practices.
 We would expend so much effort around learning the http://jackrabbit.apache.org/jcr/jcr-api.html[JCR], https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Node.html[`Node`] and https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Property.html[`Property`] that we could barely notice all the typed Exceptions those APIs threw.
 Unfortunately, the training (at least then) didn't include content around core JSP features such as http://docs.oracle.com/javaee/5/tutorial/doc/bnakc.html[Tag Libraries] or http://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html[Expression Language].
 The primary APIs had some also rough spots that didn't always lend themselves to leveraging these features.
@@ -22,16 +21,17 @@ The result was the example code/components often had anti-patterns such as over-
 Ugly code has a cost for understanding and maintenance.
 
 Over time, the situation has evolved and improved.
-By recognizing some of the warts, Adobe decided to create new languages & approaches that wouldn't have the same problems.
+By recognizing some of the warts, AEM(c) decided to create new languages & approaches that wouldn't have the same problems.
 At the same time, updates to enable cleaner approaches benefit the old languages.
 
-== Avoiding Complexity (especially error handling/Exceptions)
+== Avoiding Complexity
 
-The foundational APIs for http://jackrabbit.apache.org/jcr/jcr-api.html[`javax.jcr.*`] are designed accessing an heirarchical "NoSQL" data store.
+_(especially error handling and exceptions)_
+
+The foundational APIs for http://jackrabbit.apache.org/jcr/jcr-api.html[`javax.jcr.\*`] are designed accessing an heirarchical "NoSQL" data store.
 They certainly are not designed for templating or business logic.
-`javax.jcr.*` encapsulates nodes, sessions and permissions while exposing how any of those can go wrong (just look at the 21 subclasses of https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/RepositoryException.html[RepositoryException]).
+`javax.jcr.\*` encapsulates nodes, sessions and permissions while exposing how any of those can go wrong (just look at the 21 subclasses of https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/RepositoryException.html[RepositoryException]).
 Unfortunately, early training materials and examples (such as `/apps/geometrixx/components/asseteditor/head.jsp`) show how unsuited these APIs are for JSP development.
-But that is how we started.
 
 Fortunately, Sling APIs came along to improve the state of development.
 `org.apache.sling.api.resource.*` is a much friendlier API.
@@ -42,22 +42,20 @@ Compare accessing a property value with Sling APIs (in raw Java):
 
 ```java
     String getPageTitle(@Nonnull Resource resource) {
-        Resource pgContent = getPageContentResource(resource);
-        ValueMap properties = pgContent.getValueMap();
+        ValueMap properties = resource.getValueMap();
         return properties.get("pageTitle", properties.get("jcr:title", properties.get("navTitle", "")));
     }
 ```
 
-to equivalent code using the JCR APIs:
+is much easier to maintain than JCR APIs:
 
 ```java
     String getPageTitle(@Nonnull Node currentNode) {
-        Node pgContent = getPageContentNode(currentNode);
         try {
             Property titleProp =
-                pgContent.hasProperty("pageTitle") ? pgContent.getProperty("pageTitle") :
-                    pgContent.hasProperty("jcr:title") ? pgContent.getProperty("jcr:title") :
-                        pgContent.hasProperty("navTitle") ? pgContent.getProperty("navTitle") : null;
+                currentNode.hasProperty("pageTitle") ? currentNode.getProperty("pageTitle") :
+                    currentNode.hasProperty("jcr:title") ? currentNode.getProperty("jcr:title") :
+                        currentNode.hasProperty("navTitle") ? currentNode.getProperty("navTitle") : null;
             if (titleProp != null) {
                 return titleProp.getString();
             }
@@ -69,33 +67,35 @@ to equivalent code using the JCR APIs:
     }
 ```
 
-== Focusing on Intent
+== Focusing on the Intent
 
 "Boilerplate" is the term used for all the code that is for the compiler, not the developer.
-https://en.wikipedia.org/wiki/Functional_programming[Functional Programming (FP)] is the paradigm of declaring _what_ you want instead of _how_ to accomplish a task (https://en.wikipedia.org/wiki/Imperative_programming[Imperative Programming]).
-The benefit of describing what instead of how is less code with clearer intent.
+https://en.wikipedia.org/wiki/Functional_programming[Functional Programming] is the paradigm of declaring _what_ you want instead of _how_ to accomplish a task (compared to https://en.wikipedia.org/wiki/Imperative_programming[Imperative Programming]).
+The benefit of describing _what_ instead of _how_ is clearer intent often with less code.
 Wouldn't it be nice to encapsulate a component with a POJO instead of describing how to read the JCR and then transform into objects?
 Then our views or templates could leverage a simple POJO with clean data instead of accessing the data, verifying & cleaning the data, and then presenting the result.
 
-AdapterFactory was the initial attempt to structure and separate concerns.
+https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/org/apache/sling/api/adapter/AdapterFactory.html[AdapterFactory] was the initial attempt to structure and separate concerns.
 It architected your component classes to construct your objects from a `Resource`/`ValueMap`/`SlingHttpServletRequest` (or other "adaptables").
 As repeated patterns of component classes took form, it became obvious (and desireable) to declare classes as injection containers automatically wired from declared properties (relative to JCR node properties).
 Thus, http://sling.apache.org/documentation/bundles/models.html[Sling Models] was born.
 Instead of imperative code describing _how_ to construct an object, developers can use annotations to declare the mapping to the JCR.
 
-Adobe provided examples for developing the classes in their http://blogs.adobe.com/experiencedelivers/experience-management/htl-intro-part-4/[Experience Delivers blog] (concise side-by-side examples):
+A good comparison of examples of classes is found in the http://blogs.adobe.com/experiencedelivers/experience-management/htl-intro-part-4/[Experience Delivers] blog.
+Their patterns are:
 
 . Implement the Use interface
-. Extend the WCMUsePojo class
-. AdapterFactory from Resource
-. AdapterFactory from Request
+.. Extend the WCMUsePojo class
+. AdapterFactory
+.. from Resource
+.. from Request
 . Sling Models
 
 == Conclusion
 
 I appreciate the newer patterns for building classes.
-But I believe AEM is disingenious when they sell Sightly as faster when Java classes must be built and deployed as bundles before the new HTML templates can be built.
+But I believe AEM(c) is disingenious when they sell Sightly as faster than JSP development when Java classes must be built and deployed as bundles before the new HTML templates can be built.
 For one thing, JSPs can leverage the exact same classes that are used to power Sightly.
-It is possible to rapid prototype by extracting classes in JSPs and eventually move them to external bundles (with unit tests, of course!)
+It is also possible to rapid prototype by extracting classes in JSPs and eventually move them to external bundles (with unit tests, of course!)
 
 In the next part of this series, I hope to show how JSPs can look much closer to a template.

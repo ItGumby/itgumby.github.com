@@ -8,7 +8,9 @@
 
 . Ensure source branch `git checkout source`
 . Create & edit post file(s) `src/jbake/content/blog/YYYY/url.adoc`
-. build static content `./gradlew jbake` or `jbake -b src/jbake build/ghpages` (handy for troubleshooting logs)
+. build static content
+.. `./gradlew --no-daemon jbake`
+.. `jbake -b src/jbake build/ghpages` (handier for troubleshooting logs)
 . preview content `jbake -s build/ghpages`
 . publish content **IN THEORY** `./gradlew publish`
 ** "Skipping task ':prepareGhPages' as it has no source files."
