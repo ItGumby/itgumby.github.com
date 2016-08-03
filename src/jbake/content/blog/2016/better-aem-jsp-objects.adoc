@@ -1,5 +1,5 @@
 title=Better AEM JSPs part 1: objects
-date=2016-06-21
+date=2016-08-02
 type=post
 status=published
 tags=JSP, AEM
@@ -84,7 +84,8 @@ Instead of imperative code describing _how_ to construct an object, developers c
 A good comparison of examples of classes is found in the http://blogs.adobe.com/experiencedelivers/experience-management/htl-intro-part-4/[Experience Delivers] blog.
 Their patterns are:
 
-. Implement the Use interface
+. `Use` API
+.. Implement the Use interface
 .. Extend the WCMUsePojo class
 . AdapterFactory
 .. from Resource
