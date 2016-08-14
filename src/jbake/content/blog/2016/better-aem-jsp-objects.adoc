@@ -12,7 +12,7 @@ tags=JSP, AEM
 * Encapsulate business logic with Apache http://sling.apache.org/documentation/bundles/models.html[Sling Models] for a component (even works on component's children!)
 * https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/io/sightly/java/api/Use.html[Use] API (especially extending WCMUse or WCMUsePojo) built to support Sightly, but there is no reason they can't be used in JSPs.
 
-I remember attending training for AEM back in the CQ5.3-5.4 days.
+I remember attending training for AEM(R) back in the CQ5.3-5.4 days.
 The material spent much of its time going over the mechanics of a hierarchical "NoSQL" data store, as well as intricacies of OSGi that it had little time left for best practices.
 We would expend so much effort around learning the http://jackrabbit.apache.org/jcr/jcr-api.html[JCR], https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Node.html[`Node`] and https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Property.html[`Property`] that we could barely notice all the typed Exceptions those APIs threw.
 Unfortunately, the training (at least then) didn't include content around core JSP features such as http://docs.oracle.com/javaee/5/tutorial/doc/bnakc.html[Tag Libraries] or http://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html[Expression Language].
@@ -21,7 +21,7 @@ The result was the example code/components often had anti-patterns such as over-
 Ugly code has a cost for understanding and maintenance.
 
 Over time, the situation has evolved and improved.
-By recognizing some of the warts, AEM(c) decided to create new languages & approaches that wouldn't have the same problems.
+By recognizing some of the warts, AEM(R) decided to create new languages & approaches that wouldn't have the same problems.
 At the same time, updates to enable cleaner approaches benefit the old languages.
 
 == Avoiding Complexity
@@ -95,7 +95,7 @@ Their patterns are:
 == Conclusion
 
 I appreciate the newer patterns for building classes.
-But I believe AEM(c) is disingenious when they sell Sightly as faster than JSP development when Java classes must be built and deployed as bundles before the new HTML templates can be built.
+But I believe AEM(R) is disingenious when they sell Sightly as faster than JSP development when Java classes must be built and deployed as bundles before the new HTML templates can be built.
 For one thing, JSPs can leverage the exact same classes that are used to power Sightly.
 It is also possible to rapid prototype by extracting classes in JSPs and eventually move them to external bundles (with unit tests, of course!)
 

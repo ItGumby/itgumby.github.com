@@ -7,8 +7,115 @@ tags=JSP, AEM
 
 == TL/DR;
 
-* avoiding scriptlets
-* JSP Expression Language
+* Avoid JSP scriptlets (except for prototyping)
+* Prefer JSP Expression Language
 * JSP EL Functions
 * Implicit Objects (JSP + EL)
 * Taglibs
+
+== Avoiding Scriptlets
+
+There are a https://en.wikipedia.org/wiki/Comparison_of_web_template_engines[quite a few] other template engines (for many languages including several for Java).
+Because CQ/AEM(R) is built in Java, I am focusing on the leading solution, JSPs (https://en.wikipedia.org/wiki/JavaServer_Pages[Java Server Pages]), which is supported out of the box.
+It is certainly not the only template solution, but is the most mature and documented (just not necessarily by Adobe).
+
+Initially, JSPs were created as an alternative to pure-Java Servlets.
+The problem with pure-Java (or any programming language) is the output looks nothing like the source code.
+Instead, templating should strive to make the source code look like the output as much as possible.
+Obviously, a certain amount of control (such as conditionals, looping, and imports) will look different than the output, but should strive to not look "out of place" in the source.
+Therefore, anything that looks foreign to HTML (and Java qualifies) should be minimized or eliminated.
+
+Another problem with *code* in a JSP is testability.
+Template content is static, thus doesn't have to be tested for different states.
+Java logic _does_ need testing.
+Even if it worked in one state, Java code can throw runtime exceptions in another.
+Therefore, the best practice is to move as much logic as possible into bundles or custom taglibs.
+Either of these can be unit tested at build time (faster and earlier feedback compared to installing then functional testing).
+
+
+In order to actually _do_ anything interesting, Tag Libraries were created (especially the Core and Function taglibs).
+In the following 2 examples, compare the jaring shift in syntax and parsing of scriptlets with the relatively consistent syntax using a JSTL taglib.
+Java developers may consider the scriptlet syntax a small penalty, but it is actually brittle and uncomfortable for others.
+The effect compounds with more business logic and nesting.
+
+.Example: Conditional Logic with "Core" taglib:
+[source,jsp]
+----
+<c:if test="<%= predicate %>">
+    <p>my predicate was true</p>
+</c:if>
+----
+The only part that "sticks out" is the Java expression (but that can be simplified with EL).
+
+.Example: Simple Scriptlet (conditional logic):
+[source,jsp]
+----
+<% if (predicate) { %>
+    <p>my predicate was true</p>
+<% } %>
+----
+Notice how the Java parts look nothing like the rest of the template.
+
+== JSP Expression Language
+
+JSP http://stackoverflow.com/tags/el/info[Expression Language] was initially created to greatly simplify using Maps and Java Beans.
+(http://stackoverflow.com/questions/3295496/what-is-a-javabean-exactly[Java Beans] are just a standard with all properties are private, public getters/setters named after the properties, public no-arg constructors, and implements Serializable).
+EL has operators (math, comparison, logical), some limited functions, and can call taglib functions ( such as `${fn:containsIgnoreCase(theString, 'TEST')}` ).
+In other words, EL simplifies JSP Expressions.
+
+.EL also provides extra implicit objects (reducing business logic)
+* `param`, `paramValues`
+* `cookie`
+* `header`, `headerValues`
+* `initParam`
+* `pageContext`
+* `pageScope`, `requestScope`, `sessionScope`, `applicationScope`
+
+.Compare JSP Expression (the hard way) to JSP EL
+[format="csv", columns="1,4,2"]
+|===
+Example, JSP Java Expression, JSP EL
+zip parameter, `<%= request.getParameterMap().get("zip")[0] %>`, `${param.zip}`
+query string, `<%= request.getQueryString() %>`, `${request.queryString}`
+access map, `<%= map.get("foo") %>`, `${map.foo}`
+map with illegal key, `<%= map.get("foo bar") %>`, `${map['foo bar']}`
+get cookie, N/A (have to walk `Cookie[] request.getCookies[]`), `${cookie.myCookieName}`
+|===
+
+The biggest disappointment with JSP-EL on AEM is the supported version.
+JSP-EL has supported calling methods (with arguments) since v2.2 (Servlet v3.0), but AEM 6.1 http://localhost:4502/system/console/status-slingscripting[shows] JSP 2.1/JEXL 2.0 (Apache Commons JEXL is the EL implementation loaded in AEM. https://www.apache.org/dist/commons/jexl/RELEASE-NOTES.txt[Release Notes])
+
+== Implicit Objects
+
+
+== Reference/Appendix
+
+.Core Syntax of JSPs:
+[format="csv",cols="1,2,4"]
+|===
+Type, Example, Purpose
+HTML, `<h2>My Header</h2>`, Literal output - hopefully the bulk of the template
+Scriptlet, `<% ...java... %>`, External logic or organization.  Useful for prototyping but confusing for production code.
+Expression, `<%= ...value... %>`, Inject the value of the java expression (especially result of a function or method) into the template.  NOTE: no semicolons.
+Directive, `<%@ page/taglib/include %>`, Declare page attributes or include taglibs & classes.
+Tag Libraries, `<c:set ... />`, (http://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm[Standard Tag Library]) or custom TagLibs.  Encapsulate logic in a format that approaches XML with optional attributes depending on the tag.
+|===
+
+.JSTL (Standard Tag Libraries)
+[format="csv", cols="1,4,4"]
+|===
+Group, Usage, Purpose
+CQ Tag Library, `<%@taglib prefix="cq" uri="http://www.day.com/taglibs/cq/1.0" %>`, "AEM taglibs for safe text rendering, including components/ClientLibs"
+Core Tags, `<%@ taglib prefix="c"` `uri="http://java.sun.com/jsp/jstl/core" %>`, Logic for **conditionals & looping**.  A few control features such as redirects or importing.
+String Functions, `<%@ taglib prefix="fn" uri=".../jstl/functions" %>`, Common **string manipulation** functions.
+Formatting, `<%@ taglib prefix="fmt" uri=".../jstl/fmt" %>`, Parsing & Output of set formats such as numbers & dates.  Also internationalization.
+SQL, `<%@ taglib prefix="sql" uri=".../jstl/sql" %>`, Interacting with relational databases.
+XML, `<%@ taglib prefix="x" uri=".../jstl/xml" %>`, Create and manipulate XML documents.
+|===
+
+.JSP-EL Functions
+
+
+.JSP-EL References
+* https://dzone.com/refcardz/essential-jsp-expression[DZone Expression Language Reference]
+* http://www.tutorialspoint.com/jsp/jsp_expression_language.htm[tutorialspoint JSP - Expression Language (EL)]
