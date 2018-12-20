@@ -7,7 +7,7 @@
 <p>
 	<em>Tags: </em>
 	<#list content.tags as tag>
-		<a href="/${config.tag_path}/${tag?trim?replace(' ','-')}.html">${tag}</a>
+		<a href="/${config.tag_path}/${tag?trim?replace(' ','-')}.html">${tag}</a><#sep>, </#sep>
 	</#list>
 </p>
 

@@ -16,8 +16,8 @@
             <li><a href="/presentations.html">Presentations</a></li>
             <li><a href="/about.html">About Me</a></li>
             <li><a href="/${config.feed_file}">RSS</a></li>
-            <li><a href="https://github.com/itgumby">GitHub<i class="fa fa-github"></i></a></li>
-            <li><a href="https://twitter.com/itgumby">Twitter<i class="fa fa-twitter"></i></a></li>
+            <li><a href="https://github.com/itgumby"><i class="fa fa-github"></i> GitHub</a></li>
+            <li><a href="https://twitter.com/itgumby"><i class="fa fa-twitter"></i> Twitter</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

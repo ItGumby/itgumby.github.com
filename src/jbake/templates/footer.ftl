@@ -4,7 +4,7 @@
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2016 | Baked with <a href="http://jbake.org">JBake ${version}</a></p>
+        <p class="muted credit">&copy; ${published_date?string("yyyy")} | Baked with <a href="http://jbake.org">JBake ${version}</a></p>
       </div>
     </div>
 
