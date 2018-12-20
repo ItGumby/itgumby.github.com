@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>IT Gumby's blog: Querying the JCR: XPath</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Brian Street">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/asciidoctor.css" rel="stylesheet">
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/prettify.css" rel="stylesheet">
+    <link href="/css/customize.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="/js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="/favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/index.html">IT Gumby's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/archive.html">Archive</a></li>
+            <li><a href="/presentations.html">Presentations</a></li>
+            <li><a href="/about.html">About Me</a></li>
+            <li><a href="/feed.xml">RSS</a></li>
+            <li><a href="https://github.com/itgumby"><i class="fa fa-github"></i> GitHub</a></li>
+            <li><a href="https://twitter.com/itgumby"><i class="fa fa-twitter"></i> Twitter</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+<div class="page-header">
+	<h1>Querying the JCR: XPath</h1>
+</div>
+<p><em>2018-12-19</em></p>
+<p>
+	<em>Tags: </em>
+		<a href="/tagged/JCR.html">JCR</a>, 
+		<a href="/tagged/XPATH.html">XPATH</a>, 
+		<a href="/tagged/HippoCMS.html">HippoCMS</a>
+</p>
+
+<p><div class="sect1">
+<h2 id="_summary">Summary:</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When I was developing on CQ5/AEM6, querying via SQL2 felt more natural to me (having worked in databases &amp; data-warehouses).
+In a different job (using HippoCMS/Bloomreach DXP), I was forced to learn XPath queries because SQL2 was not supported.
+Since SQL2 queries eventually get converted to XPath, this was a useful language to learn.</p>
+</div>
+<div class="paragraph">
+<p>This reference breaks queries into:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Path Constraints</p>
+</li>
+<li>
+<p>Property Constraints</p>
+</li>
+<li>
+<p>Sorting Results</p>
+</li>
+<li>
+<p>Hippo Query Hints</p>
+</li>
+<li>
+<p>Appendix: JCR XPath Functions</p>
+</li>
+<li>
+<p>Appendix: Bean Example</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Examples should work on the Hippo CMS "Go Green" example project.
+If running locally, they can be tested at <a href="http://localhost:8080/cms/repository/" class="bare">http://localhost:8080/cms/repository/</a></p>
+</div>
+<div class="sect2">
+<h3 id="_path_constraints">Path Constraints</h3>
+<div class="paragraph">
+<p>The first concept to understand is finding nodes by path constraints (called expressions):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/</code> direct descendent node</p>
+</li>
+<li>
+<p><code>//</code> any descendent</p>
+</li>
+<li>
+<p><code>*</code> any node name (can&#8217;t be used with a partial node name for pattern matching)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Some examples of path constraints are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A folder by absolute path: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2Fjcr%3Aroot%2Fcontent%2Fdocuments%2Fgogreen%2Fnews&amp;xpath-limit=1000"><code>/jcr:root/content/documents/gogreen/news</code></a></p>
+</li>
+<li>
+<p>All descendents (direct + indirect) of an absolute path: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2Fjcr%3Aroot%2Fcontent%2Fdocuments%2Fgogreen%2Fnews%2F%2F*&amp;xpath-limit=1000"><code>/jcr:root/content/documents/gogreen/news//*</code></a> (returns folders, document handles, document variants)</p>
+</li>
+<li>
+<p>Only direct children of the folder: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2Fjcr%3Aroot%2Fcontent%2Fdocuments%2Fgogreen%2Fnews%2F*&amp;xpath-limit=1000"><code>/jcr:root/content/documents/gogreen/news/*</code></a></p>
+</li>
+<li>
+<p>Any node named "news": <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2Fnews&amp;xpath-limit=1000"><code>//news</code></a> (returns both the /content folder + a sitemapitem in gogreen configuration)</p>
+</li>
+<li>
+<p>Any node 3 levels below the news folder: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2Fnews%2F*%2F*%2F*&amp;xpath-limit=1000"><code>//news/*/*/*</code></a> (returns only the document handles under news/YYYY/MM/* )</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_property_constraints">Property Constraints</h3>
+<div class="paragraph">
+<p>The most commonly desired query is finding JCR nodes by a property value.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Node Type Constraints</p>
+<div class="ulist">
+<ul>
+<li>
+<p>query for explicit type (no inheritance): <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2F*%5B%40jcr%3AprimaryType+%3D+%27gogreen%3Anewsdocument%27%5D&amp;xpath-limit=1000"><code>//*[@jcr:primaryType = 'gogreen:newsdocument']</code></a></p>
+</li>
+<li>
+<p>query for type (including type inheritance) using a function: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2Felement%28*%2C+gogreen%3Anewsdocument%29&amp;xpath-limit=1000"><code>//element(*, gogreen:newsdocument)</code></a></p>
+</li>
+<li>
+<p>NOTE: above queries will include the document type prototype nodes with actual documents.  It is easy to include a partial path such as <code>//content</code> before the rest of the XPath query.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Property paths</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>.</code> Current Node</p>
+</li>
+<li>
+<p><code>..</code> Parent Node (discouraged for performance reasons)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>property exists (to any value, <em>including blank strings/empty lists</em>): <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2Fcontent%2F%2F*%5B%40gogreen%3Asource%5D&amp;xpath-limit=1000"><code>//content//*[@gogreen:source]</code></a></p>
+</li>
+<li>
+<p>property equals: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2F*%5B%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27%5D&amp;xpath-limit=1000"><code>//*[@gogreen:author = 'Alfred Anonymous']</code></a></p>
+</li>
+<li>
+<p>property NOT equals: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2F*%5B%40gogreen%3Aauthor+%21%3D+%27Alfred+Anonymous%27%5D&amp;xpath-limit=1000"><code>//*[@gogreen:author != 'Alfred Anonymous']</code></a> (NOTE: matches non-documents also)</p>
+</li>
+<li>
+<p>negation function: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2F*%5Bnot%28%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27%29%5D&amp;xpath-limit=1000"><code>//*[not(@gogreen:author = 'Alfred Anonymous')]</code></a> (NOTE: matches ANY node whose author is different OR doesn&#8217;t have an author property)</p>
+</li>
+<li>
+<p>multi-value property contains: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2F*%5B%40hippo%3Aavailability+%3D+%27live%27%5D&amp;xpath-limit=1000"><code>//*[@hippo:availability = 'live']</code></a> (same as a single-value property equals)</p>
+</li>
+<li>
+<p>property like: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2F*%5Bjcr%3Alike%28%40gogreen%3Aauthor%2C+%27Alfred%25%27%29%5D&amp;xpath-limit=1000&amp;sql=&amp;sql-limit=1000"><code>//*[jcr:like(@gogreen:author, 'Alfred%')]</code></a></p>
+</li>
+<li>
+<p>property contains: <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2F*%5Bjcr%3Acontains%28%40gogreen%3Aauthor%2C+%27Alfred%27%29%5D&amp;xpath-limit=1000"><code>//*[jcr:contains(@gogreen:author, 'Alfred')]</code></a></p>
+</li>
+<li>
+<p>full text (any property contains): <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2F*%5Bjcr%3Acontains%28*%2C+%27Alfred%27%29%5D&amp;xpath-limit=1000"><code>//*[jcr:contains(*, 'Alfred')]</code></a> (NOTE: doesn&#8217;t always behave as expected when combining)</p>
+</li>
+<li>
+<p>property relative to matched node:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>parent node property: <code>//element(*, gogreen:newsdocument\)[../\@hippo:name = 'The medusa news'\]</code> (returns the document variants whose handle has a name &#8230;&#8203;)</p>
+</li>
+<li>
+<p>child node property: <code>//*[./the-medusa-news/@gogreen:title = 'The medusa news']</code> (returns the single <code>hippo:handle</code> with any document variant having the title)</p>
+</li>
+<li>
+<p>Querying for properties outside of the returned node can have performance implications.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>combining properties (must be lower-cased):</p>
+<div class="ulist">
+<ul>
+<li>
+<p>AND <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2F*%5B%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27+and+%40hippo%3Aavailability+%3D+%27live%27%5D&amp;xpath-limit=1000"><code>//*[@gogreen:author = 'Alfred Anonymous' and @hippo:availability = 'live']</code></a></p>
+</li>
+<li>
+<p>OR <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2F*%5B%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27+or+%40hippo%3Aavailability+%3D+%27live%27%5D&amp;xpath-limit=1000"><code>//*[@gogreen:author = 'Alfred Anonymous' or @hippo:availability = 'live']</code></a></p>
+</li>
+<li>
+<p>property set (exists + not empty): <a href="http://localhost:8080/cms/repository/?search-type=xpath&amp;xpath=%2F%2Fcontent%2F%2F*%5B%40gogreen%3Asource+and+%40gogreen%3Asource+%21%3D+%27%27%5D&amp;xpath-limit=1000"><code>//content//*[@gogreen:source and @gogreen:source != '']</code></a> (default content will return 0 nodes, but it is correct)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sorting_results">Sorting Results</h3>
+<div class="paragraph">
+<p>Append <code>order by @PROP_NAME</code> with optional <code>descending</code> or <code>ascending</code> (default, so no need to add) at the end of the query.
+Abbreviations will be ignored.
+JCR queries also ignore unrecognized/missing properties.
+Multiple properties can be combined in more complex sorting, such as <code>//content//*[@gogreen:source]  | @gogreen:date | @gogreen:title order by @gogreen:title descending, @gogreen:date ascending</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hippo_query_hints">Hippo Query Hints</h3>
+<div class="paragraph">
+<p>Folder names are used for filtering more than for efficiency.
+Hippo&#8217;s query speed is optimized by leveraging <code>jcr:uuid</code>.
+The property <code>hippo:paths</code> is a multiple value property with jcr:uuid of current node, then each of its ancestors, then the root node last (whose <code>jcr:uuid=cafebabe-cafe-babe-cafe-babecafebabe</code>).
+Hippo CMS therefore filters descendendants of a folder by including <code>hippo:path=$FOLDER_UUID</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>/cms/repository</code> query UI provides several interesting features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Query Results table includes columns <code>jcr:primaryType, jcr:path, jcr:score</code> by default</p>
+</li>
+<li>
+<p>If querying with the <code>element(*, docType)</code> function is used, the table adds columns for required properties (only directly on the node)</p>
+</li>
+<li>
+<p>Can manually force display of other properties in the query results table by appending <code>| @propName</code> before sorting clauses, i.e. <code>//element(*, gogreen:newsdocument) | @gogreen:documenttype |@gogreen:location order by @gogreen:location</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>this is limited to properties on the query result node (not properties on parent or child nodes)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Get it right first, then get it fast.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+The order of constraints can matter - place more restrictive ones first
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Debug Java queries by logging the actual query used, then run the logged query through the <code>/cms/respository</code> UI
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_appendix_jcr_xpath_functions">Appendix: JCR XPath Functions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>element(*, <em>docType</em>)</code> nodes of type docType or inherited types</p>
+</li>
+<li>
+<p><code>jcr:like(<em>propName, pattern</em>)</code> pattern matching</p>
+</li>
+<li>
+<p><code>jcr:contains(<em>propName, text</em>)</code> text search</p>
+</li>
+<li>
+<p><code>jcr:score()</code> sorting</p>
+</li>
+<li>
+<p><a href="https://docs.adobe.com/docs/en/spec/jcr/1.0/6.6.4.4_Mapping_Property_Types_to_XML_Types.html">type matching functions</a> xs:string, xs:base64Binary, xs:double, xs:long, xs:boolean, <strong>xs:dateTime</strong>, xs:IDREF</p>
+<div class="ulist">
+<ul>
+<li>
+<p>dateTime formats MUST be <code>`yyyy-MM-D&#8217;T';HH:mm:ss.000Z</code> (ie <code>property &gt;=xs:dateTime('2018-02-01T00:00:00.000Z')</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_appendix_bean_example">Appendix: Bean Example</h3>
+<div class="listingblock">
+<div class="title">Example from helper classes from a Bean</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xpath" data-lang="xpath">//*[
+  (@hippo:paths='0dd35126-de28-4948-b43d-3949e9b1f5bb') and
+  (@hippo:availability='live') and
+  not(@jcr:primaryType='nt:frozenNode') and
+  ((@jcr:primaryType='gogreen:newsdocument')) and
+  ./gogreen:image/@hippo:docbase='7aeca376-1e1b-4c5d-90cf-fe497f6bcde6'
+] order by @hippostdpubwf:lastModificationDate descending`</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Could be manually simplified, such as removing some unnecessary parenthesis</p>
+</li>
+<li>
+<p>Notice the use of UUIDs for the <code>@hippo:paths</code> (from site content folder), @hippo:docbase.  These are performance optimizations.</p>
+</li>
+<li>
+<p>The UUIDs are unlikely to match any of your instances (so are only useful within a cluster).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div></p>
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2018 | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/prettify.js"></script>
+
+  </body>
+</html>

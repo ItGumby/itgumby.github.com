@@ -15,6 +15,7 @@
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/prettify.css" rel="stylesheet">
     <link href="/css/customize.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -49,313 +50,167 @@
             <li><a href="/presentations.html">Presentations</a></li>
             <li><a href="/about.html">About Me</a></li>
             <li><a href="/feed.xml">RSS</a></li>
-            <li><a href="https://github.com/itgumby">GitHub<i class="fa fa-github"></i></a></li>
-            <li><a href="https://twitter.com/itgumby">Twitter<i class="fa fa-twitter"></i></a></li>
+            <li><a href="https://github.com/itgumby"><i class="fa fa-github"></i> GitHub</a></li>
+            <li><a href="https://twitter.com/itgumby"><i class="fa fa-twitter"></i> Twitter</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
     <div class="container">
-<div class="page-header"><h1>Blog</h1></div>
-		<a href="blog/2016/better-aem-jsp-objects.html"><h1>Better AEM JSPs part 1: objects</h1></a>
-		<p>2016-06-21</p>
-		<p>
-			<em>Tags: </em>
-				<a href="/tagged/JSP.html">JSP</a>
-				<a href="/tagged/AEM.html">AEM</a>
-		</p>
-		<p><div class="sect1">
-<h2 id="_tl_dr">TL/DR;</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>prefer <a href="https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/org/apache/sling/api/resource/Resource.html">Resource</a> over <a href="https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Node.html">Node</a></p>
-</li>
-<li>
-<p>prefer <a href="https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/index.html?org/apache/sling/api/resource/Resource.html">ValueMap</a> over <a href="https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/PropertyIterator.html">PropertyIterator</a> / <a href="https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Property.html">Property</a></p>
-</li>
-<li>
-<p><a href="http://sling.apache.org/documentation/bundles/models.html">Apache Sling Models</a> encapsulates your POJO or business logic for a component (even works on component&#8217;s children!)</p>
-</li>
-<li>
-<p><a href="https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/io/sightly/java/api/Use.html">Use</a> API (especially extending WCMUse or WCMUsePojo) built to support Sightly, but there is no reason they can&#8217;t be used in JSPs.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>I remember attending training for AEM back in the CQ5.3-5.4 days.
-The material spent much of its time going over the mechanics of a hierarchical "NoSQL" data store, as well as intricacies of OSGi that it had little time left for best practices.
-We would expend so much effort around learning the <a href="http://jackrabbit.apache.org/jcr/jcr-api.html">JCR</a>, <a href="https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Node.html"><code>Node</code></a> and <a href="https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Property.html"><code>Property</code></a> that we could barely notice all the typed Exceptions those APIs threw.
-Unfortunately, the training (at least then) didn&#8217;t include content around core JSP features such as <a href="http://docs.oracle.com/javaee/5/tutorial/doc/bnakc.html">Tag Libraries</a> or <a href="http://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html">Expression Language</a>.
-The primary APIs had some also rough spots that didn&#8217;t always lend themselves to leveraging these features.
-The result was the example code/components often had anti-patterns such as over-leveraging scriptlets (code inside the "template" of a JSP), which meant much of our initial code was also ugly.
-Ugly code has a cost for understanding and maintenance.</p>
-</div>
-<div class="paragraph">
-<p>Over time, the situation has evolved and improved.
-By recognizing some of the warts, AEM(c) decided to create new languages &amp; approaches that wouldn&#8217;t have the same problems.
-At the same time, updates to enable cleaner approaches benefit the old languages.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_avoiding_complexity">Avoiding Complexity</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><em>(especially error handling and exceptions)</em></p>
-</div>
-<div class="paragraph">
-<p>The foundational APIs for <a href="http://jackrabbit.apache.org/jcr/jcr-api.html"><code>javax.jcr.*</code></a> are designed accessing an heirarchical "NoSQL" data store.
-They certainly are not designed for templating or business logic.
-<code>javax.jcr.\*</code> encapsulates nodes, sessions and permissions while exposing how any of those can go wrong (just look at the 21 subclasses of <a href="https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/RepositoryException.html">RepositoryException</a>).
-Unfortunately, early training materials and examples (such as <code>/apps/geometrixx/components/asseteditor/head.jsp</code>) show how unsuited these APIs are for JSP development.</p>
-</div>
-<div class="paragraph">
-<p>Fortunately, Sling APIs came along to improve the state of development.
-<code>org.apache.sling.api.resource.*</code> is a much friendlier API.
-To start with, Exceptions are rare to non-existant.
-Instead of throwing errors, they frequently provide fallback mechanisms to express the business intent when the JCR API would require error or exception handling.</p>
-</div>
-<div class="paragraph">
-<p>Compare accessing a property value with Sling APIs (in raw Java):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    String getPageTitle(@Nonnull Resource resource) {
-        ValueMap properties = resource.getValueMap();
-        return properties.get("pageTitle", properties.get("jcr:title", properties.get("navTitle", "")));
-    }</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>is much easier to maintain than JCR APIs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    String getPageTitle(@Nonnull Node currentNode) {
-        try {
-            Property titleProp =
-                currentNode.hasProperty("pageTitle") ? currentNode.getProperty("pageTitle") :
-                    currentNode.hasProperty("jcr:title") ? currentNode.getProperty("jcr:title") :
-                        currentNode.hasProperty("navTitle") ? currentNode.getProperty("navTitle") : null;
-            if (titleProp != null) {
-                return titleProp.getString();
-            }
-        } catch (RepositoryException ignore) {
-            // log problem so you can find in monitoring &amp; hopefully fix (author) soon.
-        } finally {
-            return ""; // better than returning null and risking NPE. Web is about concatenating strings, anyway! :-)
-        }
-    }</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_focusing_on_the_intent">Focusing on the Intent</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>"Boilerplate" is the term used for all the code that is for the compiler, not the developer.
-<a href="https://en.wikipedia.org/wiki/Functional_programming">Functional Programming</a> is the paradigm of declaring <em>what</em> you want instead of <em>how</em> to accomplish a task (compared to <a href="https://en.wikipedia.org/wiki/Imperative_programming">Imperative Programming</a>).
-The benefit of describing <em>what</em> instead of <em>how</em> is clearer intent often with less code.
-Wouldn&#8217;t it be nice to encapsulate a component with a POJO instead of describing how to read the JCR and then transform into objects?
-Then our views or templates could leverage a simple POJO with clean data instead of accessing the data, verifying &amp; cleaning the data, and then presenting the result.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/org/apache/sling/api/adapter/AdapterFactory.html">AdapterFactory</a> was the initial attempt to structure and separate concerns.
-It architected your component classes to construct your objects from a <code>Resource</code>/<code>ValueMap</code>/<code>SlingHttpServletRequest</code> (or other "adaptables").
-As repeated patterns of component classes took form, it became obvious (and desireable) to declare classes as injection containers automatically wired from declared properties (relative to JCR node properties).
-Thus, <a href="http://sling.apache.org/documentation/bundles/models.html">Sling Models</a> was born.
-Instead of imperative code describing <em>how</em> to construct an object, developers can use annotations to declare the mapping to the JCR.</p>
-</div>
-<div class="paragraph">
-<p>A good comparison of examples of classes is found in the <a href="http://blogs.adobe.com/experiencedelivers/experience-management/htl-intro-part-4/">Experience Delivers</a> blog.
-Their patterns are:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Implement the Use interface</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Extend the WCMUsePojo class</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>AdapterFactory</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>from Resource</p>
-</li>
-<li>
-<p>from Request</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Sling Models</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_conclusion">Conclusion</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>I appreciate the newer patterns for building classes.
-But I believe AEM(c) is disingenious when they sell Sightly as faster than JSP development when Java classes must be built and deployed as bundles before the new HTML templates can be built.
-For one thing, JSPs can leverage the exact same classes that are used to power Sightly.
-It is also possible to rapid prototype by extracting classes in JSPs and eventually move them to external bundles (with unit tests, of course!)</p>
-</div>
-<div class="paragraph">
-<p>In the next part of this series, I hope to show how JSPs can look much closer to a template.</p>
-</div>
-</div>
-</div></p>
-		<a href="blog/2014/simple-soap-example.html"><h1>Simple SOAP Example</h1></a>
-		<p>2014-10-23</p>
-		<p>
-			<em>Tags: </em>
-				<a href="/tagged/groovy.html">groovy</a>
-				<a href="/tagged/SOAP.html">SOAP</a>
-		</p>
-		<p><div class="paragraph">
-<p>All I wanted was a JVM-based script exemplifying a simple SOAP call.
-However, I wasn&#8217;t satisfied with their complexity and pieces.</p>
-</div>
-<div class="paragraph">
-<p>Best practices have established using a <a href="http://docs.spring.io/spring-ws/site/reference/html/why-contract-first.html">contract-first</a> approach is more reliable and resilient.
-Spring also documented the prototypical Java SOAP client: <a href="http://spring.io/guides/gs/consuming-web-service/">Consuming a SOAP web service</a>.
-The example has a clear classes &amp; separation of concerns, but still requires a build file to generate code from the WSDL using JAXB.</p>
-</div>
-<div class="sect1">
-<h2 id="_my_simple_example_in_groovy">My Simple Example: in Groovy</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>My example breaks the client into 3 parts:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Creating the Request</p>
-</li>
-<li>
-<p>Get the Response</p>
-</li>
-<li>
-<p>Extracting Data</p>
-</li>
-</ol>
-</div>
-<div class="sect2">
-<h3 id="_creating_the_request">Creating the Request</h3>
-<div class="paragraph">
-<p>The traditional approach creates an object, then marshalls it (converts object to a string).</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">String buildRequest(String zip) {
-    def writer = new StringWriter()
-    def builder = new MarkupBuilder(writer)
 
-    builder.GetCityForecastByZIP(xmlns: "http://ws.cdyne.com/WeatherWS/") {
-        ZIP(zip)
-    }
-    return writer.toString()
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Groovy&#8217;s <a href="http://groovy.codehaus.org/Creating+XML+using+Groovy&#8217;s+MarkupBuilder">MarkupBuilder</a> makes it super easy to safely build XML (or HTML).
-It can handle attributes, escaping content, and even namespaces!
-The XML is patterned from the WSDL&#8217;s Request object manually, or using <a href="http://www.soapui.org/">SoapUI</a> to build it from the WSDL.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_get_the_response">Get the Response</h3>
-<div class="paragraph">
-<p>Both examples use Spring&#8217;s WebServiceTemplate methods.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">String callSoapWeather(String body) {
-    def msgFactory = new SaajSoapMessageFactory()
-    msgFactory.afterPropertiesSet()
+<h1>Blog Posts</h1>
 
-    def wsTemplate = new WebServiceTemplate(msgFactory)
-    wsTemplate.setDefaultUri("http://wsf.cdyne.com/WeatherWS/Weather.asmx")
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2018/jcr-xpath-reference.html"><h2>Querying the JCR: XPath</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2018-12-19</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/JCR.html">JCR</a>, 
+					<a href="/tagged/XPATH.html">XPATH</a>, 
+					<a href="/tagged/HippoCMS.html">HippoCMS</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2016/better-aem-jsp2-templates.html"><h2>Better AEM JSPs part 2: templates</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2016-08-09</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/JSP.html">JSP</a>, 
+					<a href="/tagged/AEM.html">AEM</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2016/better-aem-jsp-objects.html"><h2>Better AEM JSPs part 1: objects</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2016-08-02</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/JSP.html">JSP</a>, 
+					<a href="/tagged/AEM.html">AEM</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2014/simple-soap-example.html"><h2>Simple SOAP Example</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2014-10-23</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/groovy.html">groovy</a>, 
+					<a href="/tagged/SOAP.html">SOAP</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2014/cq-queries-demystified.html"><h2>CQ Queries Demystified</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2014-10-09</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/CQ5-AEM.html">CQ5-AEM</a>, 
+					<a href="/tagged/JCR.html">JCR</a>, 
+					<a href="/tagged/Queries.html">Queries</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2014/cq-defineObjects-cheatsheet.html"><h2>CQ5 resource - &lt;cq:defineObjects/&gt; CheatSheet</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2014-02-16</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/CQ5-AEM.html">CQ5-AEM</a>, 
+					<a href="/tagged/JSP.html">JSP</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2013/the-evolution-of-looping.html"><h2>The Evolution of Looping</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2013-11-23</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/FP.html">FP</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2013/ghp-with-octopress.html"><h2>Why Octopress</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2013-06-02</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/Octopress.html">Octopress</a>, 
+					<a href="/tagged/GithubPages.html">GithubPages</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2013/octopress-first-steps.html"><h2>Octopress First Steps</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2013-06-02</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/Octopress.html">Octopress</a>, 
+					<a href="/tagged/GithubPages.html">GithubPages</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2012/command-line-basics.html"><h2>Command Line Basics</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2012-11-11</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/CLI.html">CLI</a>, 
+					<a href="/tagged/shell.html">shell</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<a href="blog/2008/sql-null-is-not-comparable.html"><h2>SQL NULL is not comparable</h2></a>
+			</div>
+			<div class="panel-footer">
+				<div class="text-left">2008-01-24</div>
+				<div class="text-right">
+				 <em>Tags: </em>
+					<a href="/tagged/SQL.html">SQL</a>
+				</div>
+			</div>
+		</div>
 
-    def writer = new StringWriter()
-    try {
-        wsTemplate.sendSourceAndReceiveToResult(
-            new StringSource(body),
-            new SoapActionCallback("http://ws.cdyne.com/WeatherWS/GetCityForecastByZIP"),
-            new StreamResult(writer)
-        )
-    } catch (Exception e) { println "ERROR: ${e.message} - ${e.cause}" }
-    return writer.toString()
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Spring&#8217;s <a href="http://docs.spring.io/spring-ws/site/reference/html/client.html">WebServices and Templates</a> handles calling the SOAP service, callback status and converting the response stream back into a string.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_extracting_data">Extracting Data</h3>
-<div class="paragraph">
-<p>Instead of unmarshalling (converting a string to an object):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">void printResults(String response) {
-    final xml = new XmlSlurper().parseText(response)
-    def nodes = xml.GetCityForecastByZIPResult
-    println "Forecast for ${nodes.City}, ${nodes.State}"
-
-    def format = new SimpleDateFormat("yyyy-MMM-dd")
-    nodes.ForecastResult.children().each { forecast -&gt;
-        def inDate = new Date().parse("yyyy-MM-dd'T'HH:mm:ss", forecast.Date as String)
-        println "${format.format(inDate)} ${forecast.Description} ${forecast.Temperatures.MorningLow} - ${forecast.Temperatures.DaytimeHigh}"
-    }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Groovy&#8217;s <a href="http://groovy.codehaus.org/Reading+XML+using+Groovy&#8217;s+XmlSlurper">XmlSlurper</a> takes the place of traditional JAXB unmarshalling.
-Instead of mapping XML into Objects, XmlSlurper parses the string into Nodes and <a href="http://groovy.codehaus.org/api/groovy/util/slurpersupport/GPathResult.html">GPathResults</a>.
-As long as the names of the nodes you need don&#8217;t change, you can name the path to the data, or even <code>.depthFirst().collect{ it }.findAll{ it.name() == "NODE_NAME" }</code> which allows the path to change and still work.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_conclusion">Conclusion</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>SOAP doesn&#8217;t have to be intimidating on the JVM platform.
-I hope others find the contrast with the traditional JAXB approach informative.
-My full working <a href="https://gist.github.com/ItGumby/3fe5c317dc4c898c133c">SimpleSoap.groovy</a> is posted as a single file in a gist.</p>
-</div>
-</div>
-</div></p>
-
-<hr />
-<p>Older posts are available in the <a href="archive.html">archive</a>.</p>
 		</div>
 		<div id="push"></div>
     </div>
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2016 | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
+        <p class="muted credit">&copy; 2018 | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
       </div>
     </div>
 

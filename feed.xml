@@ -6,13 +6,602 @@
 		<atom:link href="http://itgumby.github.io/feed.xml" rel="self" type="application/rss+xml" />
 		<description>IT Gumby's blog RSS feed</description>
 		<language>en-US</language>
-		<pubDate>2016-08-03T00:48:34-0600</pubDate>
-		<lastBuildDate>2016-08-03T00:48:34-0600</lastBuildDate>
+		<pubDate>2018-12-20T07:43:15-0700</pubDate>
+		<lastBuildDate>2018-12-20T07:43:15-0700</lastBuildDate>
 
+		<item>
+			<title>Querying the JCR: XPath</title>
+			<link>http://itgumby.github.io/blog/2018/jcr-xpath-reference.html</link>
+			<pubDate>2018-12-19T00:00:00-0700</pubDate>
+			<guid isPermaLink="false">blog/2018/jcr-xpath-reference.html</guid>
+			<description>
+				&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_summary&quot;&gt;Summary:&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When I was developing on CQ5/AEM6, querying via SQL2 felt more natural to me (having worked in databases &amp;amp; data-warehouses).
+In a different job (using HippoCMS/Bloomreach DXP), I was forced to learn XPath queries because SQL2 was not supported.
+Since SQL2 queries eventually get converted to XPath, this was a useful language to learn.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This reference breaks queries into:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Path Constraints&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Property Constraints&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sorting Results&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Hippo Query Hints&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Appendix: JCR XPath Functions&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Appendix: Bean Example&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Examples should work on the Hippo CMS &quot;Go Green&quot; example project.
+If running locally, they can be tested at &lt;a href=&quot;http://localhost:8080/cms/repository/&quot; class=&quot;bare&quot;&gt;http://localhost:8080/cms/repository/&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_path_constraints&quot;&gt;Path Constraints&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The first concept to understand is finding nodes by path constraints (called expressions):&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;/&lt;/code&gt; direct descendent node&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;//&lt;/code&gt; any descendent&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;*&lt;/code&gt; any node name (can&amp;#8217;t be used with a partial node name for pattern matching)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Some examples of path constraints are:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;A folder by absolute path: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2Fjcr%3Aroot%2Fcontent%2Fdocuments%2Fgogreen%2Fnews&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;/jcr:root/content/documents/gogreen/news&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;All descendents (direct + indirect) of an absolute path: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2Fjcr%3Aroot%2Fcontent%2Fdocuments%2Fgogreen%2Fnews%2F%2F*&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;/jcr:root/content/documents/gogreen/news//*&lt;/code&gt;&lt;/a&gt; (returns folders, document handles, document variants)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Only direct children of the folder: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2Fjcr%3Aroot%2Fcontent%2Fdocuments%2Fgogreen%2Fnews%2F*&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;/jcr:root/content/documents/gogreen/news/*&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Any node named &quot;news&quot;: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2Fnews&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//news&lt;/code&gt;&lt;/a&gt; (returns both the /content folder + a sitemapitem in gogreen configuration)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Any node 3 levels below the news folder: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2Fnews%2F*%2F*%2F*&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//news/*/*/*&lt;/code&gt;&lt;/a&gt; (returns only the document handles under news/YYYY/MM/* )&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_property_constraints&quot;&gt;Property Constraints&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The most commonly desired query is finding JCR nodes by a property value.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Node Type Constraints&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;query for explicit type (no inheritance): &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2F*%5B%40jcr%3AprimaryType+%3D+%27gogreen%3Anewsdocument%27%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//*[@jcr:primaryType = &apos;gogreen:newsdocument&apos;]&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;query for type (including type inheritance) using a function: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2Felement%28*%2C+gogreen%3Anewsdocument%29&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//element(*, gogreen:newsdocument)&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;NOTE: above queries will include the document type prototype nodes with actual documents.  It is easy to include a partial path such as &lt;code&gt;//content&lt;/code&gt; before the rest of the XPath query.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Property paths&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;.&lt;/code&gt; Current Node&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;..&lt;/code&gt; Parent Node (discouraged for performance reasons)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;property exists (to any value, &lt;em&gt;including blank strings/empty lists&lt;/em&gt;): &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2Fcontent%2F%2F*%5B%40gogreen%3Asource%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//content//*[@gogreen:source]&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;property equals: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2F*%5B%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//*[@gogreen:author = &apos;Alfred Anonymous&apos;]&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;property NOT equals: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2F*%5B%40gogreen%3Aauthor+%21%3D+%27Alfred+Anonymous%27%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//*[@gogreen:author != &apos;Alfred Anonymous&apos;]&lt;/code&gt;&lt;/a&gt; (NOTE: matches non-documents also)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;negation function: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2F*%5Bnot%28%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27%29%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//*[not(@gogreen:author = &apos;Alfred Anonymous&apos;)]&lt;/code&gt;&lt;/a&gt; (NOTE: matches ANY node whose author is different OR doesn&amp;#8217;t have an author property)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;multi-value property contains: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2F*%5B%40hippo%3Aavailability+%3D+%27live%27%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//*[@hippo:availability = &apos;live&apos;]&lt;/code&gt;&lt;/a&gt; (same as a single-value property equals)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;property like: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2F*%5Bjcr%3Alike%28%40gogreen%3Aauthor%2C+%27Alfred%25%27%29%5D&amp;amp;xpath-limit=1000&amp;amp;sql=&amp;amp;sql-limit=1000&quot;&gt;&lt;code&gt;//*[jcr:like(@gogreen:author, &apos;Alfred%&apos;)]&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;property contains: &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2F*%5Bjcr%3Acontains%28%40gogreen%3Aauthor%2C+%27Alfred%27%29%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//*[jcr:contains(@gogreen:author, &apos;Alfred&apos;)]&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;full text (any property contains): &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2F*%5Bjcr%3Acontains%28*%2C+%27Alfred%27%29%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//*[jcr:contains(*, &apos;Alfred&apos;)]&lt;/code&gt;&lt;/a&gt; (NOTE: doesn&amp;#8217;t always behave as expected when combining)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;property relative to matched node:&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;parent node property: &lt;code&gt;//element(*, gogreen:newsdocument\)[../\@hippo:name = &apos;The medusa news&apos;\]&lt;/code&gt; (returns the document variants whose handle has a name &amp;#8230;&amp;#8203;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;child node property: &lt;code&gt;//*[./the-medusa-news/@gogreen:title = &apos;The medusa news&apos;]&lt;/code&gt; (returns the single &lt;code&gt;hippo:handle&lt;/code&gt; with any document variant having the title)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Querying for properties outside of the returned node can have performance implications.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;combining properties (must be lower-cased):&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;AND &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2F*%5B%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27+and+%40hippo%3Aavailability+%3D+%27live%27%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//*[@gogreen:author = &apos;Alfred Anonymous&apos; and @hippo:availability = &apos;live&apos;]&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;OR &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2F*%5B%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27+or+%40hippo%3Aavailability+%3D+%27live%27%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//*[@gogreen:author = &apos;Alfred Anonymous&apos; or @hippo:availability = &apos;live&apos;]&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;property set (exists + not empty): &lt;a href=&quot;http://localhost:8080/cms/repository/?search-type=xpath&amp;amp;xpath=%2F%2Fcontent%2F%2F*%5B%40gogreen%3Asource+and+%40gogreen%3Asource+%21%3D+%27%27%5D&amp;amp;xpath-limit=1000&quot;&gt;&lt;code&gt;//content//*[@gogreen:source and @gogreen:source != &apos;&apos;]&lt;/code&gt;&lt;/a&gt; (default content will return 0 nodes, but it is correct)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_sorting_results&quot;&gt;Sorting Results&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Append &lt;code&gt;order by @PROP_NAME&lt;/code&gt; with optional &lt;code&gt;descending&lt;/code&gt; or &lt;code&gt;ascending&lt;/code&gt; (default, so no need to add) at the end of the query.
+Abbreviations will be ignored.
+JCR queries also ignore unrecognized/missing properties.
+Multiple properties can be combined in more complex sorting, such as &lt;code&gt;//content//*[@gogreen:source]  | @gogreen:date | @gogreen:title order by @gogreen:title descending, @gogreen:date ascending&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_hippo_query_hints&quot;&gt;Hippo Query Hints&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Folder names are used for filtering more than for efficiency.
+Hippo&amp;#8217;s query speed is optimized by leveraging &lt;code&gt;jcr:uuid&lt;/code&gt;.
+The property &lt;code&gt;hippo:paths&lt;/code&gt; is a multiple value property with jcr:uuid of current node, then each of its ancestors, then the root node last (whose &lt;code&gt;jcr:uuid=cafebabe-cafe-babe-cafe-babecafebabe&lt;/code&gt;).
+Hippo CMS therefore filters descendendants of a folder by including &lt;code&gt;hippo:path=$FOLDER_UUID&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;/cms/repository&lt;/code&gt; query UI provides several interesting features:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Query Results table includes columns &lt;code&gt;jcr:primaryType, jcr:path, jcr:score&lt;/code&gt; by default&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If querying with the &lt;code&gt;element(*, docType)&lt;/code&gt; function is used, the table adds columns for required properties (only directly on the node)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Can manually force display of other properties in the query results table by appending &lt;code&gt;| @propName&lt;/code&gt; before sorting clauses, i.e. &lt;code&gt;//element(*, gogreen:newsdocument) | @gogreen:documenttype |@gogreen:location order by @gogreen:location&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;this is limited to properties on the query result node (not properties on parent or child nodes)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Tip&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Get it right first, then get it fast.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Tip&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+The order of constraints can matter - place more restrictive ones first
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Tip&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Debug Java queries by logging the actual query used, then run the logged query through the &lt;code&gt;/cms/respository&lt;/code&gt; UI
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_appendix_jcr_xpath_functions&quot;&gt;Appendix: JCR XPath Functions&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;element(*, &lt;em&gt;docType&lt;/em&gt;)&lt;/code&gt; nodes of type docType or inherited types&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;jcr:like(&lt;em&gt;propName, pattern&lt;/em&gt;)&lt;/code&gt; pattern matching&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;jcr:contains(&lt;em&gt;propName, text&lt;/em&gt;)&lt;/code&gt; text search&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;jcr:score()&lt;/code&gt; sorting&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.adobe.com/docs/en/spec/jcr/1.0/6.6.4.4_Mapping_Property_Types_to_XML_Types.html&quot;&gt;type matching functions&lt;/a&gt; xs:string, xs:base64Binary, xs:double, xs:long, xs:boolean, &lt;strong&gt;xs:dateTime&lt;/strong&gt;, xs:IDREF&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;dateTime formats MUST be &lt;code&gt;`yyyy-MM-D&amp;#8217;T&apos;;HH:mm:ss.000Z&lt;/code&gt; (ie &lt;code&gt;property &amp;gt;=xs:dateTime(&apos;2018-02-01T00:00:00.000Z&apos;)&lt;/code&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_appendix_bean_example&quot;&gt;Appendix: Bean Example&lt;/h3&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Example from helper classes from a Bean&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-xpath&quot; data-lang=&quot;xpath&quot;&gt;//*[
+  (@hippo:paths=&apos;0dd35126-de28-4948-b43d-3949e9b1f5bb&apos;) and
+  (@hippo:availability=&apos;live&apos;) and
+  not(@jcr:primaryType=&apos;nt:frozenNode&apos;) and
+  ((@jcr:primaryType=&apos;gogreen:newsdocument&apos;)) and
+  ./gogreen:image/@hippo:docbase=&apos;7aeca376-1e1b-4c5d-90cf-fe497f6bcde6&apos;
+] order by @hippostdpubwf:lastModificationDate descending`&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Could be manually simplified, such as removing some unnecessary parenthesis&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Notice the use of UUIDs for the &lt;code&gt;@hippo:paths&lt;/code&gt; (from site content folder), @hippo:docbase.  These are performance optimizations.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The UUIDs are unlikely to match any of your instances (so are only useful within a cluster).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+			</description>
+		</item>
+		<item>
+			<title>Better AEM JSPs part 2: templates</title>
+			<link>http://itgumby.github.io/blog/2016/better-aem-jsp2-templates.html</link>
+			<pubDate>2016-08-09T00:00:00-0600</pubDate>
+			<guid isPermaLink="false">blog/2016/better-aem-jsp2-templates.html</guid>
+			<description>
+				&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_tl_dr&quot;&gt;TL/DR;&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Avoid JSP scriptlets (except for prototyping)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Prefer JSP Expression Language&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JSP EL Functions&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Implicit Objects (JSP + EL)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Taglibs&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_avoiding_scriptlets&quot;&gt;Avoiding Scriptlets&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are a &lt;a href=&quot;https://en.wikipedia.org/wiki/Comparison_of_web_template_engines&quot;&gt;quite a few&lt;/a&gt; other template engines (for many languages including several for Java).
+Because CQ/AEM&amp;#174; is built in Java, I am focusing on the leading solution, JSPs (&lt;a href=&quot;https://en.wikipedia.org/wiki/JavaServer_Pages&quot;&gt;Java Server Pages&lt;/a&gt;), which is supported out of the box.
+It is certainly not the only template solution, but is the most mature and documented (just not necessarily by Adobe).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Initially, JSPs were created as an alternative to pure-Java Servlets.
+The problem with pure-Java (or any programming language) is the output looks nothing like the source code.
+Instead, templating should strive to make the source code look like the output as much as possible.
+Obviously, a certain amount of control (such as conditionals, looping, and imports) will look different than the output, but should strive to not look &quot;out of place&quot; in the source.
+Therefore, anything that looks foreign to HTML (and Java qualifies) should be minimized or eliminated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Another problem with &lt;strong&gt;code&lt;/strong&gt; in a JSP is testability.
+Template content is static, thus doesn&amp;#8217;t have to be tested for different states.
+Java logic &lt;em&gt;does&lt;/em&gt; need testing.
+Even if it worked in one state, Java code can throw runtime exceptions in another.
+Therefore, the best practice is to move as much logic as possible into bundles or custom taglibs.
+Either of these can be unit tested at build time (faster and earlier feedback compared to installing then functional testing).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In order to actually &lt;em&gt;do&lt;/em&gt; anything interesting, Tag Libraries were created (especially the Core and Function taglibs).
+In the following 2 examples, compare the jaring shift in syntax and parsing of scriptlets with the relatively consistent syntax using a JSTL taglib.
+Java developers may consider the scriptlet syntax a small penalty, but it is actually brittle and uncomfortable for others.
+The effect compounds with more business logic and nesting.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Example: Simple Scriptlet (embedded Java different than JSP):&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;% if (predicate) { %&amp;gt;
+    &amp;lt;p&amp;gt;my predicate was true&amp;lt;/p&amp;gt;
+&amp;lt;% } %&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Example: Conditional Logic with &quot;Core JSP&quot; taglib:&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;c:if test=&quot;&amp;lt;%= predicate %&amp;gt;&quot;&amp;gt;  &amp;lt;%- Java expression sticks out slightly -%&amp;gt;
+    &amp;lt;p&amp;gt;my predicate was true&amp;lt;/p&amp;gt;
+&amp;lt;/c:if&amp;gt;
+OR
+&amp;lt;c:if test=&quot;${predicate}&quot;&amp;gt; &amp;lt;%- JSP EL even cleaner -%&amp;gt;
+    &amp;lt;p&amp;gt;my predicate was true&amp;lt;/p&amp;gt;
+&amp;lt;/c:if&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_jsp_expression_language&quot;&gt;JSP Expression Language&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;JSP &lt;a href=&quot;http://stackoverflow.com/tags/el/info&quot;&gt;Expression Language&lt;/a&gt; was initially created to greatly simplify using Maps and Java Beans.
+(&lt;a href=&quot;http://stackoverflow.com/questions/3295496/what-is-a-javabean-exactly&quot;&gt;Java Beans&lt;/a&gt; are just a standard with all properties are private, public getters/setters named after the properties, public no-arg constructors, and implements Serializable).
+EL has operators (math, comparison, logical), some limited functions, and can call taglib functions ( such as &lt;code&gt;${fn:containsIgnoreCase(theString, &apos;TEST&apos;)}&lt;/code&gt; ).
+In other words, EL simplifies JSP Expressions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-all grid-all spread&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 1. Compare JSP Expression (the hard way) to JSP EL&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 33%;&quot;&gt;
+&lt;col style=&quot;width: 33%;&quot;&gt;
+&lt;col style=&quot;width: 33%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Example&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Java Expression&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;JSP EL&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;zip parameter&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%= request.getParameterMap().get(&quot;zip&quot;)[0] %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;${param.zip}&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;query string&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%= request.getQueryString() %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;${request.queryString}&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;access map&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%= map.get(&quot;foo&quot;) %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;${map.foo}&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;map with illegal key&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%= map.get(&quot;foo bar&quot;) %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;${map[&apos;foo bar&apos;]}&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;bean getter&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%= bean.getMyProperty() %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;${bean.myProperty}&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;get cookie&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;N/A (have to walk &lt;code&gt;Cookie[] request.getCookies[]&lt;/code&gt;)&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;${cookie.myCookieName}&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The biggest disappointment with JSP-EL on AEM is the supported version.
+JSP-EL has supported calling methods (with arguments) since v2.2 (Servlet v3.0), but AEM 6.1 &lt;a href=&quot;http://localhost:4502/system/console/status-slingscripting&quot;&gt;shows&lt;/a&gt; JSP 2.1/JEXL 2.0 (Apache Commons JEXL is the EL implementation loaded in AEM. &lt;a href=&quot;https://www.apache.org/dist/commons/jexl/RELEASE-NOTES.txt&quot;&gt;Release Notes&lt;/a&gt;)&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_expression_language_implicit_objects&quot;&gt;Expression Language Implicit Objects&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;EL also provides extra implicit objects (reducing business logic)&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;param&lt;/code&gt;, &lt;code&gt;paramValues&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;cookie&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;header&lt;/code&gt;, &lt;code&gt;headerValues&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;initParam&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;pageContext&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;pageScope&lt;/code&gt;, &lt;code&gt;requestScope&lt;/code&gt;, &lt;code&gt;sessionScope&lt;/code&gt;, &lt;code&gt;applicationScope&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_reference_appendix&quot;&gt;Reference/Appendix&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;table class=&quot;tableblock frame-all grid-all spread&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 2. Core Syntax of JSPs:&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 14%;&quot;&gt;
+&lt;col style=&quot;width: 28%;&quot;&gt;
+&lt;col style=&quot;width: 57%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Type&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Example&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Purpose&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;HTML&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;h2&amp;gt;My Header&amp;lt;/h2&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Literal output - hopefully the bulk of the template&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Scriptlet&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;% &amp;#8230;&amp;#8203;java&amp;#8230;&amp;#8203; %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;External logic or organization.  Useful for prototyping but confusing for production code.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Expression&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%= &amp;#8230;&amp;#8203;value&amp;#8230;&amp;#8203; %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Inject the value of the java expression (especially result of a function or method) into the template.  NOTE: no semicolons.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Directive&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%@ page/taglib/include %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Declare page attributes or include taglibs &amp;amp; classes.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Tag Libraries&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;c:set &amp;#8230;&amp;#8203; /&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;(&lt;a href=&quot;http://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm&quot;&gt;Standard Tag Library&lt;/a&gt;) or custom TagLibs.  Encapsulate logic in a format that approaches XML with optional attributes depending on the tag.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class=&quot;tableblock frame-all grid-all spread&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 3. JSTL (Standard Tag Libraries)&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 11%;&quot;&gt;
+&lt;col style=&quot;width: 44%;&quot;&gt;
+&lt;col style=&quot;width: 44%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Group&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Usage&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Purpose&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;CQ Tag Library&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%@taglib prefix=&quot;cq&quot; uri=&quot;http://www.day.com/taglibs/cq/1.0&quot; %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;AEM taglibs for safe text rendering, including components/ClientLibs&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Core Tags&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%@ taglib prefix=&quot;c&quot;&lt;/code&gt; &lt;code&gt;uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Logic for &lt;strong&gt;conditionals &amp;amp; looping&lt;/strong&gt;.  A few control features such as redirects or importing.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;String Functions&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%@ taglib prefix=&quot;fn&quot; uri=&quot;&amp;#8230;&amp;#8203;/jstl/functions&quot; %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Common &lt;strong&gt;string manipulation&lt;/strong&gt; functions.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Formatting&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%@ taglib prefix=&quot;fmt&quot; uri=&quot;&amp;#8230;&amp;#8203;/jstl/fmt&quot; %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Parsing &amp;amp; Output of set formats such as numbers &amp;amp; dates.  Also internationalization.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;SQL&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%@ taglib prefix=&quot;sql&quot; uri=&quot;&amp;#8230;&amp;#8203;/jstl/sql&quot; %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Interacting with relational databases.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;XML&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;&amp;lt;%@ taglib prefix=&quot;x&quot; uri=&quot;&amp;#8230;&amp;#8203;/jstl/xml&quot; %&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Create and manipulate XML documents.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;JSP-EL References&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://dzone.com/refcardz/essential-jsp-expression&quot;&gt;DZone Expression Language Reference&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.tutorialspoint.com/jsp/jsp_expression_language.htm&quot;&gt;tutorialspoint JSP - Expression Language (EL)&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+			</description>
+		</item>
 		<item>
 			<title>Better AEM JSPs part 1: objects</title>
 			<link>http://itgumby.github.io/blog/2016/better-aem-jsp-objects.html</link>
-			<pubDate>2016-06-21T00:00:00-0600</pubDate>
+			<pubDate>2016-08-02T00:00:00-0600</pubDate>
 			<guid isPermaLink="false">blog/2016/better-aem-jsp-objects.html</guid>
 			<description>
 				&lt;div class=&quot;sect1&quot;&gt;
@@ -27,7 +616,7 @@
 &lt;p&gt;prefer &lt;a href=&quot;https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/index.html?org/apache/sling/api/resource/Resource.html&quot;&gt;ValueMap&lt;/a&gt; over &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/PropertyIterator.html&quot;&gt;PropertyIterator&lt;/a&gt; / &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Property.html&quot;&gt;Property&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;http://sling.apache.org/documentation/bundles/models.html&quot;&gt;Apache Sling Models&lt;/a&gt; encapsulates your POJO or business logic for a component (even works on component&amp;#8217;s children!)&lt;/p&gt;
+&lt;p&gt;Encapsulate business logic with Apache &lt;a href=&quot;http://sling.apache.org/documentation/bundles/models.html&quot;&gt;Sling Models&lt;/a&gt; for a component (even works on component&amp;#8217;s children!)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/io/sightly/java/api/Use.html&quot;&gt;Use&lt;/a&gt; API (especially extending WCMUse or WCMUsePojo) built to support Sightly, but there is no reason they can&amp;#8217;t be used in JSPs.&lt;/p&gt;
@@ -35,7 +624,7 @@
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I remember attending training for AEM back in the CQ5.3-5.4 days.
+&lt;p&gt;I remember attending training for AEM&amp;#174; back in the CQ5.3-5.4 days.
 The material spent much of its time going over the mechanics of a hierarchical &quot;NoSQL&quot; data store, as well as intricacies of OSGi that it had little time left for best practices.
 We would expend so much effort around learning the &lt;a href=&quot;http://jackrabbit.apache.org/jcr/jcr-api.html&quot;&gt;JCR&lt;/a&gt;, &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Node.html&quot;&gt;&lt;code&gt;Node&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Property.html&quot;&gt;&lt;code&gt;Property&lt;/code&gt;&lt;/a&gt; that we could barely notice all the typed Exceptions those APIs threw.
 Unfortunately, the training (at least then) didn&amp;#8217;t include content around core JSP features such as &lt;a href=&quot;http://docs.oracle.com/javaee/5/tutorial/doc/bnakc.html&quot;&gt;Tag Libraries&lt;/a&gt; or &lt;a href=&quot;http://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html&quot;&gt;Expression Language&lt;/a&gt;.
@@ -45,7 +634,7 @@ Ugly code has a cost for understanding and maintenance.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Over time, the situation has evolved and improved.
-By recognizing some of the warts, AEM(c) decided to create new languages &amp;amp; approaches that wouldn&amp;#8217;t have the same problems.
+By recognizing some of the warts, AEM&amp;#174; decided to create new languages &amp;amp; approaches that wouldn&amp;#8217;t have the same problems.
 At the same time, updates to enable cleaner approaches benefit the old languages.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -127,9 +716,12 @@ Their patterns are:&lt;/p&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
-&lt;p&gt;Implement the Use interface&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Use&lt;/code&gt; API&lt;/p&gt;
 &lt;div class=&quot;olist loweralpha&quot;&gt;
 &lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Implement the Use interface&lt;/p&gt;
+&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Extend the WCMUsePojo class&lt;/p&gt;
 &lt;/li&gt;
@@ -161,7 +753,7 @@ Their patterns are:&lt;/p&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I appreciate the newer patterns for building classes.
-But I believe AEM(c) is disingenious when they sell Sightly as faster than JSP development when Java classes must be built and deployed as bundles before the new HTML templates can be built.
+But I believe AEM&amp;#174; is disingenious when they sell Sightly as faster than JSP development when Java classes must be built and deployed as bundles before the new HTML templates can be built.
 For one thing, JSPs can leverage the exact same classes that are used to power Sightly.
 It is also possible to rapid prototype by extracting classes in JSPs and eventually move them to external bundles (with unit tests, of course!)&lt;/p&gt;
 &lt;/div&gt;

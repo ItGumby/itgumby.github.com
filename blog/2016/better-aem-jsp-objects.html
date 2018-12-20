@@ -15,6 +15,7 @@
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/prettify.css" rel="stylesheet">
     <link href="/css/customize.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -49,8 +50,8 @@
             <li><a href="/presentations.html">Presentations</a></li>
             <li><a href="/about.html">About Me</a></li>
             <li><a href="/feed.xml">RSS</a></li>
-            <li><a href="https://github.com/itgumby">GitHub<i class="fa fa-github"></i></a></li>
-            <li><a href="https://twitter.com/itgumby">Twitter<i class="fa fa-twitter"></i></a></li>
+            <li><a href="https://github.com/itgumby"><i class="fa fa-github"></i> GitHub</a></li>
+            <li><a href="https://twitter.com/itgumby"><i class="fa fa-twitter"></i> Twitter</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -59,10 +60,10 @@
 <div class="page-header">
 	<h1>Better AEM JSPs part 1: objects</h1>
 </div>
-<p><em>2016-06-21</em></p>
+<p><em>2016-08-02</em></p>
 <p>
 	<em>Tags: </em>
-		<a href="/tagged/JSP.html">JSP</a>
+		<a href="/tagged/JSP.html">JSP</a>, 
 		<a href="/tagged/AEM.html">AEM</a>
 </p>
 
@@ -78,7 +79,7 @@
 <p>prefer <a href="https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/index.html?org/apache/sling/api/resource/Resource.html">ValueMap</a> over <a href="https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/PropertyIterator.html">PropertyIterator</a> / <a href="https://docs.adobe.com/docs/en/spec/javax.jcr/javadocs/jcr-2.0/javax/jcr/Property.html">Property</a></p>
 </li>
 <li>
-<p><a href="http://sling.apache.org/documentation/bundles/models.html">Apache Sling Models</a> encapsulates your POJO or business logic for a component (even works on component&#8217;s children!)</p>
+<p>Encapsulate business logic with Apache <a href="http://sling.apache.org/documentation/bundles/models.html">Sling Models</a> for a component (even works on component&#8217;s children!)</p>
 </li>
 <li>
 <p><a href="https://docs.adobe.com/docs/en/aem/6-0/develop/ref/javadoc/io/sightly/java/api/Use.html">Use</a> API (especially extending WCMUse or WCMUsePojo) built to support Sightly, but there is no reason they can&#8217;t be used in JSPs.</p>
@@ -86,7 +87,7 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>I remember attending training for AEM back in the CQ5.3-5.4 days.
+<p>I remember attending training for AEM&#174; back in the CQ5.3-5.4 days.
 The material spent much of its time going over the mechanics of a hierarchical "NoSQL" data store, as well as intricacies of OSGi that it had little time left for best practices.
 We would expend so much effort around learning the <a href="http://jackrabbit.apache.org/jcr/jcr-api.html">JCR</a>, <a href="https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Node.html"><code>Node</code></a> and <a href="https://docs.adobe.com/docs/en/spec/jsr170/javadocs/jcr-1.0/javax/jcr/Property.html"><code>Property</code></a> that we could barely notice all the typed Exceptions those APIs threw.
 Unfortunately, the training (at least then) didn&#8217;t include content around core JSP features such as <a href="http://docs.oracle.com/javaee/5/tutorial/doc/bnakc.html">Tag Libraries</a> or <a href="http://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html">Expression Language</a>.
@@ -96,7 +97,7 @@ Ugly code has a cost for understanding and maintenance.</p>
 </div>
 <div class="paragraph">
 <p>Over time, the situation has evolved and improved.
-By recognizing some of the warts, AEM(c) decided to create new languages &amp; approaches that wouldn&#8217;t have the same problems.
+By recognizing some of the warts, AEM&#174; decided to create new languages &amp; approaches that wouldn&#8217;t have the same problems.
 At the same time, updates to enable cleaner approaches benefit the old languages.</p>
 </div>
 </div>
@@ -178,9 +179,12 @@ Their patterns are:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Implement the Use interface</p>
+<p><code>Use</code> API</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
+<li>
+<p>Implement the Use interface</p>
+</li>
 <li>
 <p>Extend the WCMUsePojo class</p>
 </li>
@@ -212,7 +216,7 @@ Their patterns are:</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>I appreciate the newer patterns for building classes.
-But I believe AEM(c) is disingenious when they sell Sightly as faster than JSP development when Java classes must be built and deployed as bundles before the new HTML templates can be built.
+But I believe AEM&#174; is disingenious when they sell Sightly as faster than JSP development when Java classes must be built and deployed as bundles before the new HTML templates can be built.
 For one thing, JSPs can leverage the exact same classes that are used to power Sightly.
 It is also possible to rapid prototype by extracting classes in JSPs and eventually move them to external bundles (with unit tests, of course!)</p>
 </div>
@@ -227,7 +231,7 @@ It is also possible to rapid prototype by extracting classes in JSPs and eventua
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2016 | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
+        <p class="muted credit">&copy; 2018 | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
       </div>
     </div>
 

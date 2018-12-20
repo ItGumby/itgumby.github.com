@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>IT Gumby's blog: Better AEM JSPs part 2: templates</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Brian Street">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/asciidoctor.css" rel="stylesheet">
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/prettify.css" rel="stylesheet">
+    <link href="/css/customize.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="/js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="/favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/index.html">IT Gumby's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/archive.html">Archive</a></li>
+            <li><a href="/presentations.html">Presentations</a></li>
+            <li><a href="/about.html">About Me</a></li>
+            <li><a href="/feed.xml">RSS</a></li>
+            <li><a href="https://github.com/itgumby"><i class="fa fa-github"></i> GitHub</a></li>
+            <li><a href="https://twitter.com/itgumby"><i class="fa fa-twitter"></i> Twitter</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+<div class="page-header">
+	<h1>Better AEM JSPs part 2: templates</h1>
+</div>
+<p><em>2016-08-09</em></p>
+<p>
+	<em>Tags: </em>
+		<a href="/tagged/JSP.html">JSP</a>, 
+		<a href="/tagged/AEM.html">AEM</a>
+</p>
+
+<p><div class="sect1">
+<h2 id="_tl_dr">TL/DR;</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Avoid JSP scriptlets (except for prototyping)</p>
+</li>
+<li>
+<p>Prefer JSP Expression Language</p>
+</li>
+<li>
+<p>JSP EL Functions</p>
+</li>
+<li>
+<p>Implicit Objects (JSP + EL)</p>
+</li>
+<li>
+<p>Taglibs</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_avoiding_scriptlets">Avoiding Scriptlets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are a <a href="https://en.wikipedia.org/wiki/Comparison_of_web_template_engines">quite a few</a> other template engines (for many languages including several for Java).
+Because CQ/AEM&#174; is built in Java, I am focusing on the leading solution, JSPs (<a href="https://en.wikipedia.org/wiki/JavaServer_Pages">Java Server Pages</a>), which is supported out of the box.
+It is certainly not the only template solution, but is the most mature and documented (just not necessarily by Adobe).</p>
+</div>
+<div class="paragraph">
+<p>Initially, JSPs were created as an alternative to pure-Java Servlets.
+The problem with pure-Java (or any programming language) is the output looks nothing like the source code.
+Instead, templating should strive to make the source code look like the output as much as possible.
+Obviously, a certain amount of control (such as conditionals, looping, and imports) will look different than the output, but should strive to not look "out of place" in the source.
+Therefore, anything that looks foreign to HTML (and Java qualifies) should be minimized or eliminated.</p>
+</div>
+<div class="paragraph">
+<p>Another problem with <strong>code</strong> in a JSP is testability.
+Template content is static, thus doesn&#8217;t have to be tested for different states.
+Java logic <em>does</em> need testing.
+Even if it worked in one state, Java code can throw runtime exceptions in another.
+Therefore, the best practice is to move as much logic as possible into bundles or custom taglibs.
+Either of these can be unit tested at build time (faster and earlier feedback compared to installing then functional testing).</p>
+</div>
+<div class="paragraph">
+<p>In order to actually <em>do</em> anything interesting, Tag Libraries were created (especially the Core and Function taglibs).
+In the following 2 examples, compare the jaring shift in syntax and parsing of scriptlets with the relatively consistent syntax using a JSTL taglib.
+Java developers may consider the scriptlet syntax a small penalty, but it is actually brittle and uncomfortable for others.
+The effect compounds with more business logic and nesting.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example: Simple Scriptlet (embedded Java different than JSP):</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-jsp" data-lang="jsp">&lt;% if (predicate) { %&gt;
+    &lt;p&gt;my predicate was true&lt;/p&gt;
+&lt;% } %&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: Conditional Logic with "Core JSP" taglib:</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-jsp" data-lang="jsp">&lt;c:if test="&lt;%= predicate %&gt;"&gt;  &lt;%- Java expression sticks out slightly -%&gt;
+    &lt;p&gt;my predicate was true&lt;/p&gt;
+&lt;/c:if&gt;
+OR
+&lt;c:if test="${predicate}"&gt; &lt;%- JSP EL even cleaner -%&gt;
+    &lt;p&gt;my predicate was true&lt;/p&gt;
+&lt;/c:if&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jsp_expression_language">JSP Expression Language</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>JSP <a href="http://stackoverflow.com/tags/el/info">Expression Language</a> was initially created to greatly simplify using Maps and Java Beans.
+(<a href="http://stackoverflow.com/questions/3295496/what-is-a-javabean-exactly">Java Beans</a> are just a standard with all properties are private, public getters/setters named after the properties, public no-arg constructors, and implements Serializable).
+EL has operators (math, comparison, logical), some limited functions, and can call taglib functions ( such as <code>${fn:containsIgnoreCase(theString, 'TEST')}</code> ).
+In other words, EL simplifies JSP Expressions.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. Compare JSP Expression (the hard way) to JSP EL</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Example</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSP EL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">zip parameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%= request.getParameterMap().get("zip")[0] %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${param.zip}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">query string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%= request.getQueryString() %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${request.queryString}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">access map</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%= map.get("foo") %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${map.foo}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">map with illegal key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%= map.get("foo bar") %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${map['foo bar']}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bean getter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%= bean.getMyProperty() %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${bean.myProperty}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get cookie</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N/A (have to walk <code>Cookie[] request.getCookies[]</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${cookie.myCookieName}</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The biggest disappointment with JSP-EL on AEM is the supported version.
+JSP-EL has supported calling methods (with arguments) since v2.2 (Servlet v3.0), but AEM 6.1 <a href="http://localhost:4502/system/console/status-slingscripting">shows</a> JSP 2.1/JEXL 2.0 (Apache Commons JEXL is the EL implementation loaded in AEM. <a href="https://www.apache.org/dist/commons/jexl/RELEASE-NOTES.txt">Release Notes</a>)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_expression_language_implicit_objects">Expression Language Implicit Objects</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">EL also provides extra implicit objects (reducing business logic)</div>
+<ul>
+<li>
+<p><code>param</code>, <code>paramValues</code></p>
+</li>
+<li>
+<p><code>cookie</code></p>
+</li>
+<li>
+<p><code>header</code>, <code>headerValues</code></p>
+</li>
+<li>
+<p><code>initParam</code></p>
+</li>
+<li>
+<p><code>pageContext</code></p>
+</li>
+<li>
+<p><code>pageScope</code>, <code>requestScope</code>, <code>sessionScope</code>, <code>applicationScope</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reference_appendix">Reference/Appendix</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. Core Syntax of JSPs:</caption>
+<colgroup>
+<col style="width: 14%;">
+<col style="width: 28%;">
+<col style="width: 57%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Example</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Purpose</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;h2&gt;My Header&lt;/h2&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Literal output - hopefully the bulk of the template</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scriptlet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;% &#8230;&#8203;java&#8230;&#8203; %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External logic or organization.  Useful for prototyping but confusing for production code.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%= &#8230;&#8203;value&#8230;&#8203; %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inject the value of the java expression (especially result of a function or method) into the template.  NOTE: no semicolons.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Directive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%@ page/taglib/include %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declare page attributes or include taglibs &amp; classes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tag Libraries</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;c:set &#8230;&#8203; /&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(<a href="http://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm">Standard Tag Library</a>) or custom TagLibs.  Encapsulate logic in a format that approaches XML with optional attributes depending on the tag.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. JSTL (Standard Tag Libraries)</caption>
+<colgroup>
+<col style="width: 11%;">
+<col style="width: 44%;">
+<col style="width: 44%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Purpose</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CQ Tag Library</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%@taglib prefix="cq" uri="http://www.day.com/taglibs/cq/1.0" %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AEM taglibs for safe text rendering, including components/ClientLibs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Core Tags</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%@ taglib prefix="c"</code> <code>uri="http://java.sun.com/jsp/jstl/core" %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logic for <strong>conditionals &amp; looping</strong>.  A few control features such as redirects or importing.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String Functions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%@ taglib prefix="fn" uri="&#8230;&#8203;/jstl/functions" %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common <strong>string manipulation</strong> functions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formatting</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%@ taglib prefix="fmt" uri="&#8230;&#8203;/jstl/fmt" %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parsing &amp; Output of set formats such as numbers &amp; dates.  Also internationalization.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%@ taglib prefix="sql" uri="&#8230;&#8203;/jstl/sql" %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interacting with relational databases.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">XML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;%@ taglib prefix="x" uri="&#8230;&#8203;/jstl/xml" %&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create and manipulate XML documents.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<div class="title">JSP-EL References</div>
+<ul>
+<li>
+<p><a href="https://dzone.com/refcardz/essential-jsp-expression">DZone Expression Language Reference</a></p>
+</li>
+<li>
+<p><a href="http://www.tutorialspoint.com/jsp/jsp_expression_language.htm">tutorialspoint JSP - Expression Language (EL)</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div></p>
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2018 | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/prettify.js"></script>
+
+  </body>
+</html>
