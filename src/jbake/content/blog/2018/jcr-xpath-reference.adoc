@@ -1,0 +1,122 @@
+title=Querying the JCR: XPath
+date=2018-12-19
+type=post
+status=published
+tags=JCR,XPATH,HippoCMS
+~~~~~~
+
+== Summary:
+
+When I was developing on CQ5/AEM6, querying via SQL2 felt more natural to me (having worked in databases & data-warehouses).
+In a different job (using HippoCMS/Bloomreach DXP), I was forced to learn XPath queries because SQL2 was not supported.
+Since SQL2 queries eventually get converted to XPath, this was a useful language to learn.
+
+This reference breaks queries into:
+
+. Path Constraints
+. Property Constraints
+. Sorting Results
+. Hippo Query Hints
+. Appendix: JCR XPath Functions
+. Appendix: Bean Example
+
+Examples should work on the Hippo CMS "Go Green" example project.
+If running locally, they can be tested at http://localhost:8080/cms/repository/
+
+
+=== Path Constraints
+
+The first concept to understand is finding nodes by path constraints (called expressions):
+
+* `/` direct descendent node
+* `//` any descendent
+* `*` any node name (can't be used with a partial node name for pattern matching)
+
+Some examples of path constraints are:
+
+* A folder by absolute path: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2Fjcr%3Aroot%2Fcontent%2Fdocuments%2Fgogreen%2Fnews&xpath-limit=1000[`/jcr:root/content/documents/gogreen/news`]
+* All descendents (direct + indirect) of an absolute path: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2Fjcr%3Aroot%2Fcontent%2Fdocuments%2Fgogreen%2Fnews%2F%2F*&xpath-limit=1000[`/jcr:root/content/documents/gogreen/news//*`] (returns folders, document handles, document variants)
+* Only direct children of the folder: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2Fjcr%3Aroot%2Fcontent%2Fdocuments%2Fgogreen%2Fnews%2F*&xpath-limit=1000[`/jcr:root/content/documents/gogreen/news/*`]
+* Any node named "news": http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2Fnews&xpath-limit=1000[`//news`] (returns both the /content folder + a sitemapitem in gogreen configuration)
+* Any node 3 levels below the news folder: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2Fnews%2F*%2F*%2F*&xpath-limit=1000[`//news/\*/*/\*`] (returns only the document handles under news/YYYY/MM/* )
+
+=== Property Constraints
+
+The most commonly desired query is finding JCR nodes by a property value.
+
+* Node Type Constraints
+  ** query for explicit type (no inheritance): http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2F*%5B%40jcr%3AprimaryType+%3D+%27gogreen%3Anewsdocument%27%5D&xpath-limit=1000[`//*[@jcr:primaryType = 'gogreen:newsdocument'\]`]
+  ** query for type (including type inheritance) using a function: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2Felement%28*%2C+gogreen%3Anewsdocument%29&xpath-limit=1000[`//element(*, gogreen:newsdocument)`]
+  ** NOTE: above queries will include the document type prototype nodes with actual documents.  It is easy to include a partial path such as `//content` before the rest of the XPath query.
+* Property paths
+  ** `.` Current Node
+  ** `..` Parent Node (discouraged for performance reasons)
+* property exists (to any value, _including blank strings/empty lists_): http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2Fcontent%2F%2F*%5B%40gogreen%3Asource%5D&xpath-limit=1000[`//content//*[@gogreen:source\]`]
+* property equals: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2F*%5B%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27%5D&xpath-limit=1000[`//*[@gogreen:author = 'Alfred Anonymous'\]`]
+* property NOT equals: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2F*%5B%40gogreen%3Aauthor+%21%3D+%27Alfred+Anonymous%27%5D&xpath-limit=1000[`//*[@gogreen:author != 'Alfred Anonymous'\]`] (NOTE: matches non-documents also)
+* negation function: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2F*%5Bnot%28%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27%29%5D&xpath-limit=1000[`//*[not(@gogreen:author = 'Alfred Anonymous')\]`] (NOTE: matches ANY node whose author is different OR doesn't have an author property)
+* multi-value property contains: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2F*%5B%40hippo%3Aavailability+%3D+%27live%27%5D&xpath-limit=1000[`//*[@hippo:availability = 'live'\]`] (same as a single-value property equals)
+* property like: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2F*%5Bjcr%3Alike%28%40gogreen%3Aauthor%2C+%27Alfred%25%27%29%5D&xpath-limit=1000&sql=&sql-limit=1000[`//*[jcr:like(@gogreen:author, 'Alfred%')\]`]
+* property contains: http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2F*%5Bjcr%3Acontains%28%40gogreen%3Aauthor%2C+%27Alfred%27%29%5D&xpath-limit=1000[`//*[jcr:contains(@gogreen:author, 'Alfred')\]`]
+* full text (any property contains): http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2F*%5Bjcr%3Acontains%28*%2C+%27Alfred%27%29%5D&xpath-limit=1000[`//\*[jcr:contains(*, 'Alfred')\]`] (NOTE: doesn't always behave as expected when combining)
+* property relative to matched node:
+  ** parent node property: `//element(*, gogreen:newsdocument\)[../\@hippo:name = 'The medusa news'\]` (returns the document variants whose handle has a name ...)
+  ** child node property: `//*[./the-medusa-news/@gogreen:title = 'The medusa news']` (returns the single `hippo:handle` with any document variant having the title)
+  ** Querying for properties outside of the returned node can have performance implications.
+* combining properties (must be lower-cased):
+  ** AND http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2F*%5B%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27+and+%40hippo%3Aavailability+%3D+%27live%27%5D&xpath-limit=1000[`//*[@gogreen:author = 'Alfred Anonymous' and @hippo:availability = 'live'\]`]
+  ** OR http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2F*%5B%40gogreen%3Aauthor+%3D+%27Alfred+Anonymous%27+or+%40hippo%3Aavailability+%3D+%27live%27%5D&xpath-limit=1000[`//*[@gogreen:author = 'Alfred Anonymous' or @hippo:availability = 'live'\]`]
+  ** property set (exists + not empty): http://localhost:8080/cms/repository/?search-type=xpath&xpath=%2F%2Fcontent%2F%2F*%5B%40gogreen%3Asource+and+%40gogreen%3Asource+%21%3D+%27%27%5D&xpath-limit=1000[`//content//*[@gogreen:source and @gogreen:source != ''\]`] (default content will return 0 nodes, but it is correct)
+
+=== Sorting Results
+
+Append `order by @PROP_NAME` with optional `descending` or `ascending` (default, so no need to add) at the end of the query.
+Abbreviations will be ignored.
+JCR queries also ignore unrecognized/missing properties.
+Multiple properties can be combined in more complex sorting, such as `//content//*[@gogreen:source]  | @gogreen:date | @gogreen:title order by @gogreen:title descending, @gogreen:date ascending`
+
+=== Hippo Query Hints
+
+Folder names are used for filtering more than for efficiency.
+Hippo's query speed is optimized by leveraging `jcr:uuid`.
+The property `hippo:paths` is a multiple value property with jcr:uuid of current node, then each of its ancestors, then the root node last (whose `jcr:uuid=cafebabe-cafe-babe-cafe-babecafebabe`).
+Hippo CMS therefore filters descendendants of a folder by including `hippo:path=$FOLDER_UUID`.
+
+The `/cms/repository` query UI provides several interesting features:
+
+* Query Results table includes columns `jcr:primaryType, jcr:path, jcr:score` by default
+* If querying with the `element(*, docType)` function is used, the table adds columns for required properties (only directly on the node)
+* Can manually force display of other properties in the query results table by appending `| @propName` before sorting clauses, i.e. `//element(*, gogreen:newsdocument) | @gogreen:documenttype |@gogreen:location order by @gogreen:location`.
+  ** this is limited to properties on the query result node (not properties on parent or child nodes)
+
+TIP: Get it right first, then get it fast.
+
+TIP: The order of constraints can matter - place more restrictive ones first
+
+TIP: Debug Java queries by logging the actual query used, then run the logged query through the `/cms/respository` UI
+
+=== Appendix: JCR XPath Functions
+
+* `element(*, _docType_)` nodes of type docType or inherited types
+* `jcr:like(_propName, pattern_)` pattern matching
+* `jcr:contains(_propName, text_)` text search
+* `jcr:score()` sorting
+* https://docs.adobe.com/docs/en/spec/jcr/1.0/6.6.4.4_Mapping_Property_Types_to_XML_Types.html[type matching functions] xs:string, xs:base64Binary, xs:double, xs:long, xs:boolean, **xs:dateTime**, xs:IDREF
+  ** dateTime formats MUST be ``yyyy-MM-D'T';HH:mm:ss.000Z` (ie `property >=xs:dateTime('2018-02-01T00:00:00.000Z')`)
+
+=== Appendix: Bean Example
+
+[source,xpath]
+.Example from helper classes from a Bean
+----
+//*[
+  (@hippo:paths='0dd35126-de28-4948-b43d-3949e9b1f5bb') and
+  (@hippo:availability='live') and
+  not(@jcr:primaryType='nt:frozenNode') and
+  ((@jcr:primaryType='gogreen:newsdocument')) and
+  ./gogreen:image/@hippo:docbase='7aeca376-1e1b-4c5d-90cf-fe497f6bcde6'
+] order by @hippostdpubwf:lastModificationDate descending`
+----
+* Could be manually simplified, such as removing some unnecessary parenthesis
+* Notice the use of UUIDs for the `@hippo:paths` (from site content folder), @hippo:docbase.  These are performance optimizations.
+* The UUIDs are unlikely to match any of your instances (so are only useful within a cluster).
