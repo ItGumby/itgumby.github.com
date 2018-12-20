@@ -1,5 +1,5 @@
 title=Better AEM JSPs part 3: components
-date=2016-06-21
+date=2016-08-16
 type=post
 status=draft
 tags=JSP, AEM

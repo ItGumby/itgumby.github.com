@@ -1,7 +1,7 @@
 title=Better AEM JSPs part 2: templates
-date=2016-06-21
+date=2016-08-09
 type=post
-status=draft
+status=published
 tags=JSP, AEM
 ~~~~~~
 
@@ -38,23 +38,25 @@ In the following 2 examples, compare the jaring shift in syntax and parsing of s
 Java developers may consider the scriptlet syntax a small penalty, but it is actually brittle and uncomfortable for others.
 The effect compounds with more business logic and nesting.
 
-.Example: Conditional Logic with "Core" taglib:
-[source,jsp]
-----
-<c:if test="<%= predicate %>">
-    <p>my predicate was true</p>
-</c:if>
-----
-The only part that "sticks out" is the Java expression (but that can be simplified with EL).
-
-.Example: Simple Scriptlet (conditional logic):
+.Example: Simple Scriptlet (embedded Java different than JSP):
 [source,jsp]
 ----
 <% if (predicate) { %>
     <p>my predicate was true</p>
 <% } %>
 ----
-Notice how the Java parts look nothing like the rest of the template.
+
+.Example: Conditional Logic with "Core JSP" taglib:
+[source,jsp]
+----
+<c:if test="<%= predicate %>">  <%- Java expression sticks out slightly -%>
+    <p>my predicate was true</p>
+</c:if>
+OR
+<c:if test="${predicate}"> <%- JSP EL even cleaner -%>
+    <p>my predicate was true</p>
+</c:if>
+----
 
 == JSP Expression Language
 
@@ -63,6 +65,23 @@ JSP http://stackoverflow.com/tags/el/info[Expression Language] was initially cre
 EL has operators (math, comparison, logical), some limited functions, and can call taglib functions ( such as `${fn:containsIgnoreCase(theString, 'TEST')}` ).
 In other words, EL simplifies JSP Expressions.
 
+.Compare JSP Expression (the hard way) to JSP EL
+[format="csv", columns="1,4,2"]
+|===
+Example, Java Expression, JSP EL
+zip parameter, `<%= request.getParameterMap().get("zip")[0] %>`, `${param.zip}`
+query string, `<%= request.getQueryString() %>`, `${request.queryString}`
+access map, `<%= map.get("foo") %>`, `${map.foo}`
+map with illegal key, `<%= map.get("foo bar") %>`, `${map['foo bar']}`
+bean getter, `<%= bean.getMyProperty() %>`, `${bean.myProperty}`
+get cookie, N/A (have to walk `Cookie[] request.getCookies[]`), `${cookie.myCookieName}`
+|===
+
+The biggest disappointment with JSP-EL on AEM is the supported version.
+JSP-EL has supported calling methods (with arguments) since v2.2 (Servlet v3.0), but AEM 6.1 http://localhost:4502/system/console/status-slingscripting[shows] JSP 2.1/JEXL 2.0 (Apache Commons JEXL is the EL implementation loaded in AEM. https://www.apache.org/dist/commons/jexl/RELEASE-NOTES.txt[Release Notes])
+
+== Expression Language Implicit Objects
+
 .EL also provides extra implicit objects (reducing business logic)
 * `param`, `paramValues`
 * `cookie`
@@ -70,23 +89,6 @@ In other words, EL simplifies JSP Expressions.
 * `initParam`
 * `pageContext`
 * `pageScope`, `requestScope`, `sessionScope`, `applicationScope`
-
-.Compare JSP Expression (the hard way) to JSP EL
-[format="csv", columns="1,4,2"]
-|===
-Example, JSP Java Expression, JSP EL
-zip parameter, `<%= request.getParameterMap().get("zip")[0] %>`, `${param.zip}`
-query string, `<%= request.getQueryString() %>`, `${request.queryString}`
-access map, `<%= map.get("foo") %>`, `${map.foo}`
-map with illegal key, `<%= map.get("foo bar") %>`, `${map['foo bar']}`
-get cookie, N/A (have to walk `Cookie[] request.getCookies[]`), `${cookie.myCookieName}`
-|===
-
-The biggest disappointment with JSP-EL on AEM is the supported version.
-JSP-EL has supported calling methods (with arguments) since v2.2 (Servlet v3.0), but AEM 6.1 http://localhost:4502/system/console/status-slingscripting[shows] JSP 2.1/JEXL 2.0 (Apache Commons JEXL is the EL implementation loaded in AEM. https://www.apache.org/dist/commons/jexl/RELEASE-NOTES.txt[Release Notes])
-
-== Implicit Objects
-
 
 == Reference/Appendix
 
