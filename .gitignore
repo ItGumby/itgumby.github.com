@@ -1,4 +1,10 @@
 .DS_Store
- 
+
+## gradle 
 build
 .gradle
+
+## vscode
+.project
+.settings
+.vscode
