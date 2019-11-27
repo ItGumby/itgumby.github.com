@@ -1,5 +1,6 @@
 plugins {
   id 'org.jbake.site' version '5.0.0' // https://github.com/jbake-org/jbake-gradle-plugin
+  id 'org.ajoberstar.git-publish' version '2.1.1' // https://github.com/ajoberstar/gradle-git-publish
 }
 
 repositories {
@@ -12,9 +13,17 @@ jbake {
   clearCache = true
 }
 
-// look at https://github.com/msgilligan/msgilligan.github.io/blob/source/build.gradle 
-task publish(type: GradleBuild) {
-    buildFile = 'gradle/publish.gradle'
-    tasks = ['publishGhPages']
+gitPublish {
+  repoUri = 'git@github.com:ItGumby/itgumby.github.com.git'
+  // referenceRepoUri = "file:///$builddir/jbake"
+  branch = 'master' // defaults to 'gh-pages'
+  // repoDir = file('somewhere-else')
+  contents {
+    from 'build/jbake'
+  }
+  commitMessage = "publish blog on ${new Date().format('yyyy-MMM-dd')}"
 }
-publish.dependsOn bake
+gitPublishCopy.dependsOn bake
+
+task publish(dependsOn: gitPublishPush, group: 'render',
+  description: "publishes to Github pages on 'master' branch")
