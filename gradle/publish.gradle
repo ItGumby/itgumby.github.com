@@ -1,10 +1,11 @@
 buildscript {
   repositories {
-      jcenter()
+    mavenLocal()
+    jcenter()
   }
 
   dependencies {
-    classpath 'org.ajoberstar:gradle-git:1.4.1'
+    classpath 'org.ajoberstar:gradle-git:1.6.0'
   }
 }
 
@@ -13,11 +14,12 @@ apply plugin: 'org.ajoberstar.github-pages'
 githubPages { // docs at http://ajoberstar.org/gradle-git/docs/groovydoc/
   repoUri = 'git@github.com:ItGumby/itgumby.github.com.git'
   targetBranch = 'master'     // default = 'gh-pages'
-  deleteExistingFiles = true  // default
-  workingPath = 'build/ghpages' // default
-  commitMessage = "gradle plugin 'github-pages' publish on ${new Date()}"
+  //deleteExistingFiles = true  // default
+  //workingPath = 'build/jbake' // default
+  commitMessage = "publish on ${new Date()} via gradle plugin 'github-pages'"
   pages {
-    from file("$buildDir/ghpages")
-    //from( file('build/ghpages') ) { into '.' }
+    from file('build/jbake') {
+      into '.'
+    }
   }
 }
