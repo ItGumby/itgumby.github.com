@@ -1,0 +1,87 @@
+= JBake workshop at GreachConf
+2019-11-26
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: blog,asciidoc,jbake
+:idprefix:
+
+== JBake https://jbake.org/docs/2.6.4/#data_model[Data Model]
+
+* global variables: available to all templates regardless of type
+* `Page` / `Post` / `Custom`: variables for predefined templates
+* `Index`: index template has extra variables available related to paging
+* `Tags`: data related to tagged documents
+
+slide 33: refers to `:metaproperty:` for 'attached' + script name; place script in same folder as document.  Add href in header to attached doc
+
+=== custom type = videos
+
+jbake.properties: add `template.<newtype>.tpl=<templateName>`
+
+```
+iframe(width: "560", height: "315",
+    src: "https://www.youtube.com/embed/${content.video}",
+    frameboarder: "0",
+    allow: "accelerometer; autoplay; encrYpted-media; gyroscope; picture-in-picture",
+    allowfullscreen: true
+)
+```
+
+
+=== asciidoctor extensions
+
+for comments, math formulas, diagrams, QR codes, ...
+ex jbake.properties: add `asciidoctor.option.requires=asciidoctor-diagram`
+
+```
+[ditaa]
+----
+  +-------+      +-------+
+  |       |      |       |
+  |   A   +----->|   B   |
+  |  {d}  |      |  {s}  |
+  +-------+      +-------+
+```
+
+other extensions: https://puravida-software.gitlab.io/asciidoctor-extensions/ for disqus or google-analytics
+still more at https://asciidoctor.org/docs/extensions/
+
+=== include source code in documentation
+
+```
+[source, java]
+----
+include::{test}/greach/workshop/oss/LibraryTest.groovy[]
+----
+```
+
+=== gradle example
+
+to build site, documentation
+https://github.com/mariogarcia/jbake_greach.git
+
+
+== JBake at JUGChennai
+
+`type=post` will use post.ftl
+`type=page` will use page.ftl
+`status=(draft|published)`
+
+=== Data Variables
+
+* `${version}`
+* `${posts}` // collection of all posts
+* `${pages}` // collection of all pages
+* `${config.[options]}` //map of config data
+* expandable header
+  ** ie `summary=This is a summary of the larger post`
+  ** `<p>${content.summary}</p>`
+
+
+
+== Gradle Glam: plugins galore
+
+https://www.slideshare.net/aalmiray/gradle-glam-plugis-galore By Andres Almiray
+
+* git, jbake, asciidoctor, ...
+* https://www.slideshare.net/aalmiray/making-the-most-of-your-gradle-build-67689406
