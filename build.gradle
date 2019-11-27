@@ -17,4 +17,4 @@ task publish(type: GradleBuild) {
     buildFile = 'gradle/publish.gradle'
     tasks = ['publishGhPages']
 }
-publish.dependsOn jbake
+publish.dependsOn bake
