@@ -8,3 +8,6 @@ build
 .project
 .settings
 .vscode
+
+## intellij
+.idea
