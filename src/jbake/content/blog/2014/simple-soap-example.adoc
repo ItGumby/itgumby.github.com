@@ -25,8 +25,18 @@ My example breaks the client into 3 parts:
 The traditional approach creates an object, then marshalls it (converts object to a string).
 [source,groovy]
 ----
-include::SimpleSoap.groovy[lines=17..25]
+String buildRequest(String zip) {
+    def writer = new StringWriter()
+    def builder = new MarkupBuilder(writer)
+
+    builder.GetCityForecastByZIP(xmlns: "http://ws.cdyne.com/WeatherWS/") {
+        ZIP(zip)
+    }
+    return writer.toString()
+}
 ----
+
+
 Groovy's http://groovy.codehaus.org/Creating+XML+using+Groovy's+MarkupBuilder[MarkupBuilder] makes it super easy to safely build XML (or HTML).
 It can handle attributes, escaping content, and even namespaces!
 The XML is patterned from the WSDL's Request object manually, or using http://www.soapui.org/[SoapUI] to build it from the WSDL.
@@ -36,7 +46,23 @@ The XML is patterned from the WSDL's Request object manually, or using http://ww
 Both examples use Spring's WebServiceTemplate methods.
 [source,groovy]
 ----
-include::SimpleSoap.groovy[lines=27..43]
+String callSoapWeather(String body) {
+    def msgFactory = new SaajSoapMessageFactory()
+    msgFactory.afterPropertiesSet()
+
+    def wsTemplate = new WebServiceTemplate(msgFactory)
+    wsTemplate.setDefaultUri("http://wsf.cdyne.com/WeatherWS/Weather.asmx")
+
+    def writer = new StringWriter()
+    try {
+        wsTemplate.sendSourceAndReceiveToResult(
+            new StringSource(body),
+            new SoapActionCallback("http://ws.cdyne.com/WeatherWS/GetCityForecastByZIP"),
+            new StreamResult(writer)
+        )
+    } catch (Exception e) { println "ERROR: ${e.message} - ${e.cause}" }
+    return writer.toString()
+}
 ----
 Spring's http://docs.spring.io/spring-ws/site/reference/html/client.html[WebServices and Templates] handles calling the SOAP service, callback status and converting the response stream back into a string.
 
@@ -45,7 +71,17 @@ Spring's http://docs.spring.io/spring-ws/site/reference/html/client.html[WebServ
 Instead of unmarshalling (converting a string to an object):
 [source,groovy]
 ----
-include::SimpleSoap.groovy[lines=45..55]
+void printResults(String response) {
+    final xml = new XmlSlurper().parseText(response)
+    def nodes = xml.GetCityForecastByZIPResult
+    println "Forecast for ${nodes.City}, ${nodes.State}"
+
+    def format = new SimpleDateFormat("yyyy-MMM-dd")
+    nodes.ForecastResult.children().each { forecast ->
+        def inDate = new Date().parse("yyyy-MM-dd'T'HH:mm:ss", forecast.Date as String)
+        println "${format.format(inDate)} ${forecast.Description} ${forecast.Temperatures.MorningLow} - ${forecast.Temperatures.DaytimeHigh}"
+    }
+}
 ----
 Groovy's http://groovy.codehaus.org/Reading+XML+using+Groovy's+XmlSlurper[XmlSlurper] takes the place of traditional JAXB unmarshalling.
 Instead of mapping XML into Objects, XmlSlurper parses the string into Nodes and http://groovy.codehaus.org/api/groovy/util/slurpersupport/GPathResult.html[GPathResults].
