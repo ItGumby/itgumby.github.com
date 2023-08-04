@@ -23,7 +23,7 @@ jbake {
    clearCache = true
 
    srcDirName = 'src/jbake'
-   destDirName = 'build/jbake'
+   destDirName = 'output'
 
    configuration['asciidoctor.option.requires'] = "asciidoctor-diagram" 
    configuration['asciidoctor.attributes'] = [
@@ -31,6 +31,7 @@ jbake {
     "imagesdir=/img"
    ]
 }
+
 
 // TODO: danhyun's `watch` plugin/task
 
