@@ -1,11 +1,12 @@
-= JBake workshop at GreachConf
-2019-11-26
-:jbake-type: post
-:jbake-status: draft
-:jbake-tags: blog,asciidoc,jbake
-:idprefix:
+title=JBake workshop at GreachConf
+date=2019-11-26
+type=post
+tags=blog, asciidoc, jbake
+~~~~~~
 
-== JBake https://jbake.org/docs/2.6.4/#data_model[Data Model]
+Some collected notes from a jbake presentation...
+
+== JBake https://jbake.org/docs/2.6.7/#data_model[Data Model]
 
 * global variables: available to all templates regardless of type
 * `Page` / `Post` / `Custom`: variables for predefined templates
@@ -51,7 +52,7 @@ still more at https://asciidoctor.org/docs/extensions/
 ```
 [source, java]
 ----
-include::{test}/greach/workshop/oss/LibraryTest.groovy[]
+include::https://raw.githubusercontent.com/mariogarcia/jbake_greach/master/src/test/groovy/greach/workshop/oss/LibraryTest.groovy[]
 ----
 ```
 
