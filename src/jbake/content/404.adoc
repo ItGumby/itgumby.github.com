@@ -12,7 +12,8 @@ I will attempt to create some redirects that will forward you to current content
 If that doesn't work, I hope you can find the post you were looking for below:
 
 ++++
+<!-- inline include script in page-->
 <script type="text/javascript">
-include::redirect.js[]
+include::../assets/js/redirect.js[]
 </script>
 ++++
