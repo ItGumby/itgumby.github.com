@@ -6,9 +6,160 @@
 		<atom:link href="http://itgumby.github.io/feed.xml" rel="self" type="application/rss+xml" />
 		<description>IT Gumby's blog RSS feed</description>
 		<language>en-US</language>
-		<pubDate>2019-11-27T10:42:01-0700</pubDate>
-		<lastBuildDate>2019-11-27T10:42:01-0700</lastBuildDate>
+		<pubDate>2023-08-04T14:16:07-0600</pubDate>
+		<lastBuildDate>2023-08-04T14:16:07-0600</lastBuildDate>
 
+		<item>
+			<title>JBake workshop at GreachConf</title>
+			<link>http://itgumby.github.io/blog/2019/greach-jbake-workshop.html</link>
+			<pubDate>2019-11-26T00:00:00-0700</pubDate>
+			<guid isPermaLink="false">blog/2019/greach-jbake-workshop.html</guid>
+			<description>
+				&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Some collected notes from a jbake presentation&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_jbake_data_model&quot;&gt;JBake &lt;a href=&quot;https://jbake.org/docs/2.6.7/#data_model&quot;&gt;Data Model&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;global variables: available to all templates regardless of type&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Page&lt;/code&gt; / &lt;code&gt;Post&lt;/code&gt; / &lt;code&gt;Custom&lt;/code&gt;: variables for predefined templates&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Index&lt;/code&gt;: index template has extra variables available related to paging&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Tags&lt;/code&gt;: data related to tagged documents&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;slide 33: refers to &lt;code&gt;:metaproperty:&lt;/code&gt; for &apos;attached&apos; + script name; place script in same folder as document.  Add href in header to attached doc&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_custom_type_videos&quot;&gt;custom type = videos&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;jbake.properties: add &lt;code&gt;template.&amp;lt;newtype&amp;gt;.tpl=&amp;lt;templateName&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iframe(width: &quot;560&quot;, height: &quot;315&quot;,
+    src: &quot;https://www.youtube.com/embed/${content.video}&quot;,
+    frameboarder: &quot;0&quot;,
+    allow: &quot;accelerometer; autoplay; encrYpted-media; gyroscope; picture-in-picture&quot;,
+    allowfullscreen: true
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_asciidoctor_extensions&quot;&gt;asciidoctor extensions&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;for comments, math formulas, diagrams, QR codes, &amp;#8230;&amp;#8203;
+ex jbake.properties: add &lt;code&gt;asciidoctor.option.requires=asciidoctor-diagram&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[ditaa]
+----
+  +-------+      +-------+
+  |       |      |       |
+  |   A   +-----&amp;gt;|   B   |
+  |  {d}  |      |  {s}  |
+  +-------+      +-------+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;other extensions: &lt;a href=&quot;https://puravida-software.gitlab.io/asciidoctor-extensions/&quot; class=&quot;bare&quot;&gt;https://puravida-software.gitlab.io/asciidoctor-extensions/&lt;/a&gt; for disqus or google-analytics
+still more at &lt;a href=&quot;https://asciidoctor.org/docs/extensions/&quot; class=&quot;bare&quot;&gt;https://asciidoctor.org/docs/extensions/&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_include_source_code_in_documentation&quot;&gt;include source code in documentation&lt;/h3&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[source, java]
+----
+link:https://raw.githubusercontent.com/mariogarcia/jbake_greach/master/src/test/groovy/greach/workshop/oss/LibraryTest.groovy[]
+----&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_gradle_example&quot;&gt;gradle example&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;to build site, documentation
+&lt;a href=&quot;https://github.com/mariogarcia/jbake_greach.git&quot; class=&quot;bare&quot;&gt;https://github.com/mariogarcia/jbake_greach.git&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_jbake_at_jugchennai&quot;&gt;JBake at JUGChennai&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;type=post&lt;/code&gt; will use post.ftl
+&lt;code&gt;type=page&lt;/code&gt; will use page.ftl
+&lt;code&gt;status=(draft|published)&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_data_variables&quot;&gt;Data Variables&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;$v2.6.7&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;${posts}&lt;/code&gt; // collection of all posts&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;${pages}&lt;/code&gt; // collection of all pages&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;${config.[options]}&lt;/code&gt; //map of config data&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;expandable header&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ie &lt;code&gt;summary=This is a summary of the larger post&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;p&amp;gt;${content.summary}&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_gradle_glam_plugins_galore&quot;&gt;Gradle Glam: plugins galore&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.slideshare.net/aalmiray/gradle-glam-plugis-galore&quot; class=&quot;bare&quot;&gt;https://www.slideshare.net/aalmiray/gradle-glam-plugis-galore&lt;/a&gt; By Andres Almiray&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;git, jbake, asciidoctor, &amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.slideshare.net/aalmiray/making-the-most-of-your-gradle-build-67689406&quot; class=&quot;bare&quot;&gt;https://www.slideshare.net/aalmiray/making-the-most-of-your-gradle-build-67689406&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+			</description>
+		</item>
 		<item>
 			<title>Querying the JCR: XPath</title>
 			<link>http://itgumby.github.io/blog/2018/jcr-xpath-reference.html</link>
@@ -299,7 +450,7 @@ Debug Java queries by logging the actual query used, then run the logged query t
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Example from helper classes from a Bean&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-xpath&quot; data-lang=&quot;xpath&quot;&gt;//*[
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-xpath&quot; data-lang=&quot;xpath&quot;&gt;//*[
   (@hippo:paths=&apos;0dd35126-de28-4948-b43d-3949e9b1f5bb&apos;) and
   (@hippo:availability=&apos;live&apos;) and
   not(@jcr:primaryType=&apos;nt:frozenNode&apos;) and
@@ -388,7 +539,7 @@ The effect compounds with more business logic and nesting.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Example: Simple Scriptlet (embedded Java different than JSP):&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;% if (predicate) { %&amp;gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;% if (predicate) { %&amp;gt;
     &amp;lt;p&amp;gt;my predicate was true&amp;lt;/p&amp;gt;
 &amp;lt;% } %&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -396,7 +547,7 @@ The effect compounds with more business logic and nesting.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Example: Conditional Logic with &quot;Core JSP&quot; taglib:&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;c:if test=&quot;&amp;lt;%= predicate %&amp;gt;&quot;&amp;gt;  &amp;lt;%- Java expression sticks out slightly -%&amp;gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;c:if test=&quot;&amp;lt;%= predicate %&amp;gt;&quot;&amp;gt;  &amp;lt;%- Java expression sticks out slightly -%&amp;gt;
     &amp;lt;p&amp;gt;my predicate was true&amp;lt;/p&amp;gt;
 &amp;lt;/c:if&amp;gt;
 OR
@@ -662,7 +813,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    String getPageTitle(@Nonnull Resource resource) {
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    String getPageTitle(@Nonnull Resource resource) {
         ValueMap properties = resource.getValueMap();
         return properties.get(&quot;pageTitle&quot;, properties.get(&quot;jcr:title&quot;, properties.get(&quot;navTitle&quot;, &quot;&quot;)));
     }&lt;/code&gt;&lt;/pre&gt;
@@ -673,7 +824,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    String getPageTitle(@Nonnull Node currentNode) {
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    String getPageTitle(@Nonnull Node currentNode) {
         try {
             Property titleProp =
                 currentNode.hasProperty(&quot;pageTitle&quot;) ? currentNode.getProperty(&quot;pageTitle&quot;) :
@@ -805,7 +956,7 @@ The example has a clear classes &amp;amp; separation of concerns, but still requ
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;String buildRequest(String zip) {
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;String buildRequest(String zip) {
     def writer = new StringWriter()
     def builder = new MarkupBuilder(writer)
 
@@ -829,7 +980,7 @@ The XML is patterned from the WSDL&amp;#8217;s Request object manually, or using
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;String callSoapWeather(String body) {
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;String callSoapWeather(String body) {
     def msgFactory = new SaajSoapMessageFactory()
     msgFactory.afterPropertiesSet()
 
@@ -859,7 +1010,7 @@ The XML is patterned from the WSDL&amp;#8217;s Request object manually, or using
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;void printResults(String response) {
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;void printResults(String response) {
     final xml = new XmlSlurper().parseText(response)
     def nodes = xml.GetCityForecastByZIPResult
     println &quot;Forecast for ${nodes.City}, ${nodes.State}&quot;
@@ -1006,7 +1157,7 @@ generic (outside JCR) solution for structure/nodes/attributes&lt;/p&gt;&lt;/td&g
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Query Example&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;%--
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;%--
   JCR Query API component.
   Component for dumping list of components found
 --%&amp;gt;&amp;lt;%@page session=&quot;false&quot; %&amp;gt;
@@ -1093,7 +1244,7 @@ easy to test/explore via browser, curl&lt;/p&gt;&lt;/td&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Query Example&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;%--
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;%--
   CQ Query API component.
   Component for dumping list of components found
 --%&amp;gt;&amp;lt;%@page session=&quot;false&quot; %&amp;gt;
@@ -1524,7 +1675,7 @@ a language related to Java that requires less boilerplate.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;while (or &quot;until&quot; to test at end of loop)&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 def i = 0               // iterator set to starting position of collection
@@ -1540,7 +1691,7 @@ println &quot;result of while() sum = ${sum}&quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;for loop&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 def max = input.size()          // calculate end position once
@@ -1554,7 +1705,7 @@ println &quot;result of for(;;) sum = ${sum}&quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;for each/in&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 for (Integer val : input) {
@@ -1566,7 +1717,7 @@ println &quot;for(each) sum =&amp;gt; ${sum}&quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;each (or &quot;forEach&quot; in Java8)&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 input.each { Integer val -&amp;gt;  // explicitly declare type &amp;amp; name; groovy defaults to &quot;it&quot;
@@ -1592,7 +1743,7 @@ Also, the environment has more opportunities to optimize the solution, such as p
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;An example of a functional approach to summing (although most will provide a sum() function) can be:&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 def inputSum = input.inject(0, { acc, it -&amp;gt; acc + it })     // most call it &quot;reduce&quot;
 println inputSum&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -2039,7 +2190,7 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName
@@ -2068,7 +2219,7 @@ WHERE a.lName = o.lName
 &lt;h3 id=&quot;_cast_null_values_via_functions&quot;&gt;cast null values via functions:&lt;/h3&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName
@@ -2080,7 +2231,7 @@ WHERE a.lName = o.lName
 &lt;h3 id=&quot;_extra_clauses&quot;&gt;extra clauses&lt;/h3&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName

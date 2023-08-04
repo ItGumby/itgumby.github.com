@@ -125,7 +125,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    String getPageTitle(@Nonnull Resource resource) {
+<pre class="highlight"><code class="language-java" data-lang="java">    String getPageTitle(@Nonnull Resource resource) {
         ValueMap properties = resource.getValueMap();
         return properties.get("pageTitle", properties.get("jcr:title", properties.get("navTitle", "")));
     }</code></pre>
@@ -136,7 +136,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    String getPageTitle(@Nonnull Node currentNode) {
+<pre class="highlight"><code class="language-java" data-lang="java">    String getPageTitle(@Nonnull Node currentNode) {
         try {
             Property titleProp =
                 currentNode.hasProperty("pageTitle") ? currentNode.getProperty("pageTitle") :
@@ -231,7 +231,7 @@ It is also possible to rapid prototype by extracting classes in JSPs and eventua
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2019 | Baked with <a href="http://jbake.org">JBake v2.6.4</a></p>
+        <p class="muted credit">&copy; 2023 | Baked with <a href="http://jbake.org">JBake v2.6.7</a></p>
       </div>
     </div>
 

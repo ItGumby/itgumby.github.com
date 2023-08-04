@@ -102,7 +102,7 @@ The example has a clear classes &amp; separation of concerns, but still requires
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">String buildRequest(String zip) {
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">String buildRequest(String zip) {
     def writer = new StringWriter()
     def builder = new MarkupBuilder(writer)
 
@@ -126,7 +126,7 @@ The XML is patterned from the WSDL&#8217;s Request object manually, or using <a 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">String callSoapWeather(String body) {
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">String callSoapWeather(String body) {
     def msgFactory = new SaajSoapMessageFactory()
     msgFactory.afterPropertiesSet()
 
@@ -156,7 +156,7 @@ The XML is patterned from the WSDL&#8217;s Request object manually, or using <a 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">void printResults(String response) {
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">void printResults(String response) {
     final xml = new XmlSlurper().parseText(response)
     def nodes = xml.GetCityForecastByZIPResult
     println "Forecast for ${nodes.City}, ${nodes.State}"
@@ -193,7 +193,7 @@ My full working <a href="https://gist.github.com/ItGumby/3fe5c317dc4c898c133c">S
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2019 | Baked with <a href="http://jbake.org">JBake v2.6.4</a></p>
+        <p class="muted credit">&copy; 2023 | Baked with <a href="http://jbake.org">JBake v2.6.7</a></p>
       </div>
     </div>
 
