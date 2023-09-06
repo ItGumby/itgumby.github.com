@@ -11,8 +11,8 @@
 . build static content
 .. `./gradlew --no-daemon bake bakePreview`
 . alternate (jbake directly instead of gradle build)
-.. `jbake -b src/jbake build/jbake` (handier for troubleshooting logs)
-.. `jbake -s build/jbake` preview content
+.. `jbake -b src/jbake build/output` (handier for troubleshooting logs)
+.. `jbake -s build` preview content
 . publish content **IN THEORY** `./gradlew publish`
 ** "Skipping task ':prepareGhPages' as it has no source files."
 ** "Skipping task ':publishGhPages' as task onlyIf is false"

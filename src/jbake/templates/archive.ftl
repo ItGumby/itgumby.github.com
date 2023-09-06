@@ -1,5 +1,5 @@
 <#include "header.ftl">
-	<#include "menu.ftl">
+<#include "menu.ftl">
 
 	<#if content.body??>${content.body}</#if>
 
