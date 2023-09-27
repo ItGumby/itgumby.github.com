@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>IT Gumby's blog: Java Release versions & History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Brian Street">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/asciidoctor.css" rel="stylesheet">
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/prettify.css" rel="stylesheet">
+    <link href="/css/customize.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="/js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="/favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/index.html">IT Gumby's blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/archive.html">Archive</a></li>
+            <li><a href="/presentations.html">Presentations</a></li>
+            <li><a href="/about.html">About Me</a></li>
+            <li><a href="/feed.xml">RSS</a></li>
+            <li><a href="https://github.com/itgumby"><i class="fa fa-github"></i> GitHub</a></li>
+            <li><a href="https://twitter.com/itgumby"><i class="fa fa-twitter"></i> Twitter</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+<div class="page-header">
+	<h1>Java Release versions &amp; History</h1>
+</div>
+<p><em>2023-09-28</em></p>
+<p>
+	<em>Tags: </em>
+		<a href="/tagged/Java.html">Java</a>
+</p>
+
+<p><div class="paragraph">
+<p>My initial reference major Java releases.  Its focus is for application developers, so ignoring garbage collection &amp; runtime tuning and many API details but highlighting major features &amp; API releases.</p>
+</div>
+<div class="paragraph">
+<p>While I captured some of the preview &amp; incubator features relative to releases, they exist to expose developers to a concept and gather feedback prior to general releases.  They usually require special flags to be run and thus should not be relied on for production application deployments.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Java Release History</caption>
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Version</th>
+<th class="tableblock halign-left valign-top">When</th>
+<th class="tableblock halign-left valign-top">Impactful features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>21 (LTS)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2023-SEP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">standard: Record Patterns, <code>switch</code> Pattern Matching, Virtual Thread<br>
+     <em>preview: String templates, Scoped Values, unnamed classes/instance main</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2023-MAR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>incubator: Scoped Values, several preview updates</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-SEP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>preview: Record Patterns, Virtual Threads</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022-MAR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UTF-8 by default, deprecate finalization (<code>try&#8230;&#8203;finally</code>), tool <code>jwebserver</code> to serve local static files<br>
+    <em>preview: String templates</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>17 (LTS)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-SEP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>supported by Spring 6 &amp; Spring Boot 3</strong>, Sealed classes<br>
+    remove or deprecate several APIs, stronger encapsulation of internals (<code>com.sun.<strong>, jdk.</strong>, org.*</code>)<br>
+    incubator Vector API (SIMD: single instruction, multiple data)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-MAR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enhance Records (may be member of inner class), add <code>Stream.toList()</code>, <code>instanceof</code> standard, packaging tool.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-SEP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text blocks standard, enhancements, remove Nashorn<br>
+    <em>preview: sealed classes</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2020-MAR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">standard <code>switch</code> expressions, helpful NPEs<br>
+    <em>preview: <code>instanceof</code> Pattern Matching, Records</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-SEP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOM/SAX factories with namespaces<br>
+    <em>preview text blocks (multiline strings)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-MAR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microbenchmark Suite<br>
+    <em>preview switch expressions</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>11 (LTS)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2018-SEP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enhance String/Collection/Files/Optional, run single-file without compile,deprecate EE/CORBA/Nashorn/applets/JavaFX, tool "Flight Recorder" (JVM/OS events &amp; visualizer)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2017</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">local variable type inference (<code>var list = new ArrayList&lt;String&gt;();</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2017-SEP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project Jigsaw (module system), enhance Collection/Stream/Process, interface private methods, JShell, tool <code>jlink</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>8</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2014-MAR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Streams</strong>, Lambdas, default methods, Optional.  JavaScript (Nashorn runtime), Date &amp; time API</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2011-JUL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>switch</code> Strings, try-with-resources, diamond operator, dynamic lang support (<code>invokedynamic</code>),</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2006-DEC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">performance, enhance annotations, upgrade JAXB (StAX parser), JDBC4, JavaScript Rhino engine</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2004-SEP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generics (type casts/conversions), Autoboxing (convert primitives to objects &amp; back), Annotations, Enumerations (<code>enum</code>), varargs (String&#8230;&#8203; lines), enhanced for..each, static imports, <code>java.util.concurrent</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2002-FEB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RegEx, logging API, JAXP (XML support), exception chaining, <code>assert</code> keyword, NIO (non-blocking IO), <code>java.util.prefs</code>, integrated security/crypto libs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2000-MAY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JNDI, JavaSound, RMI compatibility with CORBA, JPDA debugger API</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1998-DEC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Collections framework, Swing UI, <code>strictfp</code> keyword, Java IDL (CORBA support)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1997-FEB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JDBC, JavaBeans, AWT, Inner classes, RMI, read-only reflection</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1996-JAN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">browser "WebRunner", networking</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_examples">Examples</h3>
+<div class="paragraph">
+<p>Not covering Virtual Threads yet - I strive for FP (functional programming) to avoid direct thread management most of the time.</p>
+</div>
+<div class="sect3">
+<h4 id="_string_templates_text_blocks">String templates, Text Blocks</h4>
+<div class="paragraph">
+<p>Text Blocks equals multi-line strings with less punctuation in source code, including escaping characters.</p>
+</div>
+<div class="listingblock">
+<div class="title">Basic Text Block (multi-line String)</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">jshell&gt; String htmlTextBlock = """
+   ...&gt; &lt;!DOCTYPE html&gt;
+   ...&gt; &lt;html lang="en"&gt;
+   ...&gt; &lt;head&gt;
+   ...&gt;   &lt;meta charset="utf-8"&gt;
+   ...&gt; &lt;/head&gt;
+   ...&gt; &lt;body&gt;
+   ...&gt; &lt;/body&gt;
+   ...&gt; &lt;/html&gt;""";
+htmlTextBlock ==&gt; "&lt;!DOCTYPE html&gt;\n&lt;html lang=\"en\"&gt;\n&lt;head&gt;\n  &lt; ... n&lt;body&gt;\n&lt;/body&gt;\n&lt;/html&gt;"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Many languages support String Interpolation - but there is a risk for invalid String literals.  Java implementers wanted the convenience for developers with less risk and created String Templates.  They are a <em>preview</em> feature and require <code>--enable-preview</code> to work.  Including because many other languages support a related syntax and we can anticipate what the feature should look like once standard.</p>
+</div>
+<div class="listingblock">
+<div class="title">String Template Example (requires preview flag)</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">jshell&gt; String name = "IT Gumby";
+name ==&gt; "IT Gumby"
+jshell&gt; Integer num = 42;
+num ==&gt; 42
+
+jshell&gt; String template = STR."""
+   ...&gt; Hello, friend!
+   ...&gt; My name is \{name} and the answer is always \{answer}
+   ...&gt; """;
+template ==&gt; "Hello, friend!\nMy name is IT Gumby and the answer is always 42\n"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_instanceof_pattern_matching">instanceof Pattern Matching</h4>
+<div class="paragraph">
+<p>Another convenience to save lines of code and reduce errors.</p>
+</div>
+<div class="listingblock">
+<div class="title">instanceof simplification</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">jshell&gt; Object obj = new String("my string");
+obj ==&gt; "my string"
+
+// PREVIOUS
+jshell&gt; if (obj instanceof String) {
+   ...&gt;     String s = (String) obj;
+   ...&gt;     System.out.println(s);
+   ...&gt; }
+my string
+
+// NOW
+jshell&gt; if (obj instanceof String s) {
+   ...&gt;     System.out.println(s);
+   ...&gt; }
+my string</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_records">Records</h4>
+<div class="paragraph">
+<p>Write less code (thus less bugs) for <strong>immutable objects</strong>.
+Records automatically get a constructor, equals(), toString() and "getters" that do NOT conform to the JavaBean standard (named after field without "get" prefix).
+For this reason, libraries such as jackson require newer versions to support records.</p>
+</div>
+<div class="listingblock">
+<div class="title">Record example</div>
+<div class="content">
+<pre>jshell&gt; public record Book(String title, String author, String isbn) {};
+|  created record Book
+jshell&gt; Book theHobbit= new Book("The Hobbit", "J.R.R. Tolkien", "0345339681");
+theHobbit ==&gt; Book[title=The Hobbit, author=J.R.R. Tolkien, isbn=0345339681]
+jshell&gt; theHobbit.author();
+$1 ==&gt; "J.R.R. Tolkien"
+
+jshell&gt; import java.lang.reflect.*;
+jshell&gt; for(var m : Book.class.getDeclaredMethods()) { System.out.println(m.getName());}
+// =&gt; equals, toString, hashCode, title, author, isbn</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_switch_enhancements">switch enhancements</h4>
+<div class="paragraph">
+<p>Including Pattern Matching&#8230;&#8203;
+.switch Pattern Matching</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>jshell&gt; public record Car(int numSeats, String vin) {};
+|  created record Car
+jshell&gt; var c = new Car(5, "my-vin");
+c ==&gt; Car[numSeats=5, vin=my-vin]
+
+jshell&gt; static double getValue(Object o) {
+   ...&gt;     return switch(o) {
+   ...&gt;         case Integer i -&gt; i.doubleValue();
+   ...&gt;         case Float f -&gt; f.doubleValue();
+   ...&gt;         case String s -&gt; Double.parseDouble(s);
+   ...&gt;         case Car c -&gt; c.numSeats();
+   ...&gt;         default -&gt; 0d;
+   ...&gt;     };
+   ...&gt; }
+|  created method getValue(Object)
+
+jshell&gt; getValue(c)
+$7 ==&gt; 5.0
+jshell&gt; getValue("17.01")
+$8 ==&gt; 17.01
+jshell&gt; getValue(3)
+$9 ==&gt; 3.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please excuse the horrible example, but it illustrates the new abilities to match by type and not require <code>break</code> statements if using statement expressions.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deprecation_of_finalization">deprecation of finalization</h4>
+<div class="paragraph">
+<p>There are cases where <code>finally {&#8230;&#8203;}</code> blocks can leak, particularly if there is an exception in the main try block and another exception in the finally block.  This hasn&#8217;t been removed yet but is marked for future removal.</p>
+</div>
+<div class="paragraph">
+<p>Instead, use try-with-resources or <code>java.lang.ref.Cleaner</code> released in <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ref/Cleaner.html">Java 17</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sealed_classes">Sealed Classes</h4>
+<div class="paragraph">
+<p>Formerly known as Project Amber, sealed classes restrict which other classes &amp; interfaces can extend or implement a sealed component.</p>
+</div>
+<div class="paragraph">
+<p>New keywords: <code>sealed &#8230;&#8203; permits</code> (explicit subclassing), <code>final</code> (prevent subclassing), <code>non-sealed</code> (any can inherit)</p>
+</div>
+<div class="paragraph">
+<p>As an application developer, I don&#8217;t find sealed classes useful unless manipulating the type system ("Favor composition over inheritance").</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_managing_local_java_development_versions">Managing local Java development versions</h3>
+<div class="paragraph">
+<p>I use <a href="https://brew.sh/">brew</a> (to install <code>jenv</code>), <a href="https://sdkman.io/">sdk</a> and <a href="https://github.com/jenv/jenv">jenv</a> to easily switch between java versions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sdk list java | grep 21
+sdk install java 21-open ## not default yet, waiting for 1st patch release
+jenv add ~/.sdkman/candidates/java/21-open/
+jenv local 21 ## creates .java-version in current folder
+java -version
+# openjdk version "21" 2023-09-19
+# OpenJDK Runtime Environment (build 21+35-2513)
+# OpenJDK 64-Bit Server VM (build 21+35-2513, mixed mode, sharing)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_upgrade_ideas">Upgrade Ideas</h3>
+<div class="paragraph">
+<p><a href="https://docs.openrewrite.org/" class="bare">https://docs.openrewrite.org/</a> and <a href="https://www.moderne.io/" class="bare">https://www.moderne.io/</a> propose to write "recipes" to automatically update source code in a consistent manner.  It is really worth evaluating this idea.  And if you are a library or dependency, it is worth considering adding to the recipes so your users can keep up with less effort.</p>
+</div>
+</div></p>
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2023 | Baked with <a href="http://jbake.org">JBake v2.6.7</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery-3.7.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/prettify.js"></script>
+
+  </body>
+</html>

@@ -6,9 +6,333 @@
 		<atom:link href="http://itgumby.github.io/feed.xml" rel="self" type="application/rss+xml" />
 		<description>IT Gumby's blog RSS feed</description>
 		<language>en-US</language>
-		<pubDate>2023-08-04T14:16:07-0600</pubDate>
-		<lastBuildDate>2023-08-04T14:16:07-0600</lastBuildDate>
+		<pubDate>2023-09-26T23:48:11-0600</pubDate>
+		<lastBuildDate>2023-09-26T23:48:11-0600</lastBuildDate>
 
+		<item>
+			<title>Java Release versions &amp; History</title>
+			<link>http://itgumby.github.io/blog/2023/java-versions-features.html</link>
+			<pubDate>2023-09-28T00:00:00-0600</pubDate>
+			<guid isPermaLink="false">blog/2023/java-versions-features.html</guid>
+			<description>
+				&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;My initial reference major Java releases.  Its focus is for application developers, so ignoring garbage collection &amp;amp; runtime tuning and many API details but highlighting major features &amp;amp; API releases.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;While I captured some of the preview &amp;amp; incubator features relative to releases, they exist to expose developers to a concept and gather feedback prior to general releases.  They usually require special flags to be run and thus should not be relied on for production application deployments.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 1. Java Release History&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 12.5%;&quot;&gt;
+&lt;col style=&quot;width: 12.5%;&quot;&gt;
+&lt;col style=&quot;width: 75%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Version&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;When&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Impactful features&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;21 (LTS)&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2023-SEP&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;standard: Record Patterns, &lt;code&gt;switch&lt;/code&gt; Pattern Matching, Virtual Thread&lt;br&gt;
+     &lt;em&gt;preview: String templates, Scoped Values, unnamed classes/instance main&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;20&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2023-MAR&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;incubator: Scoped Values, several preview updates&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;19&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2022-SEP&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;preview: Record Patterns, Virtual Threads&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;18&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2022-MAR&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;UTF-8 by default, deprecate finalization (&lt;code&gt;try&amp;#8230;&amp;#8203;finally&lt;/code&gt;), tool &lt;code&gt;jwebserver&lt;/code&gt; to serve local static files&lt;br&gt;
+    &lt;em&gt;preview: String templates&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;17 (LTS)&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2021-SEP&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;supported by Spring 6 &amp;amp; Spring Boot 3&lt;/strong&gt;, Sealed classes&lt;br&gt;
+    remove or deprecate several APIs, stronger encapsulation of internals (&lt;code&gt;com.sun.&lt;strong&gt;, jdk.&lt;/strong&gt;, org.*&lt;/code&gt;)&lt;br&gt;
+    incubator Vector API (SIMD: single instruction, multiple data)&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;16&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2021-MAR&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;enhance Records (may be member of inner class), add &lt;code&gt;Stream.toList()&lt;/code&gt;, &lt;code&gt;instanceof&lt;/code&gt; standard, packaging tool.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;15&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2020-SEP&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;text blocks standard, enhancements, remove Nashorn&lt;br&gt;
+    &lt;em&gt;preview: sealed classes&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;14&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2020-MAR&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;standard &lt;code&gt;switch&lt;/code&gt; expressions, helpful NPEs&lt;br&gt;
+    &lt;em&gt;preview: &lt;code&gt;instanceof&lt;/code&gt; Pattern Matching, Records&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;13&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2019-SEP&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;DOM/SAX factories with namespaces&lt;br&gt;
+    &lt;em&gt;preview text blocks (multiline strings)&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;12&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2019-MAR&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Microbenchmark Suite&lt;br&gt;
+    &lt;em&gt;preview switch expressions&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;11 (LTS)&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2018-SEP&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;enhance String/Collection/Files/Optional, run single-file without compile,deprecate EE/CORBA/Nashorn/applets/JavaFX, tool &quot;Flight Recorder&quot; (JVM/OS events &amp;amp; visualizer)&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;10&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2017&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;local variable type inference (&lt;code&gt;var list = new ArrayList&amp;lt;String&amp;gt;();&lt;/code&gt;)&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;9&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2017-SEP&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Project Jigsaw (module system), enhance Collection/Stream/Process, interface private methods, JShell, tool &lt;code&gt;jlink&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;8&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2014-MAR&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;Streams&lt;/strong&gt;, Lambdas, default methods, Optional.  JavaScript (Nashorn runtime), Date &amp;amp; time API&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;7&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2011-JUL&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;switch&lt;/code&gt; Strings, try-with-resources, diamond operator, dynamic lang support (&lt;code&gt;invokedynamic&lt;/code&gt;),&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;6&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2006-DEC&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;performance, enhance annotations, upgrade JAXB (StAX parser), JDBC4, JavaScript Rhino engine&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;5&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2004-SEP&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Generics (type casts/conversions), Autoboxing (convert primitives to objects &amp;amp; back), Annotations, Enumerations (&lt;code&gt;enum&lt;/code&gt;), varargs (String&amp;#8230;&amp;#8203; lines), enhanced for..each, static imports, &lt;code&gt;java.util.concurrent&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1.4&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2002-FEB&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;RegEx, logging API, JAXP (XML support), exception chaining, &lt;code&gt;assert&lt;/code&gt; keyword, NIO (non-blocking IO), &lt;code&gt;java.util.prefs&lt;/code&gt;, integrated security/crypto libs&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1.3&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2000-MAY&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;JNDI, JavaSound, RMI compatibility with CORBA, JPDA debugger API&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1.2&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1998-DEC&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Collections framework, Swing UI, &lt;code&gt;strictfp&lt;/code&gt; keyword, Java IDL (CORBA support)&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1.1&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1997-FEB&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;JDBC, JavaBeans, AWT, Inner classes, RMI, read-only reflection&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1.0&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1996-JAN&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;browser &quot;WebRunner&quot;, networking&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_examples&quot;&gt;Examples&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Not covering Virtual Threads yet - I strive for FP (functional programming) to avoid direct thread management most of the time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_string_templates_text_blocks&quot;&gt;String templates, Text Blocks&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Text Blocks equals multi-line strings with less punctuation in source code, including escaping characters.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Basic Text Block (multi-line String)&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;jshell&amp;gt; String htmlTextBlock = &quot;&quot;&quot;
+   ...&amp;gt; &amp;lt;!DOCTYPE html&amp;gt;
+   ...&amp;gt; &amp;lt;html lang=&quot;en&quot;&amp;gt;
+   ...&amp;gt; &amp;lt;head&amp;gt;
+   ...&amp;gt;   &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
+   ...&amp;gt; &amp;lt;/head&amp;gt;
+   ...&amp;gt; &amp;lt;body&amp;gt;
+   ...&amp;gt; &amp;lt;/body&amp;gt;
+   ...&amp;gt; &amp;lt;/html&amp;gt;&quot;&quot;&quot;;
+htmlTextBlock ==&amp;gt; &quot;&amp;lt;!DOCTYPE html&amp;gt;\n&amp;lt;html lang=\&quot;en\&quot;&amp;gt;\n&amp;lt;head&amp;gt;\n  &amp;lt; ... n&amp;lt;body&amp;gt;\n&amp;lt;/body&amp;gt;\n&amp;lt;/html&amp;gt;&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Many languages support String Interpolation - but there is a risk for invalid String literals.  Java implementers wanted the convenience for developers with less risk and created String Templates.  They are a &lt;em&gt;preview&lt;/em&gt; feature and require &lt;code&gt;--enable-preview&lt;/code&gt; to work.  Including because many other languages support a related syntax and we can anticipate what the feature should look like once standard.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;String Template Example (requires preview flag)&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;jshell&amp;gt; String name = &quot;IT Gumby&quot;;
+name ==&amp;gt; &quot;IT Gumby&quot;
+jshell&amp;gt; Integer num = 42;
+num ==&amp;gt; 42
+
+jshell&amp;gt; String template = STR.&quot;&quot;&quot;
+   ...&amp;gt; Hello, friend!
+   ...&amp;gt; My name is \{name} and the answer is always \{answer}
+   ...&amp;gt; &quot;&quot;&quot;;
+template ==&amp;gt; &quot;Hello, friend!\nMy name is IT Gumby and the answer is always 42\n&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_instanceof_pattern_matching&quot;&gt;instanceof Pattern Matching&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Another convenience to save lines of code and reduce errors.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;instanceof simplification&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;jshell&amp;gt; Object obj = new String(&quot;my string&quot;);
+obj ==&amp;gt; &quot;my string&quot;
+
+// PREVIOUS
+jshell&amp;gt; if (obj instanceof String) {
+   ...&amp;gt;     String s = (String) obj;
+   ...&amp;gt;     System.out.println(s);
+   ...&amp;gt; }
+my string
+
+// NOW
+jshell&amp;gt; if (obj instanceof String s) {
+   ...&amp;gt;     System.out.println(s);
+   ...&amp;gt; }
+my string&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_records&quot;&gt;Records&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Write less code (thus less bugs) for &lt;strong&gt;immutable objects&lt;/strong&gt;.
+Records automatically get a constructor, equals(), toString() and &quot;getters&quot; that do NOT conform to the JavaBean standard (named after field without &quot;get&quot; prefix).
+For this reason, libraries such as jackson require newer versions to support records.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Record example&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;jshell&amp;gt; public record Book(String title, String author, String isbn) {};
+|  created record Book
+jshell&amp;gt; Book theHobbit= new Book(&quot;The Hobbit&quot;, &quot;J.R.R. Tolkien&quot;, &quot;0345339681&quot;);
+theHobbit ==&amp;gt; Book[title=The Hobbit, author=J.R.R. Tolkien, isbn=0345339681]
+jshell&amp;gt; theHobbit.author();
+$1 ==&amp;gt; &quot;J.R.R. Tolkien&quot;
+
+jshell&amp;gt; import java.lang.reflect.*;
+jshell&amp;gt; for(var m : Book.class.getDeclaredMethods()) { System.out.println(m.getName());}
+// =&amp;gt; equals, toString, hashCode, title, author, isbn&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_switch_enhancements&quot;&gt;switch enhancements&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Including Pattern Matching&amp;#8230;&amp;#8203;
+.switch Pattern Matching&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;jshell&amp;gt; public record Car(int numSeats, String vin) {};
+|  created record Car
+jshell&amp;gt; var c = new Car(5, &quot;my-vin&quot;);
+c ==&amp;gt; Car[numSeats=5, vin=my-vin]
+
+jshell&amp;gt; static double getValue(Object o) {
+   ...&amp;gt;     return switch(o) {
+   ...&amp;gt;         case Integer i -&amp;gt; i.doubleValue();
+   ...&amp;gt;         case Float f -&amp;gt; f.doubleValue();
+   ...&amp;gt;         case String s -&amp;gt; Double.parseDouble(s);
+   ...&amp;gt;         case Car c -&amp;gt; c.numSeats();
+   ...&amp;gt;         default -&amp;gt; 0d;
+   ...&amp;gt;     };
+   ...&amp;gt; }
+|  created method getValue(Object)
+
+jshell&amp;gt; getValue(c)
+$7 ==&amp;gt; 5.0
+jshell&amp;gt; getValue(&quot;17.01&quot;)
+$8 ==&amp;gt; 17.01
+jshell&amp;gt; getValue(3)
+$9 ==&amp;gt; 3.0&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Please excuse the horrible example, but it illustrates the new abilities to match by type and not require &lt;code&gt;break&lt;/code&gt; statements if using statement expressions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_deprecation_of_finalization&quot;&gt;deprecation of finalization&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are cases where &lt;code&gt;finally {&amp;#8230;&amp;#8203;}&lt;/code&gt; blocks can leak, particularly if there is an exception in the main try block and another exception in the finally block.  This hasn&amp;#8217;t been removed yet but is marked for future removal.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Instead, use try-with-resources or &lt;code&gt;java.lang.ref.Cleaner&lt;/code&gt; released in &lt;a href=&quot;https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ref/Cleaner.html&quot;&gt;Java 17&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_sealed_classes&quot;&gt;Sealed Classes&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Formerly known as Project Amber, sealed classes restrict which other classes &amp;amp; interfaces can extend or implement a sealed component.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;New keywords: &lt;code&gt;sealed &amp;#8230;&amp;#8203; permits&lt;/code&gt; (explicit subclassing), &lt;code&gt;final&lt;/code&gt; (prevent subclassing), &lt;code&gt;non-sealed&lt;/code&gt; (any can inherit)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As an application developer, I don&amp;#8217;t find sealed classes useful unless manipulating the type system (&quot;Favor composition over inheritance&quot;).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_managing_local_java_development_versions&quot;&gt;Managing local Java development versions&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I use &lt;a href=&quot;https://brew.sh/&quot;&gt;brew&lt;/a&gt; (to install &lt;code&gt;jenv&lt;/code&gt;), &lt;a href=&quot;https://sdkman.io/&quot;&gt;sdk&lt;/a&gt; and &lt;a href=&quot;https://github.com/jenv/jenv&quot;&gt;jenv&lt;/a&gt; to easily switch between java versions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sdk list java | grep 21
+sdk install java 21-open ## not default yet, waiting for 1st patch release
+jenv add ~/.sdkman/candidates/java/21-open/
+jenv local 21 ## creates .java-version in current folder
+java -version
+# openjdk version &quot;21&quot; 2023-09-19
+# OpenJDK Runtime Environment (build 21+35-2513)
+# OpenJDK 64-Bit Server VM (build 21+35-2513, mixed mode, sharing)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_upgrade_ideas&quot;&gt;Upgrade Ideas&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.openrewrite.org/&quot; class=&quot;bare&quot;&gt;https://docs.openrewrite.org/&lt;/a&gt; and &lt;a href=&quot;https://www.moderne.io/&quot; class=&quot;bare&quot;&gt;https://www.moderne.io/&lt;/a&gt; propose to write &quot;recipes&quot; to automatically update source code in a consistent manner.  It is really worth evaluating this idea.  And if you are a library or dependency, it is worth considering adding to the recipes so your users can keep up with less effort.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+			</description>
+		</item>
 		<item>
 			<title>JBake workshop at GreachConf</title>
 			<link>http://itgumby.github.io/blog/2019/greach-jbake-workshop.html</link>
