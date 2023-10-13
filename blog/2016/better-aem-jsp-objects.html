@@ -125,7 +125,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    String getPageTitle(@Nonnull Resource resource) {
+<pre class="prettyprint highlight"><code data-lang="java">    String getPageTitle(@Nonnull Resource resource) {
         ValueMap properties = resource.getValueMap();
         return properties.get("pageTitle", properties.get("jcr:title", properties.get("navTitle", "")));
     }</code></pre>
@@ -136,7 +136,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    String getPageTitle(@Nonnull Node currentNode) {
+<pre class="prettyprint highlight"><code data-lang="java">    String getPageTitle(@Nonnull Node currentNode) {
         try {
             Property titleProp =
                 currentNode.hasProperty("pageTitle") ? currentNode.getProperty("pageTitle") :

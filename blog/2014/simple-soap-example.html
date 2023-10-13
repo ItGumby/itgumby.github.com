@@ -102,7 +102,7 @@ The example has a clear classes &amp; separation of concerns, but still requires
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">String buildRequest(String zip) {
+<pre class="prettyprint highlight"><code data-lang="groovy">String buildRequest(String zip) {
     def writer = new StringWriter()
     def builder = new MarkupBuilder(writer)
 
@@ -126,7 +126,7 @@ The XML is patterned from the WSDL&#8217;s Request object manually, or using <a 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">String callSoapWeather(String body) {
+<pre class="prettyprint highlight"><code data-lang="groovy">String callSoapWeather(String body) {
     def msgFactory = new SaajSoapMessageFactory()
     msgFactory.afterPropertiesSet()
 
@@ -156,7 +156,7 @@ The XML is patterned from the WSDL&#8217;s Request object manually, or using <a 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">void printResults(String response) {
+<pre class="prettyprint highlight"><code data-lang="groovy">void printResults(String response) {
     final xml = new XmlSlurper().parseText(response)
     def nodes = xml.GetCityForecastByZIPResult
     println "Forecast for ${nodes.City}, ${nodes.State}"

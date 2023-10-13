@@ -123,7 +123,7 @@ a language related to Java that requires less boilerplate.</p>
 <div class="listingblock">
 <div class="title">while (or "until" to test at end of loop)</div>
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">List&lt;Integer&gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+<pre class="prettyprint highlight"><code data-lang="groovy">List&lt;Integer&gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 def i = 0               // iterator set to starting position of collection
@@ -139,7 +139,7 @@ println "result of while() sum = ${sum}"</code></pre>
 <div class="listingblock">
 <div class="title">for loop</div>
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">List&lt;Integer&gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+<pre class="prettyprint highlight"><code data-lang="groovy">List&lt;Integer&gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 def max = input.size()          // calculate end position once
@@ -153,7 +153,7 @@ println "result of for(;;) sum = ${sum}"</code></pre>
 <div class="listingblock">
 <div class="title">for each/in</div>
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">List&lt;Integer&gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+<pre class="prettyprint highlight"><code data-lang="groovy">List&lt;Integer&gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 for (Integer val : input) {
@@ -165,7 +165,7 @@ println "for(each) sum =&gt; ${sum}"</code></pre>
 <div class="listingblock">
 <div class="title">each (or "forEach" in Java8)</div>
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">List&lt;Integer&gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+<pre class="prettyprint highlight"><code data-lang="groovy">List&lt;Integer&gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 input.each { Integer val -&gt;  // explicitly declare type &amp; name; groovy defaults to "it"
@@ -191,7 +191,7 @@ Also, the environment has more opportunities to optimize the solution, such as p
 <div class="listingblock">
 <div class="title">An example of a functional approach to summing (although most will provide a sum() function) can be:</div>
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">List&lt;Integer&gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+<pre class="prettyprint highlight"><code data-lang="groovy">List&lt;Integer&gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 def inputSum = input.inject(0, { acc, it -&gt; acc + it })     // most call it "reduce"
 println inputSum</code></pre>
 </div>

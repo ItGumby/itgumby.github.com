@@ -6,98 +6,73 @@
 		<atom:link href="http://itgumby.github.io/feed.xml" rel="self" type="application/rss+xml" />
 		<description>IT Gumby's blog RSS feed</description>
 		<language>en-US</language>
-		<pubDate>2023-09-26T23:48:11-0600</pubDate>
-		<lastBuildDate>2023-09-26T23:48:11-0600</lastBuildDate>
+		<pubDate>2023-10-13T01:18:46-0600</pubDate>
+		<lastBuildDate>2023-10-13T01:18:46-0600</lastBuildDate>
 
 		<item>
 			<title>Java Release versions &amp; History</title>
 			<link>http://itgumby.github.io/blog/2023/java-versions-features.html</link>
-			<pubDate>2023-09-28T00:00:00-0600</pubDate>
+			<pubDate>2023-10-13T00:00:00-0600</pubDate>
 			<guid isPermaLink="false">blog/2023/java-versions-features.html</guid>
 			<description>
 				&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;My initial reference major Java releases.  Its focus is for application developers, so ignoring garbage collection &amp;amp; runtime tuning and many API details but highlighting major features &amp;amp; API releases.&lt;/p&gt;
+&lt;p&gt;My initial reference major Java releases.  Its focus is for application developers, so the focus is on Long-Term-Stable (LTS) releases we should be running on.  Also, the focus is more on language features than on API changes.  Java has a view into specific API changes for each release since JDK 11 at &lt;a href=&quot;https://docs.oracle.com/en/java/javase/21/docs/api/new-list.html&quot; class=&quot;bare&quot;&gt;https://docs.oracle.com/en/java/javase/21/docs/api/new-list.html&lt;/a&gt; (which has checkboxes to zero in on specific releases).&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;While I captured some of the preview &amp;amp; incubator features relative to releases, they exist to expose developers to a concept and gather feedback prior to general releases.  They usually require special flags to be run and thus should not be relied on for production application deployments.&lt;/p&gt;
 &lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Revision History&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;2023-SEP-28&lt;/strong&gt; initial publish&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;2023-OCT-13&lt;/strong&gt; updated based on Billy Korando&amp;#8217;s presentation &lt;a href=&quot;https://wkorando.github.io/presentations/to-java-n-and-beyond/&quot;&gt;To Java 21 and Beyond!&lt;/a&gt; at &lt;a href=&quot;https://www.meetup.com/denverjavausersgroup/events/292569051/&quot;&gt;DJUG October 2023&lt;/a&gt;.  Thanks Billy &amp;amp; DJUG!&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
 &lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
 &lt;caption class=&quot;title&quot;&gt;Table 1. Java Release History&lt;/caption&gt;
 &lt;colgroup&gt;
-&lt;col style=&quot;width: 12.5%;&quot;&gt;
-&lt;col style=&quot;width: 12.5%;&quot;&gt;
-&lt;col style=&quot;width: 75%;&quot;&gt;
+&lt;col style=&quot;width: 10%;&quot;&gt;
+&lt;col style=&quot;width: 10%;&quot;&gt;
+&lt;col style=&quot;width: 80%;&quot;&gt;
 &lt;/colgroup&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Version&lt;/th&gt;
 &lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;When&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Impactful features&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Features&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;21 (LTS)&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;a href=&quot;https://jdk.java.net/21/release-notes&quot;&gt;&lt;strong&gt;JDK 21 (LTS)&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2023-SEP&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;standard: Record Patterns, &lt;code&gt;switch&lt;/code&gt; Pattern Matching, Virtual Thread&lt;br&gt;
-     &lt;em&gt;preview: String templates, Scoped Values, unnamed classes/instance main&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;20&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2023-MAR&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;incubator: Scoped Values, several preview updates&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;19&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2022-SEP&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;preview: Record Patterns, Virtual Threads&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;18&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2022-MAR&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;UTF-8 by default, deprecate finalization (&lt;code&gt;try&amp;#8230;&amp;#8203;finally&lt;/code&gt;), tool &lt;code&gt;jwebserver&lt;/code&gt; to serve local static files&lt;br&gt;
-    &lt;em&gt;preview: String templates&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Pattern Matching for Records &amp;amp; &lt;code&gt;switch&lt;/code&gt;, Sequenced Collections, Virtual Thread&lt;br&gt;
+    CDS (Class Data Sharing), &lt;code&gt;jwebserver&lt;/code&gt;&lt;br&gt;
+    deprecations: &lt;code&gt;Object.finalize()&lt;/code&gt;, Applets &amp;amp; Security Manager&lt;br&gt;
+     &lt;em&gt;preview: String templates, Scoped Values, Foreign Function &amp;amp; Memory API, unnamed classes/instance main&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;17 (LTS)&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2021-SEP&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;supported by Spring 6 &amp;amp; Spring Boot 3&lt;/strong&gt;, Sealed classes&lt;br&gt;
-    remove or deprecate several APIs, stronger encapsulation of internals (&lt;code&gt;com.sun.&lt;strong&gt;, jdk.&lt;/strong&gt;, org.*&lt;/code&gt;)&lt;br&gt;
-    incubator Vector API (SIMD: single instruction, multiple data)&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;16&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2021-MAR&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;enhance Records (may be member of inner class), add &lt;code&gt;Stream.toList()&lt;/code&gt;, &lt;code&gt;instanceof&lt;/code&gt; standard, packaging tool.&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;15&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2020-SEP&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;text blocks standard, enhancements, remove Nashorn&lt;br&gt;
-    &lt;em&gt;preview: sealed classes&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;14&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2020-MAR&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;standard &lt;code&gt;switch&lt;/code&gt; expressions, helpful NPEs&lt;br&gt;
-    &lt;em&gt;preview: &lt;code&gt;instanceof&lt;/code&gt; Pattern Matching, Records&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;13&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2019-SEP&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;DOM/SAX factories with namespaces&lt;br&gt;
-    &lt;em&gt;preview text blocks (multiline strings)&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;12&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2019-MAR&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Microbenchmark Suite&lt;br&gt;
-    &lt;em&gt;preview switch expressions&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;supported by Spring 6 &amp;amp; Spring Boot 3&lt;/strong&gt;&lt;br&gt;
+    Records, &lt;code&gt;switch&lt;/code&gt; expressions, &quot;helpful&quot; NullPointerExceptions, Text Blocks, Pattern Matching for &lt;code&gt;instanceof&lt;/code&gt;, Sealed Classes&lt;br&gt;
+    enhance: Records (may be member of inner class), add &lt;code&gt;Stream.toList()&lt;/code&gt;, packaging tool&lt;br&gt;
+    stronger encapsulation of internals (&lt;code&gt;com.sun.*, jdk.*, org.*&lt;/code&gt;)&lt;br&gt;
+    extract Nashorn (JavaScript engine)&lt;br&gt;
+    &lt;em&gt;incubator Vector API (SIMD: single instruction, multiple data)&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;11 (LTS)&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2018-SEP&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;enhance String/Collection/Files/Optional, run single-file without compile,deprecate EE/CORBA/Nashorn/applets/JavaFX, tool &quot;Flight Recorder&quot; (JVM/OS events &amp;amp; visualizer)&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;enhance String/Collection/Files/Optional&lt;br&gt;
+    run single-file without compile, tool &quot;Flight Recorder&quot; (JVM/OS events &amp;amp; visualizer)&lt;br&gt;
+    deprecate EE/CORBA/Nashorn/applets/JavaFX&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;10&lt;/p&gt;&lt;/td&gt;
@@ -107,12 +82,15 @@
 &lt;tr&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;9&lt;/p&gt;&lt;/td&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2017-SEP&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Project Jigsaw (module system), enhance Collection/Stream/Process, interface private methods, JShell, tool &lt;code&gt;jlink&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Project Jigsaw (module system)&lt;br&gt;
+    enhance Collection/Stream/Process, interface private methods&lt;br&gt;
+    tools: &lt;code&gt;jshell&lt;/code&gt;, &lt;code&gt;jlink&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;8&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2014-MAR&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;Streams&lt;/strong&gt;, Lambdas, default methods, Optional.  JavaScript (Nashorn runtime), Date &amp;amp; time API&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;Streams&lt;/strong&gt;, Lambdas, default methods, Optional&lt;br&gt;
+    JavaScript (Nashorn runtime), Date &amp;amp; time API updates&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;7&lt;/p&gt;&lt;/td&gt;
@@ -122,17 +100,19 @@
 &lt;tr&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;6&lt;/p&gt;&lt;/td&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2006-DEC&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;performance, enhance annotations, upgrade JAXB (StAX parser), JDBC4, JavaScript Rhino engine&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;performance, enhance annotations, upgrade JAXB (StAX parser), JDBC4, Rhino JavaScript engine&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;5&lt;/p&gt;&lt;/td&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2004-SEP&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Generics (type casts/conversions), Autoboxing (convert primitives to objects &amp;amp; back), Annotations, Enumerations (&lt;code&gt;enum&lt;/code&gt;), varargs (String&amp;#8230;&amp;#8203; lines), enhanced for..each, static imports, &lt;code&gt;java.util.concurrent&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Generics (type casts/conversions), Autoboxing (convert primitives to objects &amp;amp; back)&lt;br&gt;
+    Annotations, Enumerations (&lt;code&gt;enum&lt;/code&gt;), varargs (String&amp;#8230;&amp;#8203; lines), enhanced for..each, static imports, &lt;code&gt;java.util.concurrent&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1.4&lt;/p&gt;&lt;/td&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;2002-FEB&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;RegEx, logging API, JAXP (XML support), exception chaining, &lt;code&gt;assert&lt;/code&gt; keyword, NIO (non-blocking IO), &lt;code&gt;java.util.prefs&lt;/code&gt;, integrated security/crypto libs&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;RegEx, logging API, JAXP (XML support), exception chaining&lt;br&gt;
+    &lt;code&gt;assert&lt;/code&gt; keyword, NIO (non-blocking IO), &lt;code&gt;java.util.prefs&lt;/code&gt;, integrated security/crypto libs&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1.3&lt;/p&gt;&lt;/td&gt;
@@ -150,65 +130,36 @@
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;JDBC, JavaBeans, AWT, Inner classes, RMI, read-only reflection&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1.0&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1.0.2&lt;/p&gt;&lt;/td&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;1996-JAN&lt;/p&gt;&lt;/td&gt;
 &lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;browser &quot;WebRunner&quot;, networking&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_examples&quot;&gt;Examples&lt;/h3&gt;
+&lt;h3 id=&quot;_examples_notes&quot;&gt;Examples &amp;amp; Notes&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Not covering Virtual Threads yet - I strive for FP (functional programming) to avoid direct thread management most of the time.&lt;/p&gt;
+&lt;p&gt;I was initialy unimpressed by &lt;strong&gt;Virtual Threads&lt;/strong&gt; because Functional Programming lets me avoid directly manipulating and managing threads.
+However, it was pointed out that they really shine for I/O blocked threads such as Web Applications.
+They default to using Fork Join Pools with a FIFO queue.
+If necessary, you can configure ot LIFO queue or override the pool to manage behavior (but &quot;EEK!&quot; for most application development).
+Virtual Threads probably aren&amp;#8217;t a huge benefit for compute or CPU-bound threads, where &quot;platform threads&quot; will suffice.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;CDS or &lt;strong&gt;Class Data Sharing&lt;/strong&gt; didn&amp;#8217;t sound interesting until a presenter pointed out it could simplify CI/CD pipelines to obtain a 10-20% startup benefit in time or memory for extremely little work.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/SequencedCollection.html&quot;&gt;&lt;strong&gt;Sequenced Collections&lt;/strong&gt;&lt;/a&gt; can really help application development (and greatly simplify interview questions) by adding methods &lt;code&gt;reversed(), addFirst/Last(), getFirst/Last(), removeFirst/Last()&lt;/code&gt;.  &lt;a href=&quot;https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/SequencedMap.html&quot;&gt;SequenedMap&lt;/a&gt;s adds corresponding methods appropriate for SortedMaps and NavigableMaps.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;_string_templates_text_blocks&quot;&gt;String templates, Text Blocks&lt;/h4&gt;
+&lt;h4 id=&quot;_pattern_matching&quot;&gt;Pattern Matching&lt;/h4&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Text Blocks equals multi-line strings with less punctuation in source code, including escaping characters.&lt;/p&gt;
+&lt;p&gt;Another convenience to save lines of code and reduce errors.  Initially introduced for the &lt;code&gt;instanceof&lt;/code&gt; operator, it works in &lt;code&gt;switch&lt;/code&gt; in JDK 21.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Basic Text Block (multi-line String)&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;instanceof Pattern Matching&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;jshell&amp;gt; String htmlTextBlock = &quot;&quot;&quot;
-   ...&amp;gt; &amp;lt;!DOCTYPE html&amp;gt;
-   ...&amp;gt; &amp;lt;html lang=&quot;en&quot;&amp;gt;
-   ...&amp;gt; &amp;lt;head&amp;gt;
-   ...&amp;gt;   &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
-   ...&amp;gt; &amp;lt;/head&amp;gt;
-   ...&amp;gt; &amp;lt;body&amp;gt;
-   ...&amp;gt; &amp;lt;/body&amp;gt;
-   ...&amp;gt; &amp;lt;/html&amp;gt;&quot;&quot;&quot;;
-htmlTextBlock ==&amp;gt; &quot;&amp;lt;!DOCTYPE html&amp;gt;\n&amp;lt;html lang=\&quot;en\&quot;&amp;gt;\n&amp;lt;head&amp;gt;\n  &amp;lt; ... n&amp;lt;body&amp;gt;\n&amp;lt;/body&amp;gt;\n&amp;lt;/html&amp;gt;&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Many languages support String Interpolation - but there is a risk for invalid String literals.  Java implementers wanted the convenience for developers with less risk and created String Templates.  They are a &lt;em&gt;preview&lt;/em&gt; feature and require &lt;code&gt;--enable-preview&lt;/code&gt; to work.  Including because many other languages support a related syntax and we can anticipate what the feature should look like once standard.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;String Template Example (requires preview flag)&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;jshell&amp;gt; String name = &quot;IT Gumby&quot;;
-name ==&amp;gt; &quot;IT Gumby&quot;
-jshell&amp;gt; Integer num = 42;
-num ==&amp;gt; 42
-
-jshell&amp;gt; String template = STR.&quot;&quot;&quot;
-   ...&amp;gt; Hello, friend!
-   ...&amp;gt; My name is \{name} and the answer is always \{answer}
-   ...&amp;gt; &quot;&quot;&quot;;
-template ==&amp;gt; &quot;Hello, friend!\nMy name is IT Gumby and the answer is always 42\n&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;_instanceof_pattern_matching&quot;&gt;instanceof Pattern Matching&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Another convenience to save lines of code and reduce errors.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;instanceof simplification&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;jshell&amp;gt; Object obj = new String(&quot;my string&quot;);
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;jshell&amp;gt; Object obj = new String(&quot;my string&quot;);
 obj ==&amp;gt; &quot;my string&quot;
 
 // PREVIOUS
@@ -225,37 +176,12 @@ jshell&amp;gt; if (obj instanceof String s) {
 my string&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;_records&quot;&gt;Records&lt;/h4&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Write less code (thus less bugs) for &lt;strong&gt;immutable objects&lt;/strong&gt;.
-Records automatically get a constructor, equals(), toString() and &quot;getters&quot; that do NOT conform to the JavaBean standard (named after field without &quot;get&quot; prefix).
-For this reason, libraries such as jackson require newer versions to support records.&lt;/p&gt;
+&lt;p&gt;In &lt;strong&gt;switch Pattern Matching&lt;/strong&gt;, the compiler enforces exhaustive cases, thus may require a &lt;code&gt;case default &amp;#8594; {&amp;#8230;&amp;#8203;}&lt;/code&gt;.
+The JDK also added a &lt;code&gt;when&lt;/code&gt; keyword so Record Patterns can do something like &lt;code&gt;case Name name(var first, var mid, var last) when !mid.isEmpty() &amp;#8594; {&amp;#8230;&amp;#8203;};&lt;/code&gt; to reduce errors and contorting code.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Record example&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;jshell&amp;gt; public record Book(String title, String author, String isbn) {};
-|  created record Book
-jshell&amp;gt; Book theHobbit= new Book(&quot;The Hobbit&quot;, &quot;J.R.R. Tolkien&quot;, &quot;0345339681&quot;);
-theHobbit ==&amp;gt; Book[title=The Hobbit, author=J.R.R. Tolkien, isbn=0345339681]
-jshell&amp;gt; theHobbit.author();
-$1 ==&amp;gt; &quot;J.R.R. Tolkien&quot;
-
-jshell&amp;gt; import java.lang.reflect.*;
-jshell&amp;gt; for(var m : Book.class.getDeclaredMethods()) { System.out.println(m.getName());}
-// =&amp;gt; equals, toString, hashCode, title, author, isbn&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;_switch_enhancements&quot;&gt;switch enhancements&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Including Pattern Matching&amp;#8230;&amp;#8203;
-.switch Pattern Matching&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;switch Pattern Matching&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre&gt;jshell&amp;gt; public record Car(int numSeats, String vin) {};
 |  created record Car
@@ -286,12 +212,67 @@ $9 ==&amp;gt; 3.0&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;_deprecation_of_finalization&quot;&gt;deprecation of finalization&lt;/h4&gt;
+&lt;h4 id=&quot;_text_blocks&quot;&gt;Text Blocks&lt;/h4&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There are cases where &lt;code&gt;finally {&amp;#8230;&amp;#8203;}&lt;/code&gt; blocks can leak, particularly if there is an exception in the main try block and another exception in the finally block.  This hasn&amp;#8217;t been removed yet but is marked for future removal.&lt;/p&gt;
+&lt;p&gt;Text Blocks equals multi-line strings with less punctuation in source code, including escaping characters.
+The preview (requires flag to work) for &lt;strong&gt;String Templates&lt;/strong&gt; provides a safer string interpolation, but uses &lt;code&gt;{varName}&lt;/code&gt; instead of &lt;code&gt;${varName}&lt;/code&gt; used in many other languages.&lt;/p&gt;
 &lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Basic Text Block (multi-line String)&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;jshell&amp;gt; String htmlTextBlock = &quot;&quot;&quot;
+   ...&amp;gt; &amp;lt;!DOCTYPE html&amp;gt;
+   ...&amp;gt; &amp;lt;html lang=&quot;en&quot;&amp;gt;
+   ...&amp;gt; &amp;lt;body&amp;gt;
+   ...&amp;gt; &amp;lt;/body&amp;gt;
+   ...&amp;gt; &amp;lt;/html&amp;gt;&quot;&quot;&quot;;
+htmlTextBlock ==&amp;gt; &quot;&amp;lt;!DOCTYPE html&amp;gt;\n&amp;lt;html lang=\&quot;en\&quot;&amp;gt;\n ... \n&amp;lt;/body&amp;gt;\n&amp;lt;/html&amp;gt;&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;String Template Example (requires preview flag &lt;code&gt;--enable-preview&lt;/code&gt;)&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;jshell&amp;gt; String name = &quot;IT Gumby&quot;;
+name ==&amp;gt; &quot;IT Gumby&quot;
+jshell&amp;gt; Integer num = 42;
+num ==&amp;gt; 42
+
+jshell&amp;gt; String template = STR.&quot;&quot;&quot;
+   ...&amp;gt; Hello, friend!
+   ...&amp;gt; My name is \{name} and the answer is always \{answer}
+   ...&amp;gt; &quot;&quot;&quot;;
+template ==&amp;gt; &quot;Hello, friend!\nMy name is IT Gumby and the answer is always 42\n&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_records&quot;&gt;Records&lt;/h4&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Instead, use try-with-resources or &lt;code&gt;java.lang.ref.Cleaner&lt;/code&gt; released in &lt;a href=&quot;https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ref/Cleaner.html&quot;&gt;Java 17&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Write less code (thus less bugs) for &lt;strong&gt;immutable objects&lt;/strong&gt;.
+Records automatically get a constructor, equals(), toString() and &quot;getters&quot; that do NOT conform to the JavaBean standard (named after field without &quot;get&quot; prefix).
+For this reason, libraries such as jackson require newer versions to support records.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Record example&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;jshell&amp;gt; public record Book(String title, String author, String isbn) {};
+|  created record Book
+jshell&amp;gt; Book theHobbit= new Book(&quot;The Hobbit&quot;, &quot;J.R.R. Tolkien&quot;, &quot;0345339681&quot;);
+theHobbit ==&amp;gt; Book[title=The Hobbit, author=J.R.R. Tolkien, isbn=0345339681]
+jshell&amp;gt; theHobbit.author();
+$1 ==&amp;gt; &quot;J.R.R. Tolkien&quot;
+
+jshell&amp;gt; import java.lang.reflect.*;
+jshell&amp;gt; for(var m : Book.class.getDeclaredMethods()) { System.out.println(m.getName());}
+// =&amp;gt; equals, toString, hashCode, title, author, isbn&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_deprecation_of_object_finalize&quot;&gt;deprecation of &lt;code&gt;Object.finalize()&lt;/code&gt;&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This has been deprecated because in some situations, execution of the finalize() method was unpredicatable.
+Instead, &lt;code&gt;implemement java.lang.Closeable&lt;/code&gt; (implement a &lt;code&gt;close()&lt;/code&gt; method)  or use &lt;code&gt;java.lang.ref.Cleaner&lt;/code&gt; released in &lt;a href=&quot;https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ref/Cleaner.html&quot;&gt;JDK 17 Cleaner&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect3&quot;&gt;
@@ -303,7 +284,7 @@ $9 ==&amp;gt; 3.0&lt;/pre&gt;
 &lt;p&gt;New keywords: &lt;code&gt;sealed &amp;#8230;&amp;#8203; permits&lt;/code&gt; (explicit subclassing), &lt;code&gt;final&lt;/code&gt; (prevent subclassing), &lt;code&gt;non-sealed&lt;/code&gt; (any can inherit)&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As an application developer, I don&amp;#8217;t find sealed classes useful unless manipulating the type system (&quot;Favor composition over inheritance&quot;).&lt;/p&gt;
+&lt;p&gt;For now, I am skeptical about sealed classes because changes have to cross multiple classes or files.  Instead,https://en.wikipedia.org/wiki/Composition_over_inheritance[&quot;Favor composition over inheritance&quot;].&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -314,7 +295,7 @@ $9 ==&amp;gt; 3.0&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sdk list java | grep 21
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;sdk list java | grep 21
 sdk install java 21-open ## not default yet, waiting for 1st patch release
 jenv add ~/.sdkman/candidates/java/21-open/
 jenv local 21 ## creates .java-version in current folder
@@ -371,7 +352,7 @@ java -version
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iframe(width: &quot;560&quot;, height: &quot;315&quot;,
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code&gt;iframe(width: &quot;560&quot;, height: &quot;315&quot;,
     src: &quot;https://www.youtube.com/embed/${content.video}&quot;,
     frameboarder: &quot;0&quot;,
     allow: &quot;accelerometer; autoplay; encrYpted-media; gyroscope; picture-in-picture&quot;,
@@ -388,7 +369,7 @@ ex jbake.properties: add &lt;code&gt;asciidoctor.option.requires=asciidoctor-dia
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[ditaa]
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code&gt;[ditaa]
 ----
   +-------+      +-------+
   |       |      |       |
@@ -406,7 +387,7 @@ still more at &lt;a href=&quot;https://asciidoctor.org/docs/extensions/&quot; cl
 &lt;h3 id=&quot;_include_source_code_in_documentation&quot;&gt;include source code in documentation&lt;/h3&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[source, java]
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code&gt;[source, java]
 ----
 link:https://raw.githubusercontent.com/mariogarcia/jbake_greach/master/src/test/groovy/greach/workshop/oss/LibraryTest.groovy[]
 ----&lt;/code&gt;&lt;/pre&gt;
@@ -774,7 +755,7 @@ Debug Java queries by logging the actual query used, then run the logged query t
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Example from helper classes from a Bean&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-xpath&quot; data-lang=&quot;xpath&quot;&gt;//*[
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;xpath&quot;&gt;//*[
   (@hippo:paths=&apos;0dd35126-de28-4948-b43d-3949e9b1f5bb&apos;) and
   (@hippo:availability=&apos;live&apos;) and
   not(@jcr:primaryType=&apos;nt:frozenNode&apos;) and
@@ -863,7 +844,7 @@ The effect compounds with more business logic and nesting.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Example: Simple Scriptlet (embedded Java different than JSP):&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;% if (predicate) { %&amp;gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;jsp&quot;&gt;&amp;lt;% if (predicate) { %&amp;gt;
     &amp;lt;p&amp;gt;my predicate was true&amp;lt;/p&amp;gt;
 &amp;lt;% } %&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -871,7 +852,7 @@ The effect compounds with more business logic and nesting.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Example: Conditional Logic with &quot;Core JSP&quot; taglib:&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;c:if test=&quot;&amp;lt;%= predicate %&amp;gt;&quot;&amp;gt;  &amp;lt;%- Java expression sticks out slightly -%&amp;gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;jsp&quot;&gt;&amp;lt;c:if test=&quot;&amp;lt;%= predicate %&amp;gt;&quot;&amp;gt;  &amp;lt;%- Java expression sticks out slightly -%&amp;gt;
     &amp;lt;p&amp;gt;my predicate was true&amp;lt;/p&amp;gt;
 &amp;lt;/c:if&amp;gt;
 OR
@@ -1137,7 +1118,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    String getPageTitle(@Nonnull Resource resource) {
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;    String getPageTitle(@Nonnull Resource resource) {
         ValueMap properties = resource.getValueMap();
         return properties.get(&quot;pageTitle&quot;, properties.get(&quot;jcr:title&quot;, properties.get(&quot;navTitle&quot;, &quot;&quot;)));
     }&lt;/code&gt;&lt;/pre&gt;
@@ -1148,7 +1129,7 @@ Instead of throwing errors, they frequently provide fallback mechanisms to expre
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    String getPageTitle(@Nonnull Node currentNode) {
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;    String getPageTitle(@Nonnull Node currentNode) {
         try {
             Property titleProp =
                 currentNode.hasProperty(&quot;pageTitle&quot;) ? currentNode.getProperty(&quot;pageTitle&quot;) :
@@ -1280,7 +1261,7 @@ The example has a clear classes &amp;amp; separation of concerns, but still requ
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;String buildRequest(String zip) {
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;groovy&quot;&gt;String buildRequest(String zip) {
     def writer = new StringWriter()
     def builder = new MarkupBuilder(writer)
 
@@ -1304,7 +1285,7 @@ The XML is patterned from the WSDL&amp;#8217;s Request object manually, or using
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;String callSoapWeather(String body) {
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;groovy&quot;&gt;String callSoapWeather(String body) {
     def msgFactory = new SaajSoapMessageFactory()
     msgFactory.afterPropertiesSet()
 
@@ -1334,7 +1315,7 @@ The XML is patterned from the WSDL&amp;#8217;s Request object manually, or using
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;void printResults(String response) {
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;groovy&quot;&gt;void printResults(String response) {
     final xml = new XmlSlurper().parseText(response)
     def nodes = xml.GetCityForecastByZIPResult
     println &quot;Forecast for ${nodes.City}, ${nodes.State}&quot;
@@ -1481,7 +1462,7 @@ generic (outside JCR) solution for structure/nodes/attributes&lt;/p&gt;&lt;/td&g
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Query Example&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;%--
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;jsp&quot;&gt;&amp;lt;%--
   JCR Query API component.
   Component for dumping list of components found
 --%&amp;gt;&amp;lt;%@page session=&quot;false&quot; %&amp;gt;
@@ -1568,7 +1549,7 @@ easy to test/explore via browser, curl&lt;/p&gt;&lt;/td&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;Query Example&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-jsp&quot; data-lang=&quot;jsp&quot;&gt;&amp;lt;%--
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;jsp&quot;&gt;&amp;lt;%--
   CQ Query API component.
   Component for dumping list of components found
 --%&amp;gt;&amp;lt;%@page session=&quot;false&quot; %&amp;gt;
@@ -1999,7 +1980,7 @@ a language related to Java that requires less boilerplate.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;while (or &quot;until&quot; to test at end of loop)&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 def i = 0               // iterator set to starting position of collection
@@ -2015,7 +1996,7 @@ println &quot;result of while() sum = ${sum}&quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;for loop&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 def max = input.size()          // calculate end position once
@@ -2029,7 +2010,7 @@ println &quot;result of for(;;) sum = ${sum}&quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;for each/in&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 for (Integer val : input) {
@@ -2041,7 +2022,7 @@ println &quot;for(each) sum =&amp;gt; ${sum}&quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;each (or &quot;forEach&quot; in Java8)&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 Integer sum = 0     // mutating sum
 
 input.each { Integer val -&amp;gt;  // explicitly declare type &amp;amp; name; groovy defaults to &quot;it&quot;
@@ -2067,7 +2048,7 @@ Also, the environment has more opportunities to optimize the solution, such as p
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;An example of a functional approach to summing (although most will provide a sum() function) can be:&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;groovy&quot;&gt;List&amp;lt;Integer&amp;gt; input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 def inputSum = input.inject(0, { acc, it -&amp;gt; acc + it })     // most call it &quot;reduce&quot;
 println inputSum&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -2514,7 +2495,7 @@ println inputSum&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;sql&quot;&gt;SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName
@@ -2543,7 +2524,7 @@ WHERE a.lName = o.lName
 &lt;h3 id=&quot;_cast_null_values_via_functions&quot;&gt;cast null values via functions:&lt;/h3&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;sql&quot;&gt;SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName
@@ -2555,7 +2536,7 @@ WHERE a.lName = o.lName
 &lt;h3 id=&quot;_extra_clauses&quot;&gt;extra clauses&lt;/h3&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;SELECT *
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;sql&quot;&gt;SELECT *
 FROM addresses a, orders o
 WHERE a.lName = o.lName
   AND a.fName = o.fName

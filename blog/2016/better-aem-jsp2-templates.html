@@ -123,7 +123,7 @@ The effect compounds with more business logic and nesting.</p>
 <div class="listingblock">
 <div class="title">Example: Simple Scriptlet (embedded Java different than JSP):</div>
 <div class="content">
-<pre class="highlight"><code class="language-jsp" data-lang="jsp">&lt;% if (predicate) { %&gt;
+<pre class="prettyprint highlight"><code data-lang="jsp">&lt;% if (predicate) { %&gt;
     &lt;p&gt;my predicate was true&lt;/p&gt;
 &lt;% } %&gt;</code></pre>
 </div>
@@ -131,7 +131,7 @@ The effect compounds with more business logic and nesting.</p>
 <div class="listingblock">
 <div class="title">Example: Conditional Logic with "Core JSP" taglib:</div>
 <div class="content">
-<pre class="highlight"><code class="language-jsp" data-lang="jsp">&lt;c:if test="&lt;%= predicate %&gt;"&gt;  &lt;%- Java expression sticks out slightly -%&gt;
+<pre class="prettyprint highlight"><code data-lang="jsp">&lt;c:if test="&lt;%= predicate %&gt;"&gt;  &lt;%- Java expression sticks out slightly -%&gt;
     &lt;p&gt;my predicate was true&lt;/p&gt;
 &lt;/c:if&gt;
 OR
