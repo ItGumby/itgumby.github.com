@@ -1,116 +1,73 @@
 title=Java Release versions & History
-date=2023-09-28
+date=2023-10-13
 type=post
 status=published
 tags=Java
 ~~~~~~
 
-My initial reference major Java releases.  Its focus is for application developers, so ignoring garbage collection & runtime tuning and many API details but highlighting major features & API releases.
+My initial reference major Java releases.  Its focus is for application developers, so the focus is on Long-Term-Stable (LTS) releases we should be running on.  Also, the focus is more on language features than on API changes.  Java has a view into specific API changes for each release since JDK 11 at https://docs.oracle.com/en/java/javase/21/docs/api/new-list.html (which has checkboxes to zero in on specific releases).
 
 While I captured some of the preview & incubator features relative to releases, they exist to expose developers to a concept and gather feedback prior to general releases.  They usually require special flags to be run and thus should not be relied on for production application deployments.
 
+**Revision History**
+
+* **2023-SEP-28** initial publish
+* **2023-OCT-13** updated based on Billy Korando's presentation https://wkorando.github.io/presentations/to-java-n-and-beyond/[To Java 21 and Beyond!] at https://www.meetup.com/denverjavausersgroup/events/292569051/[DJUG October 2023].  Thanks Billy & DJUG!
+
 .Java Release History
-[cols="1,1,6"]
+[cols="1,1,8"]
 |===
-|Version | When | Impactful features
+|Version | When | Features
 
-|**21 (LTS)** | 2023-SEP
-    | standard: Record Patterns, `switch` Pattern Matching, Virtual Thread +
-     _preview: String templates, Scoped Values, unnamed classes/instance main_
-| 20 | 2023-MAR | _incubator: Scoped Values, several preview updates_
-| 19 | 2022-SEP | _preview: Record Patterns, Virtual Threads_
-| 18 | 2022-MAR
-    | UTF-8 by default, deprecate finalization (`try...finally`), tool `jwebserver` to serve local static files +
-    _preview: String templates_
-| **17 (LTS)** | 2021-SEP
-    | **supported by Spring 6 & Spring Boot 3**, Sealed classes +
-    remove or deprecate several APIs, stronger encapsulation of internals (`com.sun.*, jdk.*, org.*`) +
-    incubator Vector API (SIMD: single instruction, multiple data)
-| 16 | 2021-MAR
-    | enhance Records (may be member of inner class), add `Stream.toList()`, `instanceof` standard, packaging tool.
-| 15 | 2020-SEP
-    | text blocks standard, enhancements, remove Nashorn +
-    _preview: sealed classes_
-| 14 | 2020-MAR
-    | standard `switch` expressions, helpful NPEs +
-    _preview: `instanceof` Pattern Matching, Records_
-| 13 | 2019-SEP
-    | DOM/SAX factories with namespaces +
-    _preview text blocks (multiline strings)_
-| 12 | 2019-MAR
-    | Microbenchmark Suite +
-    _preview switch expressions_
-| **11 (LTS)** | 2018-SEP
-    | enhance String/Collection/Files/Optional, run single-file without compile,deprecate EE/CORBA/Nashorn/applets/JavaFX, tool "Flight Recorder" (JVM/OS events & visualizer)
-| 10 | 2017
-    | local variable type inference (`var list = new ArrayList<String>();`)
-| 9 | 2017-SEP
-    | Project Jigsaw (module system), enhance Collection/Stream/Process, interface private methods, JShell, tool `jlink`
-| **8** | 2014-MAR
-    | **Streams**, Lambdas, default methods, Optional.  JavaScript (Nashorn runtime), Date & time API
-| 7 | 2011-JUL
-    | `switch` Strings, try-with-resources, diamond operator, dynamic lang support (`invokedynamic`),
-| 6 | 2006-DEC
-    | performance, enhance annotations, upgrade JAXB (StAX parser), JDBC4, JavaScript Rhino engine
-| 5 | 2004-SEP
-    | Generics (type casts/conversions), Autoboxing (convert primitives to objects & back), Annotations, Enumerations (`enum`), varargs (String... lines), enhanced for..each, static imports, `java.util.concurrent`
-| 1.4 | 2002-FEB
-    | RegEx, logging API, JAXP (XML support), exception chaining, `assert` keyword, NIO (non-blocking IO), `java.util.prefs`, integrated security/crypto libs
-| 1.3 | 2000-MAY
-    | JNDI, JavaSound, RMI compatibility with CORBA, JPDA debugger API
-| 1.2 | 1998-DEC
-    | Collections framework, Swing UI, `strictfp` keyword, Java IDL (CORBA support)
-| 1.1 | 1997-FEB
-    | JDBC, JavaBeans, AWT, Inner classes, RMI, read-only reflection
-| 1.0 | 1996-JAN
-    | browser "WebRunner", networking
+| https://jdk.java.net/21/release-notes[**JDK 21 (LTS)**] | 2023-SEP | Pattern Matching for Records & `switch`, Sequenced Collections, Virtual Thread +
+    CDS (Class Data Sharing), `jwebserver` +
+    deprecations: `Object.finalize()`, Applets & Security Manager +
+     _preview: String templates, Scoped Values, Foreign Function & Memory API, unnamed classes/instance main_
+| **17 (LTS)** | 2021-SEP | **supported by Spring 6 & Spring Boot 3** +
+    Records, `switch` expressions, "helpful" NullPointerExceptions, Text Blocks, Pattern Matching for `instanceof`, Sealed Classes +
+    enhance: Records (may be member of inner class), add `Stream.toList()`, packaging tool +
+    stronger encapsulation of internals (`com.sun.\*, jdk.*, org.*`) +
+    extract Nashorn (JavaScript engine) +
+    _incubator Vector API (SIMD: single instruction, multiple data)_
+| **11 (LTS)** | 2018-SEP | enhance String/Collection/Files/Optional +
+    run single-file without compile, tool "Flight Recorder" (JVM/OS events & visualizer) +
+    deprecate EE/CORBA/Nashorn/applets/JavaFX
+| 10 | 2017 | local variable type inference (`var list = new ArrayList<String>();`)
+| 9 | 2017-SEP | Project Jigsaw (module system) +
+    enhance Collection/Stream/Process, interface private methods +
+    tools: `jshell`, `jlink`
+| **8** | 2014-MAR | **Streams**, Lambdas, default methods, Optional +
+    JavaScript (Nashorn runtime), Date & time API updates
+| 7 | 2011-JUL | `switch` Strings, try-with-resources, diamond operator, dynamic lang support (`invokedynamic`),
+| 6 | 2006-DEC | performance, enhance annotations, upgrade JAXB (StAX parser), JDBC4, Rhino JavaScript engine
+| 5 | 2004-SEP | Generics (type casts/conversions), Autoboxing (convert primitives to objects & back) +
+    Annotations, Enumerations (`enum`), varargs (String... lines), enhanced for..each, static imports, `java.util.concurrent`
+| 1.4 | 2002-FEB | RegEx, logging API, JAXP (XML support), exception chaining +
+    `assert` keyword, NIO (non-blocking IO), `java.util.prefs`, integrated security/crypto libs
+| 1.3 | 2000-MAY | JNDI, JavaSound, RMI compatibility with CORBA, JPDA debugger API
+| 1.2 | 1998-DEC | Collections framework, Swing UI, `strictfp` keyword, Java IDL (CORBA support)
+| 1.1 | 1997-FEB | JDBC, JavaBeans, AWT, Inner classes, RMI, read-only reflection
+| 1.0.2 | 1996-JAN | browser "WebRunner", networking
 |===
 
-=== Examples
+=== Examples & Notes
 
-Not covering Virtual Threads yet - I strive for FP (functional programming) to avoid direct thread management most of the time.
 
-==== String templates, Text Blocks
+I was initialy unimpressed by **Virtual Threads** because Functional Programming lets me avoid directly manipulating and managing threads.
+However, it was pointed out that they really shine for I/O blocked threads such as Web Applications.
+They default to using Fork Join Pools with a FIFO queue.
+If necessary, you can configure ot LIFO queue or override the pool to manage behavior (but "EEK!" for most application development).
+Virtual Threads probably aren't a huge benefit for compute or CPU-bound threads, where "platform threads" will suffice.
 
-Text Blocks equals multi-line strings with less punctuation in source code, including escaping characters.
+CDS or **Class Data Sharing** didn't sound interesting until a presenter pointed out it could simplify CI/CD pipelines to obtain a 10-20% startup benefit in time or memory for extremely little work.
 
-.Basic Text Block (multi-line String)
-[source,java]
-----
-jshell> String htmlTextBlock = """
-   ...> <!DOCTYPE html>
-   ...> <html lang="en">
-   ...> <head>
-   ...>   <meta charset="utf-8">
-   ...> </head>
-   ...> <body>
-   ...> </body>
-   ...> </html>""";
-htmlTextBlock ==> "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  < ... n<body>\n</body>\n</html>"
-----
+https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/SequencedCollection.html[**Sequenced Collections**] can really help application development (and greatly simplify interview questions) by adding methods `reversed(), addFirst/Last(), getFirst/Last(), removeFirst/Last()`.  https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/SequencedMap.html[SequenedMap]s adds corresponding methods appropriate for SortedMaps and NavigableMaps.
 
-Many languages support String Interpolation - but there is a risk for invalid String literals.  Java implementers wanted the convenience for developers with less risk and created String Templates.  They are a _preview_ feature and require `--enable-preview` to work.  Including because many other languages support a related syntax and we can anticipate what the feature should look like once standard.
+==== Pattern Matching
 
-.String Template Example (requires preview flag)
-[source,java]
-----
-jshell> String name = "IT Gumby";
-name ==> "IT Gumby"
-jshell> Integer num = 42;
-num ==> 42
+Another convenience to save lines of code and reduce errors.  Initially introduced for the `instanceof` operator, it works in `switch` in JDK 21.
 
-jshell> String template = STR."""
-   ...> Hello, friend!
-   ...> My name is \{name} and the answer is always \{answer}
-   ...> """;
-template ==> "Hello, friend!\nMy name is IT Gumby and the answer is always 42\n"
-----
-
-==== instanceof Pattern Matching
-
-Another convenience to save lines of code and reduce errors.
-
-.instanceof simplification
+.instanceof Pattern Matching
 [source,java]
 ----
 jshell> Object obj = new String("my string");
@@ -130,30 +87,9 @@ jshell> if (obj instanceof String s) {
 my string
 ----
 
-==== Records
+In **switch Pattern Matching**, the compiler enforces exhaustive cases, thus may require a `case default -> {...}`.
+The JDK also added a `when` keyword so Record Patterns can do something like `case Name name(var first, var mid, var last) when !mid.isEmpty() -> {...};` to reduce errors and contorting code.
 
-Write less code (thus less bugs) for **immutable objects**.
-Records automatically get a constructor, equals(), toString() and "getters" that do NOT conform to the JavaBean standard (named after field without "get" prefix).
-For this reason, libraries such as jackson require newer versions to support records.
-
-.Record example
-[code,java]
-----
-jshell> public record Book(String title, String author, String isbn) {};
-|  created record Book
-jshell> Book theHobbit= new Book("The Hobbit", "J.R.R. Tolkien", "0345339681");
-theHobbit ==> Book[title=The Hobbit, author=J.R.R. Tolkien, isbn=0345339681]
-jshell> theHobbit.author();
-$1 ==> "J.R.R. Tolkien"
-
-jshell> import java.lang.reflect.*;
-jshell> for(var m : Book.class.getDeclaredMethods()) { System.out.println(m.getName());}
-// => equals, toString, hashCode, title, author, isbn
-----
-
-==== switch enhancements
-
-Including Pattern Matching...
 .switch Pattern Matching
 [code,java]
 ----
@@ -183,11 +119,64 @@ $9 ==> 3.0
 
 Please excuse the horrible example, but it illustrates the new abilities to match by type and not require `break` statements if using statement expressions.
 
-==== deprecation of finalization
+==== Text Blocks
 
-There are cases where `finally {...}` blocks can leak, particularly if there is an exception in the main try block and another exception in the finally block.  This hasn't been removed yet but is marked for future removal.
+Text Blocks equals multi-line strings with less punctuation in source code, including escaping characters.
+The preview (requires flag to work) for **String Templates** provides a safer string interpolation, but uses `\{varName}` instead of `${varName}` used in many other languages.
 
-Instead, use try-with-resources or `java.lang.ref.Cleaner` released in https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ref/Cleaner.html[Java 17].
+.Basic Text Block (multi-line String)
+[source,java]
+----
+jshell> String htmlTextBlock = """
+   ...> <!DOCTYPE html>
+   ...> <html lang="en">
+   ...> <body>
+   ...> </body>
+   ...> </html>""";
+htmlTextBlock ==> "<!DOCTYPE html>\n<html lang=\"en\">\n ... \n</body>\n</html>"
+----
+
+.String Template Example (requires preview flag `--enable-preview`)
+[source,java]
+----
+jshell> String name = "IT Gumby";
+name ==> "IT Gumby"
+jshell> Integer num = 42;
+num ==> 42
+
+jshell> String template = STR."""
+   ...> Hello, friend!
+   ...> My name is \{name} and the answer is always \{answer}
+   ...> """;
+template ==> "Hello, friend!\nMy name is IT Gumby and the answer is always 42\n"
+----
+
+==== Records
+
+Write less code (thus less bugs) for **immutable objects**.
+Records automatically get a constructor, equals(), toString() and "getters" that do NOT conform to the JavaBean standard (named after field without "get" prefix).
+For this reason, libraries such as jackson require newer versions to support records.
+
+.Record example
+[code,java]
+----
+jshell> public record Book(String title, String author, String isbn) {};
+|  created record Book
+jshell> Book theHobbit= new Book("The Hobbit", "J.R.R. Tolkien", "0345339681");
+theHobbit ==> Book[title=The Hobbit, author=J.R.R. Tolkien, isbn=0345339681]
+jshell> theHobbit.author();
+$1 ==> "J.R.R. Tolkien"
+
+jshell> import java.lang.reflect.*;
+jshell> for(var m : Book.class.getDeclaredMethods()) { System.out.println(m.getName());}
+// => equals, toString, hashCode, title, author, isbn
+----
+
+
+==== deprecation of `Object.finalize()`
+
+This has been deprecated because in some situations, execution of the finalize() method was unpredicatable.
+Instead, `implemement java.lang.Closeable` (implement a `close()` method)  or use `java.lang.ref.Cleaner` released in https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ref/Cleaner.html[JDK 17 Cleaner].
 
 ==== Sealed Classes
 
@@ -195,7 +184,7 @@ Formerly known as Project Amber, sealed classes restrict which other classes & i
 
 New keywords: `sealed ... permits` (explicit subclassing), `final` (prevent subclassing), `non-sealed` (any can inherit)
 
-As an application developer, I don't find sealed classes useful unless manipulating the type system ("Favor composition over inheritance").
+For now, I am skeptical about sealed classes because changes have to cross multiple classes or files.  Instead,https://en.wikipedia.org/wiki/Composition_over_inheritance["Favor composition over inheritance"].
 
 === Managing local Java development versions
 
